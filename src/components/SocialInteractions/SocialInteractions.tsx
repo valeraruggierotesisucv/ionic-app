@@ -17,16 +17,16 @@ export function SocialInteractions({
 }: SocialInteractionsProps) {
   return (
     <div className="social-interactions-container">
-      <IonButton fill="clear" onClick={onLike}>
+      <IonButton fill="clear" onClick={onLike} className='custom-button'>
         <IonIcon icon={isLiked ? heartSharp : heartOutline} size="medium" color='dark'/>
       </IonButton>
 
-      <IonButton fill="clear" onClick={onComment}>
+      <IonButton fill="clear" onClick={onComment} className='custom-button'>
         <IonIcon icon={chatbubbleEllipsesOutline} size="medium" color='dark'/>
       </IonButton>
 
-      <IonButton fill="clear" onClick={onShare}>
-        <IonIcon icon={paperPlaneOutline} size="medium" color='dark'/>
+      <IonButton fill="clear" onClick={onShare} className='custom-button'>
+        <IonIcon icon={paperPlaneOutline} size="medium" color='dark' />
       </IonButton>
     </div>
   );

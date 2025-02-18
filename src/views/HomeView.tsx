@@ -26,6 +26,8 @@ import { DateTimePickerField } from '../components/DateTimePickerField/DateTimeP
 import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 import { UserCard, UserCardVariant } from '../components/UserCard/UserCard';
 import { SocialInteractions } from '../components/SocialInteractions/SocialInteractions';
+import { EventCard } from '../components/EventCard/EventCard';
+import { Chip, ChipVariant } from '../components/Chip/Chip';
 
 const Tab1Home: React.FC = () => {
   const [selected, setSelected] = useState(false);
@@ -55,24 +57,36 @@ const Tab1Home: React.FC = () => {
         >
           Go to Detail
         </IonButton>
-        <Button 
-          label='Boton'
-          disabled={false}
-          onClick={() => console.log("CLICK")}  
-          variant={ButtonVariant.PRIMARY}      
-          size={ButtonSize.SMALL}  
-        />
+        { /*
         <UserCard
           profileImage='https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//defaultProfile.jpg'
           username='Joe'
           variant={UserCardVariant.WITH_BUTTON}
         />
-        <SocialInteractions 
+        */}       
+        
+        <EventCard 
+          date='10/02/2021'
+          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat'
+          eventId='1'
+          eventImage='https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//defaultImage.jpg'
           isLiked={true}
-          onComment={() => console.log("COMMENT")}
-          onLike={() => console.log("LIKE")}
-          onShare={() => console.log("SHARE")}
+          profileImage='https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//defaultProfile.jpg'
+          endsAt='8:00 pm'
+          latitude='264554'
+          longitude='4578787'
+          category='CONCIERTO'
+          username='joe'
+          musicUrl='https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//EventsMusic.mp3'
+          startsAt='6:00 pm'
+          title='ESTE ES EL TITULO'
+          handleLike={() => console.log("")}
+          onShare={() => console.log("")}
+          onComment={async() => console.log("")}
+          onPressUser={() => console.log("")}
+          onMoreDetails={() => console.log("")}          
         />
+        
       </IonContent>
     </IonPage>
   );
