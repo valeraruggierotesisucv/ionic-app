@@ -13,6 +13,9 @@ import {
 import { ROUTES } from '../utils/routes';
 import { NavigationService } from '../services/NavigationService';
 import { SearchBar } from '../components/SearchBar/SearchBar';
+import NotificationItem from '../components/NotificationItem/NotificationItem';
+import { NotificationType } from '../components/NotificationItem/NotificationItem';
+
 
 const Tab1Home: React.FC = () => {
   return (
@@ -38,6 +41,7 @@ const Tab1Home: React.FC = () => {
         >
           Go to Detail
         </IonButton>
+        
       </IonContent>
     </IonPage>
   );
