@@ -1,0 +1,91 @@
+.tabs-container {
+  display: flex;
+  gap: 24px;
+  padding: 0 16px;
+  position: relative;
+}
+
+.tab {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 8px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tab:hover {
+  color: #333;
+}
+
+.tab.selected {
+  color: #050F71;
+  font-weight: 500;
+}
+
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #050F71;
+  border-radius: 1px;
+  transform-origin: center;
+  animation: slideInCenter 0.2s ease-out forwards;
+}
+
+@keyframes slideInCenter {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.tab:not(.selected) .tab-indicator {
+  animation: slideOutCenter 0.2s ease-in forwards;
+}
+
+@keyframes slideOutCenter {
+  from {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  to {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+.tab {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.tab.selected {
+  transform: scale(1.05);
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 102, 204, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.tab:active::after {
+  width: 35px;
+  height: 35px;
+} 

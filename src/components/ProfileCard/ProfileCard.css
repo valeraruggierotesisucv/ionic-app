@@ -1,0 +1,111 @@
+.profile-card {
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-section {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 16px;
+}
+
+.stats-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.stat-number {
+  font-size: 16px;
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #000000;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #000000;
+  font-family: "SF Pro Rounded", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+}
+
+.user-info {
+  width: 100%;
+  text-align: left;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-family: "SF Pro Rounded", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.biography {
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 10px;
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+.continue-button, .profile-button {
+  background-color: #050F71;
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.profile-button {
+  width: 45%;
+}
+
+.continue-button {
+  width: 100%;
+}
+
+.unfollow-button {
+  background-color: transparent;
+  border: 1px solid #050F71;
+  color: #050F71;
+}
+
+.continue-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button:hover {
+  opacity: 0.9;
+} 

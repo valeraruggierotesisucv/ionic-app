@@ -12,6 +12,7 @@ import {
 } from '@ionic/react';
 import { ROUTES } from '../utils/routes';
 import { NavigationService } from '../services/NavigationService';
+import { SearchBar } from '../components/SearchBar/SearchBar';
 
 const Tab1Home: React.FC = () => {
   return (
@@ -22,6 +23,11 @@ const Tab1Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
+        
+        <SearchBar
+          value=""
+          onChange={() => {}}
+        />
         <IonText>
           <h1>Welcome to Home</h1>
         </IonText>
