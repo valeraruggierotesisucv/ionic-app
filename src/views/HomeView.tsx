@@ -19,6 +19,9 @@ import { AppHeader } from '../components/AppHeader/AppHeader';
 import { AudioPlayer } from '../components/AudioPlayer/AudioPlayer';
 import { logoIonic } from 'ionicons/icons';
 import { CategoryButton } from '../components/CategoryButton/CategoryButton';
+import { CommentInput } from '../components/CommentInput/CommentInput';
+import { InputField } from '../components/InputField/InputField';
+import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
 
 
 const Tab1Home: React.FC = () => {
@@ -31,11 +34,12 @@ const Tab1Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        
+        <DateTimePickerField label="Date" value={new Date()} onChange={() => {}} />
         <SearchBar
           value=""
           onChange={() => {}}
         />
+        <CommentInput onSend={() => {console.log('clicked')}} />
         <IonText>
           <h1>Welcome to Home</h1>
         </IonText>
