@@ -28,6 +28,7 @@ import { UserCard, UserCardVariant } from '../components/UserCard/UserCard';
 import { SocialInteractions } from '../components/SocialInteractions/SocialInteractions';
 import { EventCard } from '../components/EventCard/EventCard';
 import { Chip, ChipVariant } from '../components/Chip/Chip';
+import { Loading } from '../components/Loading/Loading';
 
 const Tab1Home: React.FC = () => {
   const [selected, setSelected] = useState(false);
@@ -86,6 +87,7 @@ const Tab1Home: React.FC = () => {
           onPressUser={() => console.log("")}
           onMoreDetails={() => console.log("")}          
         />
+        <Loading />
         
       </IonContent>
     </IonPage>
