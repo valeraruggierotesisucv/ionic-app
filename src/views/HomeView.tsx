@@ -24,6 +24,7 @@ import { InputField } from '../components/InputField/InputField';
 import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
 
 import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
+import { UserCard, UserCardVariant } from '../components/UserCard/UserCard';
 
 const Tab1Home: React.FC = () => {
   const [selected, setSelected] = useState(false);
@@ -60,7 +61,11 @@ const Tab1Home: React.FC = () => {
           variant={ButtonVariant.PRIMARY}      
           size={ButtonSize.SMALL}  
         />
-        
+        <UserCard
+          profileImage='https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//defaultProfile.jpg'
+          username='Joe'
+          variant={UserCardVariant.WITH_BUTTON}
+        />
       </IonContent>
     </IonPage>
   );
