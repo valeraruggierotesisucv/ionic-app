@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   IonButton, 
   IonContent, 
@@ -15,14 +15,19 @@ import { NavigationService } from '../services/NavigationService';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import NotificationItem from '../components/NotificationItem/NotificationItem';
 import { NotificationType } from '../components/NotificationItem/NotificationItem';
+import { AppHeader } from '../components/AppHeader/AppHeader';
+import { AudioPlayer } from '../components/AudioPlayer/AudioPlayer';
+import { logoIonic } from 'ionicons/icons';
+import { CategoryButton } from '../components/CategoryButton/CategoryButton';
 
 
 const Tab1Home: React.FC = () => {
+  const [selected, setSelected] = useState(false);
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <AppHeader title="Home" />
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
@@ -34,6 +39,8 @@ const Tab1Home: React.FC = () => {
         <IonText>
           <h1>Welcome to Home</h1>
         </IonText>
+        <AudioPlayer uri="https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/EventMusic//1736911434515" />
+        <CategoryButton label="Category" icon={logoIonic} onPress={() => {setSelected(!selected)}} selected={selected} />
         <IonButton 
           expand="block"
           routerLink={NavigationService.goToHomeDetail()} 

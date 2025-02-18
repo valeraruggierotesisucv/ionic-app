@@ -1,0 +1,18 @@
+.category-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    border: 0px ;
+}
+
+.category-button {
+    --border-radius: 10%;
+}
+
+.category-button-title {
+    font-size: 16px;
+    font-family: 'SF-Pro-Text-Bold';
+    color: black;
+}

@@ -1,0 +1,55 @@
+.app-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  height: 60px;
+}
+
+.left-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.center-container {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button:hover {
+  opacity: 0.8;
+}
+
+.logo {
+  height: 30px;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 24px;
+  font-family: 'SF-Pro-Rounded-Bold';
+  color: black;
+  margin: 0;
+} 
