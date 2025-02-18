@@ -39,23 +39,31 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import SearchTab from './navigation/SearchTab';
-
+import { useAuth } from './contexts/AuthContext';
+import { AuthView } from './views/AuthView';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <div className="ion-color-light">
+const App: React.FC = () => {
+  const { user } = useAuth(); 
+  
+  return(
     <ErrorBoundary>
-      <IonApp>
-        <IonReactRouter >
-          <IonTabs >
-            <IonRouterOutlet >
+    <IonApp>
+      <IonReactRouter>
+        { user ? (
+            <IonTabs>
+            <IonRouterOutlet>
               <Route path={ROUTES.HOME.ROOT} component={HomeTab} />
               <Route path={ROUTES.ADD.ROOT} component={AddTab} />
               <Route path={ROUTES.NOTIFICATIONS.ROOT} component={NotificationsTab} />
               <Route path={ROUTES.PROFILE.ROOT} component={ProfileTab} />
               <Route path={ROUTES.SEARCH.ROOT} component={SearchTab} />
-              <Route exact path="/" render={() => <Redirect to={ROUTES.HOME.ROOT} />} />
+              <Route exact path="/" render={() => { 
+                return user ? <Redirect to={ROUTES.HOME.ROOT} />
+                            : <AuthView/>
+              }}/>
+             
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="home" href={ROUTES.HOME.ROOT}>
@@ -78,17 +86,20 @@ const App: React.FC = () => (
                 <IonIcon icon={person} />
                 <IonLabel>Profile</IonLabel>
               </IonTabButton>
-              {/* Add a tab button for Search if needed */}
-              {/* <IonTabButton tab="search" href="/search">
-                <IonIcon icon={search} />
-                <IonLabel>Search</IonLabel>
-              </IonTabButton> */}
             </IonTabBar>
           </IonTabs>
-        </IonReactRouter>
-      </IonApp>
-    </ErrorBoundary>
-  </div>
-);
+        )
+          : (
+            <>
+            <Route path="/login" component={AuthView} exact />
+            </>            
+          )
+        }               
+      </IonReactRouter>
+    </IonApp>
+  </ErrorBoundary>
+  )
+
+}
 
 export default App;
