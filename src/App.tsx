@@ -40,6 +40,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import SearchTab from './navigation/SearchTab';
 
+
 setupIonicReact();
 
 const App: React.FC = () => (
