@@ -25,6 +25,7 @@ import { DateTimePickerField } from '../components/DateTimePickerField/DateTimeP
 
 import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 import { UserCard, UserCardVariant } from '../components/UserCard/UserCard';
+import { SocialInteractions } from '../components/SocialInteractions/SocialInteractions';
 
 const Tab1Home: React.FC = () => {
   const [selected, setSelected] = useState(false);
@@ -65,6 +66,12 @@ const Tab1Home: React.FC = () => {
           profileImage='https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//defaultProfile.jpg'
           username='Joe'
           variant={UserCardVariant.WITH_BUTTON}
+        />
+        <SocialInteractions 
+          isLiked={true}
+          onComment={() => console.log("COMMENT")}
+          onLike={() => console.log("LIKE")}
+          onShare={() => console.log("SHARE")}
         />
       </IonContent>
     </IonPage>
