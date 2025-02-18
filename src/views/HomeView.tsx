@@ -23,6 +23,7 @@ import { CommentInput } from '../components/CommentInput/CommentInput';
 import { InputField } from '../components/InputField/InputField';
 import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
 
+import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 
 const Tab1Home: React.FC = () => {
   const [selected, setSelected] = useState(false);
@@ -52,6 +53,13 @@ const Tab1Home: React.FC = () => {
         >
           Go to Detail
         </IonButton>
+        <Button 
+          label='Boton'
+          disabled={false}
+          onClick={() => console.log("CLICK")}  
+          variant={ButtonVariant.PRIMARY}      
+          size={ButtonSize.SMALL}  
+        />
         
       </IonContent>
     </IonPage>
