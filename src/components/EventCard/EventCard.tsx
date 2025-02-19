@@ -116,8 +116,8 @@ export function EventCard({
           onComment={() => setCommentsVisible(true)}
           onShare={onShare}
         />
-        <IonRow className="ion-align-items-center title-row">
-          <IonCol size="9">
+        <div className="title-row">
+          <IonCol size="9" className='title-col'>
             <IonText className='title'>{title}</IonText>
           </IonCol>
           {variant === "default" && (
@@ -125,16 +125,15 @@ export function EventCard({
               <Chip label={date} variant={ChipVariant.LIGHT} />
             </IonCol>
           )}
-        </IonRow>
+          
+        </div>
         <IonText className="description-text">
           <p>{description}</p>
         </IonText>
         {variant === "default" && onMoreDetails && (
-        <IonCol>
-            <IonButton fill="clear" onClick={onMoreDetails} className='more-details'>
-                <IonText>Ver más detalles</IonText>
-            </IonButton>
-        </IonCol>
+        <IonButton fill="clear" onClick={onMoreDetails} className='more-details'>
+            <IonText>Ver más detalles...</IonText>
+        </IonButton>
           
         )}
         {/*variant === "details" && (

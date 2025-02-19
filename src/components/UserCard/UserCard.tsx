@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCard, IonCardContent, IonRow, IonCol, IonText, IonButton, IonAvatar } from '@ionic/react';
+import { IonRow, IonCol, IonText, IonAvatar } from '@ionic/react';
 import { Button, ButtonSize } from '../Button/Button';
 import './userCard.css'; 
 
@@ -28,27 +28,29 @@ export function UserCard({
   disabled,
 }: UserCardProps) {
   return (
-    <IonRow className="ion-align-items-center" >
-        <IonCol size="auto" className='avatar-container'>
-            <IonAvatar>
-                <img src={profileImage} alt="Profile" className="avatar-image"  />
-            </IonAvatar>
+    <IonRow className="user-card-container ion-align-items-center">
+      <IonCol size="auto" className="ion-no-padding">
+        <IonAvatar className="user-avatar">
+          <img src={profileImage} alt="Profile" />
+        </IonAvatar>
+      </IonCol>
+      
+      <IonCol className="ion-padding-start">
+        <IonText className="username">
+          {username}
+        </IonText>
+      </IonCol>
+      
+      {variant === UserCardVariant.WITH_BUTTON && (
+        <IonCol size="auto" className="ion-no-padding">
+          <Button 
+            size={ButtonSize.EXTRA_SMALL}
+            onClick={onPressButton}
+            disabled={disabled}
+            label={actionLabel || "Action"}            
+          />
         </IonCol>
-        <IonCol >
-            <IonText className='username'>
-                {username}
-            </IonText>
-        </IonCol>
-        {variant === UserCardVariant.WITH_BUTTON && (
-        <IonCol className="ion-text-right"  style={{ width: '100%' }}>
-            <Button 
-                size={ButtonSize.EXTRA_SMALL}
-                onClick={onPressButton}
-                disabled={disabled}
-                label={actionLabel || "Action"}            
-            />
-        </IonCol>
-        )}
+      )}
     </IonRow>   
   );
 }

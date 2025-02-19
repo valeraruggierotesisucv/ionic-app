@@ -6,4 +6,6 @@
 .custom-button {
     margin: 0px;
     padding: 0px;
+    --padding-start: 7px;
+    --padding-end: 7px;
 }
