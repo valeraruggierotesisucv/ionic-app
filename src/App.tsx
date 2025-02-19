@@ -67,13 +67,17 @@ const App: React.FC = () => {
             <IonTabBar slot="bottom">
               <IonTabButton tab="home" href={ROUTES.HOME.ROOT}>
                 <IonIcon icon={home} />
+                <IonLabel>Home</IonLabel>
               </IonTabButton>
               <IonTabButton tab="search" href={ROUTES.SEARCH.ROOT}>
                 <IonIcon icon={search} />
+                <IonLabel>Search</IonLabel>
               </IonTabButton>
               <IonTabButton tab="add" href={ROUTES.ADD.ROOT}>
                 <IonIcon icon={addCircle} />
+                <IonLabel>Add</IonLabel>
               </IonTabButton>
+              
               <IonTabButton tab="notifications" href={ROUTES.NOTIFICATIONS.ROOT}>
                 <IonIcon icon={notifications} />
               </IonTabButton>
