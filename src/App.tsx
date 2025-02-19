@@ -39,23 +39,30 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import SearchTab from './navigation/SearchTab';
-
+import { useAuth } from './contexts/AuthContext';
+import { AuthView } from './views/AuthView';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <div className="ion-color-light">
+const App: React.FC = () => {
+  const { user } = useAuth(); 
+  
+  return(
     <ErrorBoundary>
-      <IonApp>
-        <IonReactRouter >
-          <IonTabs >
-            <IonRouterOutlet >
+    <IonApp>
+      <IonReactRouter>
+        <Route exact path="/">
+          {user ? <Redirect to={ROUTES.HOME.ROOT} /> : <AuthView />}
+        </Route>
+        
+        {user ? (
+          <IonTabs>
+            <IonRouterOutlet>
               <Route path={ROUTES.HOME.ROOT} component={HomeTab} />
               <Route path={ROUTES.ADD.ROOT} component={AddTab} />
               <Route path={ROUTES.NOTIFICATIONS.ROOT} component={NotificationsTab} />
               <Route path={ROUTES.PROFILE.ROOT} component={ProfileTab} />
               <Route path={ROUTES.SEARCH.ROOT} component={SearchTab} />
-              <Route exact path="/" render={() => <Redirect to={ROUTES.HOME.ROOT} />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="home" href={ROUTES.HOME.ROOT}>
@@ -78,17 +85,17 @@ const App: React.FC = () => (
                 <IonIcon icon={person} />
                 <IonLabel>Profile</IonLabel>
               </IonTabButton>
-              {/* Add a tab button for Search if needed */}
-              {/* <IonTabButton tab="search" href="/search">
-                <IonIcon icon={search} />
-                <IonLabel>Search</IonLabel>
-              </IonTabButton> */}
             </IonTabBar>
           </IonTabs>
-        </IonReactRouter>
-      </IonApp>
+        ) : (
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        )}
+      </IonReactRouter>
+    </IonApp>
     </ErrorBoundary>
-  </div>
-);
+  );
+};
 
 export default App;
