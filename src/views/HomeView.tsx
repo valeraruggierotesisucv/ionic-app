@@ -15,20 +15,6 @@ import { NavigationService } from '../services/NavigationService';
 import { SearchBar } from '../components/SearchBar/SearchBar';
 import NotificationItem from '../components/NotificationItem/NotificationItem';
 import { NotificationType } from '../components/NotificationItem/NotificationItem';
-import { AppHeader } from '../components/AppHeader/AppHeader';
-import { AudioPlayer } from '../components/AudioPlayer/AudioPlayer';
-import { logoIonic } from 'ionicons/icons';
-import { CategoryButton } from '../components/CategoryButton/CategoryButton';
-import { CommentInput } from '../components/CommentInput/CommentInput';
-import { InputField } from '../components/InputField/InputField';
-import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
-
-import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
-import { UserCard, UserCardVariant } from '../components/UserCard/UserCard';
-import { SocialInteractions } from '../components/SocialInteractions/SocialInteractions';
-import { EventCard } from '../components/EventCard/EventCard';
-import { Chip, ChipVariant } from '../components/Chip/Chip';
-import { Loading } from '../components/Loading/Loading';
 
 const Tab1Home: React.FC = () => {
   const [selected, setSelected] = useState(false);
@@ -88,6 +74,11 @@ const Tab1Home: React.FC = () => {
           onMoreDetails={() => console.log("")}          
         />
         <Loading />
+
+        <DisplayInput
+          data={"a"}
+          label='LABEL'
+        />
         
       </IonContent>
     </IonPage>
