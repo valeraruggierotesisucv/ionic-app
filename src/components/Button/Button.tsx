@@ -37,18 +37,10 @@ export function Button({
       className={`${size} ${variant} ${disabled ? 'disabled' : ''}`}
       onClick={onClick}
       disabled={disabled}
-      color={'#050F71'}
-      size={
-        size === ButtonSize.EXTRA_SMALL || size === ButtonSize.SMALL  
-        ? 'small'
-        : (size === ButtonSize.LARGE)
-          ? 'large'
-          : 'default'
-      }
+      color={'primary'}
       style={{ ...style, fontSize }}
     >
       <IonLabel>{label}</IonLabel>
     </IonButton>
   );
 }
-
