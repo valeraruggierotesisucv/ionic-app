@@ -29,9 +29,9 @@ export function UserCard({
 }: UserCardProps) {
   return (
     <IonRow className="ion-align-items-center" >
-        <IonCol size="auto" >
+        <IonCol size="auto" className='avatar-container'>
             <IonAvatar>
-                <img src={profileImage} alt="Profile" />
+                <img src={profileImage} alt="Profile" className="avatar-image"  />
             </IonAvatar>
         </IonCol>
         <IonCol >
