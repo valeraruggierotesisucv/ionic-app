@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid #ccc; /* Personaliza con tu color de tema */
+    justify-content: space-between;
+  }
+  
+  .label {
+    font-weight: bold;
+    font-family: 'SF-Pro-Rounded-Bold', sans-serif;
+  }
+  
+  .placeholder {
+    flex: 1;
+    color: gray;
+    font-family: 'SF-Pro-Text-Regular', sans-serif;
+  }
+  
+  .required {
+    color: red; /* Personaliza con el color rojo de tu tema */
+  }
+  
