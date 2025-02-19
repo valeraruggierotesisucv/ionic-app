@@ -51,19 +51,18 @@ const App: React.FC = () => {
     <ErrorBoundary>
     <IonApp>
       <IonReactRouter>
-        { user ? (
-            <IonTabs>
+        <Route exact path="/">
+          {user ? <Redirect to={ROUTES.HOME.ROOT} /> : <AuthView />}
+        </Route>
+        
+        {user ? (
+          <IonTabs>
             <IonRouterOutlet>
               <Route path={ROUTES.HOME.ROOT} component={HomeTab} />
               <Route path={ROUTES.ADD.ROOT} component={AddTab} />
               <Route path={ROUTES.NOTIFICATIONS.ROOT} component={NotificationsTab} />
               <Route path={ROUTES.PROFILE.ROOT} component={ProfileTab} />
               <Route path={ROUTES.SEARCH.ROOT} component={SearchTab} />
-              <Route exact path="/" render={() => { 
-                return user ? <Redirect to={ROUTES.HOME.ROOT} />
-                            : <AuthView/>
-              }}/>
-             
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="home" href={ROUTES.HOME.ROOT}>
@@ -88,18 +87,15 @@ const App: React.FC = () => {
               </IonTabButton>
             </IonTabBar>
           </IonTabs>
-        )
-          : (
-            <>
-            <Route path="/login" component={AuthView} exact />
-            </>            
-          )
-        }               
+        ) : (
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        )}
       </IonReactRouter>
     </IonApp>
-  </ErrorBoundary>
-  )
-
-}
+    </ErrorBoundary>
+  );
+};
 
 export default App;
