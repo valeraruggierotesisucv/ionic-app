@@ -1,0 +1,9 @@
+.social-interactions-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.custom-button {
+    margin: 0px;
+    padding: 0px;
+}

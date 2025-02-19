@@ -1,31 +1,46 @@
 import React from 'react';
+import { IonButton, IonLabel } from '@ionic/react';
+import './button.css'; 
 
-import './button.css';
-
-export interface ButtonProps {
-  primary?: boolean;
-  backgroundColor?: string;
-  size?: 'small' | 'medium' | 'large';
-  label: string;
-  onClick?: () => void;
+export enum ButtonSize {
+  EXTRA_SMALL = "extraSmall",
+  SMALL = "small",
+  MEDIUM = "medium",
+  LARGE = "large",
 }
 
-export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
+export enum ButtonVariant {
+  PRIMARY = "primary",
+}
+
+interface ButtonProps {
+  label: string;
+  onClick?: () => void;
+  size?: ButtonSize;
+  variant?: ButtonVariant;
+  style?: React.CSSProperties;
+  fontSize?: number;
+  disabled?: boolean;
+}
+
+export function Button({
   label,
-  ...props
-}: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  onClick,
+  size = ButtonSize.MEDIUM,
+  variant = ButtonVariant.PRIMARY,
+  fontSize = 17,
+  style,
+  disabled = false,
+}: ButtonProps) {
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
+    <IonButton
+      className={`${size} ${variant} ${disabled ? 'disabled' : ''}`}
+      onClick={onClick}
+      disabled={disabled}
+      color={'primary'}
+      style={{ ...style, fontSize }}
     >
-      {label}
-    </button>
+      <IonLabel>{label}</IonLabel>
+    </IonButton>
   );
-};
+}

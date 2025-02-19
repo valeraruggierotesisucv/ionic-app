@@ -5,81 +5,70 @@ import {
   IonHeader, 
   IonImg, 
   IonPage, 
-  IonTitle, 
   IonToolbar,
+  IonText
 } from '@ionic/react';
-import { EventThumbnailList } from '../components/EventThumbnailList/EventThumbnailList';
-import { Calendar } from '../components/Calendar/Calendar';
-import { IconLogo } from '../components/IconLogo/IconLogo';
-import { Modal } from '../components/Modal/Modal';
-import Success from '../assets/images/Success.png';
-
-const dummyEvents = [
-  {
-    id: '1',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  {
-    id: '2',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  {
-    id: '3',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  {
-    id: '4',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  {
-    id: '5',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  {
-    id: '6',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  {
-    id: '7',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  {
-    id: '8',
-    imageUrl: 'https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg',
-  },
-  
-];
+import { NavigationService } from '../services/NavigationService';
+import { SearchBar } from '../components/SearchBar/SearchBar';
+import { AppHeader } from '../components/AppHeader/AppHeader';
+import { AudioPlayer } from '../components/AudioPlayer/AudioPlayer';
+import { logoIonic } from 'ionicons/icons';
+import { CategoryButton } from '../components/CategoryButton/CategoryButton';
+import { CommentInput } from '../components/CommentInput/CommentInput';
+import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
+import { CommentItem } from '../components/CommentItem/CommentItem';
+import { CommentsSection, Comment } from '../components/CommentsSection/CommentsSection';
 
 const Tab1Home: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([
+    {
+      username: "Usuario1",
+      comment: "¡Gran evento!",
+      timestamp: new Date(),
+      profileImage: "https://picsum.photos/50/50"
+    },
+    {
+      username: "Usuario2",
+      comment: "Me encantó",
+      timestamp: new Date(),
+      profileImage: "https://picsum.photos/50/50"
+    }
+  ]);
+
+  const handleAddComment = (comment: string) => {
+    const newComment: Comment = {
+      username: "Usuario",  // Aquí deberías usar el username del usuario actual
+      comment: comment,
+      timestamp: new Date(),
+      profileImage: "https://picsum.photos/50/50"  // Aquí deberías usar el avatar del usuario actual
+    };
+    setComments([...comments, newComment]);
+  };
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <AppHeader title="Home" />
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="ion-padding">
-      <IonButton onClick={() => setIsModalOpen(true)}>Publicar evento</IonButton>
-      
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <p style={{color: 'black'}}>Tu evento se ha publicado con exito!</p>
-        <IonImg src={Success} style={{ width: 200, height: 200 }} />
-      </Modal>
-        <Calendar
-          date={new Date()}
-          onDateChange={() => {}}
-          onStartTimeChange={() => {}}
-          onEndTimeChange={() => {}}
+
+        <IonButton onClick={() => setShowComments(true)}>
+          Ver comentarios
+        </IonButton>
+
+
+        <CommentsSection
+          comments={comments}
+          isOpen={showComments}
+          setIsOpen={setShowComments}
+          onAddComment={handleAddComment}
         />
-        <EventThumbnailList
-          events={dummyEvents}
-          onPressEvent={(id) => {
-            console.log(id)
-          }}
-        />
-        <IconLogo />
+
       </IonContent>
     </IonPage>
   );
