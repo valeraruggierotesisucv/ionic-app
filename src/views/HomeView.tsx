@@ -18,7 +18,6 @@ import { DateTimePickerField } from '../components/DateTimePickerField/DateTimeP
 import { CommentItem } from '../components/CommentItem/CommentItem';
 import { CommentsSection, Comment } from '../components/CommentsSection/CommentsSection';
 
-
 const Tab1Home: React.FC = () => {
   const [selected, setSelected] = useState(false);
   const [showComments, setShowComments] = useState(false);
@@ -59,12 +58,14 @@ const Tab1Home: React.FC = () => {
           Ver comentarios
         </IonButton>
 
+
         <CommentsSection
           comments={comments}
           isOpen={showComments}
           setIsOpen={setShowComments}
           onAddComment={handleAddComment}
         />
+
       </IonContent>
     </IonPage>
   );

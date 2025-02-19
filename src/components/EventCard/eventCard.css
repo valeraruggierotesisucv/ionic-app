@@ -1,0 +1,26 @@
+.title {
+    font-size: 20;
+    padding: 8;
+    padding-top: 0;
+}
+.image{
+    height: 277;
+    width: 100%;
+}
+
+.title-row {
+    width: 100%;
+}
+
+.description-text {
+    font-size: 13;
+    padding: 10;
+    padding-top: 0;
+    justify-content: space-evenly,
+}
+
+.more-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,18 @@
+.display-input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .display-input-label {
+    flex: 0.45; 
+    font-family: "SF-Pro-Rounded-Bold"; 
+    font-size: 1rem; 
+  }
+  
+  .display-input-data {
+    flex: 1;
+    color: gray; 
+    font-family: "SF-Pro-Text-Regular"; 
+  }
+  
