@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { 
-  IonButton, 
+  IonButton,
   IonContent, 
   IonHeader, 
+  IonImg, 
   IonPage, 
   IonToolbar,
   IonText
@@ -53,7 +54,9 @@ const Tab1Home: React.FC = () => {
           <AppHeader title="Home" />
         </IonToolbar>
       </IonHeader>
+
       <IonContent className="ion-padding">
+
         <IonButton onClick={() => setShowComments(true)}>
           Ver comentarios
         </IonButton>
