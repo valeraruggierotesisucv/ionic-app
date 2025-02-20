@@ -13,5 +13,9 @@ export class NavigationService {
     return ROUTES.PROFILE.EDIT;
   }
 
+  static goToConfiguration() {
+    return ROUTES.PROFILE.CONFIGURATION;
+  }
+
   // Add more navigation methods as needed
 } 

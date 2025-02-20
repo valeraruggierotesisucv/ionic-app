@@ -75,6 +75,12 @@ export function ProfileView() {
     history.push(ROUTES.PROFILE.EDIT);
   };
 
+  const handleConfigureProfile = () => {
+    history.push(ROUTES.PROFILE.CONFIGURATION);
+  };
+
+
+
   return (
     <IonPage>
       <AppHeader />
@@ -87,7 +93,7 @@ export function ProfileView() {
             followers={100}
             following={100}
             onEditProfile={handleEditProfile}
-            onConfigureProfile={() => {console.log("Configure profile")}}
+            onConfigureProfile={handleConfigureProfile}
         />
 
         <EventThumbnailList

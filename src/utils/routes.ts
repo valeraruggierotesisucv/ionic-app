@@ -18,5 +18,6 @@ export const ROUTES = {
     FOLLOWERS: '/profile/followers',
     FOLLOWED: '/profile/followed',
     EVENTS: '/profile/events',
+    CONFIGURATION: '/profile/configuration',
   },
 } as const; 

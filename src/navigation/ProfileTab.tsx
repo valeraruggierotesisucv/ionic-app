@@ -6,6 +6,7 @@ import { ROUTES } from '../utils/routes';
 import { Route } from 'react-router-dom';
 import { ProfileView } from '../views/ProfileView';
 import { EditProfileView } from '../views/EditProfileView';
+import { ConfigurationView } from '../views/ConfigurationView';
 
 const ProfileTab: React.FC = () => {
   const { logout } = useAuth(); 
@@ -21,6 +22,11 @@ const ProfileTab: React.FC = () => {
           exact 
           path={ROUTES.PROFILE.EDIT} 
           component={EditProfileView} 
+        />
+        <Route 
+          exact 
+          path={ROUTES.PROFILE.CONFIGURATION} 
+          component={ConfigurationView} 
         />
       </IonRouterOutlet>
     </IonPage>

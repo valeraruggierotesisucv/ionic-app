@@ -1,103 +1,164 @@
 import { useState } from 'react';
-import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  useIonToast,
-  useIonLoading,
-} from '@ionic/react';
-
+import { IonContent, IonPage } from '@ionic/react';
+import { InputField, InputFieldVariant } from '../components/InputField/InputField';
+import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
+import { Tabs, Tab } from '../components/Tabs/Tabs';
+import { IconLogo } from '../components/IconLogo/IconLogo';
 import { useAuth } from '../contexts/AuthContext';
-
+import './authView.css';
+import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
+import { eye, eyeOff, mail, person } from 'ionicons/icons';
 
 export function AuthView() {
-  const { login, signup} = useAuth(); 
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>(''); 
+  const { login, signup } = useAuth();
+  const [activeTab, setActiveTab] = useState('login');
+  
+  // Login form state
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // Register form state
+  const [username, setUsername] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [birthDate, setBirthDate] = useState(new Date());
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [showLoading, hideLoading] = useIonLoading();
-  const [showToast ] = useIonToast();
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    
-    console.log("Form submitted with:", {
-      email: email,
-      password: password,
-      emailLength: email.length,
-      passwordLength: password.length
-    });
+  const tabs: Tab[] = [
+    { id: 'login', label: 'Iniciar Sesión' },
+    { id: 'register', label: 'Registro' },
+  ];
 
-    if (!email || !password) {
-      await showToast({ 
-        message: 'Please enter both email and password', 
-        duration: 3000 
-      });
-      return;
-    }
-
-    await showLoading();
-    try {
-      await login(email, password);
-    } catch (e: any) {
-      await showToast({ 
-        message: e.error_description || e.message, 
-        duration: 5000 
-      });
-    } finally {
-      await hideLoading();
+  const handleSubmit = async () => {
+    if (activeTab === 'login') {
+      try {
+        await login(email, password);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        // await signup(registerEmail, registerPassword);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+
+  const renderLoginForm = () => (
+    <div className="form-container">
+      <InputField
+        label="Correo"
+        value={email}
+        onChangeText={setEmail}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+        placeholder="ejemplo@email.com"
+        icon={mail}
+      />
+      <InputField
+        label="Contraseña"
+        value={password}
+        onChangeText={setPassword}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+        secureTextEntry={!showPassword}
+        placeholder="¿Olvidaste tu contraseña?"
+        icon={showPassword ? eyeOff : eye}
+        onPressIcon={() => setShowPassword(!showPassword)}
+      />
+    </div>
+  );
+
+  const renderRegisterForm = () => (
+    <div className="form-container">
+      <InputField
+        label="Nombre de Usuario"
+        value={username}
+        onChangeText={setUsername}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+        placeholder="Nombre de usuario"
+        icon={person}
+      />
+      <InputField
+        label="Nombre Completo"
+        value={fullName}
+        onChangeText={setFullName}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+        placeholder="Nombre completo"
+        icon={person}
+      />
+      <InputField
+        label="Correo"
+        value={registerEmail}
+        onChangeText={setRegisterEmail}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+        placeholder="ejemplo@email.com"
+        icon={mail}
+      />
+      <DateTimePickerField
+        label="Fecha de Nacimiento"
+        value={birthDate}
+        onChange={setBirthDate}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+      />
+      <InputField
+        label="Contraseña"
+        value={registerPassword}
+        onChangeText={setRegisterPassword}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+        secureTextEntry={!showRegisterPassword}
+        placeholder="Contraseña"
+        icon={showRegisterPassword ? eyeOff : eye}
+        onPressIcon={() => setShowRegisterPassword(!showRegisterPassword)}
+      />
+      <InputField
+        label="Confirmar Contraseña"
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        variant={InputFieldVariant.GRAY_BACKGROUND}
+        secureTextEntry={!showConfirmPassword}
+        placeholder="Confirmar contraseña"
+        icon={showConfirmPassword ? eyeOff : eye}
+        onPressIcon={() => setShowConfirmPassword(!showConfirmPassword)}
+      />
+    </div>
+  );
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Login</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-
       <IonContent>
-        
-        <IonList inset={true}>
-          <form onSubmit={handleLogin}>
-            <IonItem>
-              <IonLabel position="stacked">Email</IonLabel>
-              <IonInput
-                value={email}
-                name="email"
-                onIonInput={(e) => {
-                  
-                  setEmail(e.detail.value?.toString() || '');
-                }}
-                type="email"
-                required
-              ></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel position="stacked">Password</IonLabel>
-              <IonInput
-                value={password}
-                name="password"
-                onIonInput={(e) => {
-                  setPassword(e.detail.value?.toString() || '');
-                }}
-                type="password"
-                required
-              ></IonInput>
-            </IonItem>
-            <div className="ion-text-center ion-padding">
-              <IonButton type="submit" expand="block">
-                Login
-              </IonButton>
+        <div className="auth-container">
+          <div className="auth-header">
+            <div className="logo-container">
+              <IconLogo />
             </div>
-          </form>
-        </IonList>
+            
+            <div className="tabs-wrapper">
+              <Tabs 
+                tabs={tabs} 
+                onTabChange={(tab) => setActiveTab(tab.id)}
+                className="auth-tabs"
+                gap={40}
+              />
+            </div>
+          </div>
+
+          <div className="auth-content">
+            {activeTab === 'login' ? renderLoginForm() : renderRegisterForm()}
+            
+            <div className="button-container">
+              <Button
+                label="Continuar"
+                size={ButtonSize.LARGE}
+                variant={ButtonVariant.PRIMARY}
+                onClick={handleSubmit}
+              />
+            </div>
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );
