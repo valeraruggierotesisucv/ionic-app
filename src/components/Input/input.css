@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     padding: 10px;
-    border-bottom: 2px solid #ccc; /* Personaliza con tu color de tema */
+    border-bottom: 2px solid #ccc; 
     justify-content: space-between;
     height: 60px;
   }

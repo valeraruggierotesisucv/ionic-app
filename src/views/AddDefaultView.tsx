@@ -113,7 +113,6 @@ export function AddDefaultView({
       setEndsAt(null); 
     }
     
-
     return (
       <IonRow className="custom-row">
         <IonCol size="10" className="chips-col">          
