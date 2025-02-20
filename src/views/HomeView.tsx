@@ -67,12 +67,7 @@ export const HomeView: React.FC = () => {
   const { user } = useAuth(); 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <AppHeader />
-        </IonToolbar>
-      </IonHeader>
-
+      <AppHeader />
       <IonContent className="">
       {events.map((event) => (
         <EventCard 

@@ -109,7 +109,10 @@ export function EventCard({
           variant={UserCardVariant.DEFAULT}
           onPressUser={onPressUser}
         />
-        <IonImg src={eventImage} alt="Event" className='image' />
+        <IonImg src={eventImage} alt="Event" className='image' style={{margin: '0px 0px 0px 0px'}} />
+        
+        
+        <div className='content-container'>
         <SocialInteractions
           isLiked={isLiked}
           onLike={handleLike}
@@ -118,7 +121,7 @@ export function EventCard({
         />
         <div className="title-row">
           <IonCol size="9" className='title-col'>
-            <IonText className='title'>{title}</IonText>
+            <h1 className='title'>{title}</h1>
           </IonCol>
           {variant === "default" && (
             <IonCol className="ion-text-right" size='3'>
@@ -127,14 +130,15 @@ export function EventCard({
           )}
           
         </div>
-        <IonText className="description-text">
+        <p className="description-text">
           <p>{description}</p>
-        </IonText>
+        </p>
         {variant === "default" && onMoreDetails && (
-        <IonButton fill="clear" onClick={onMoreDetails} className='more-details'>
-            <IonText>Ver más detalles...</IonText>
-        </IonButton>
-          
+        <div className="button-containers">
+          <IonButton fill="clear" onClick={onMoreDetails} className='more-details'>
+              <IonText className='more-details-text'>Ver más detalles...</IonText>
+          </IonButton>
+        </div>
         )}
         {/*variant === "details" && (
           <DisplayEvent
@@ -155,6 +159,7 @@ export function EventCard({
             setIsOpen={setCommentsVisible}
           />
         )*/}
+        </div>
     </IonRow>         
   );
 }

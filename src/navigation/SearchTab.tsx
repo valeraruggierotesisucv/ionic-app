@@ -1,17 +1,19 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonPage, IonRouterOutlet } from '@ionic/react';
+import { ROUTES } from '../utils/routes';
+import { Route } from 'react-router-dom';
+import { SearchView } from '../views/SearchView';
 
 const SearchTab: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Search</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        {/* Search content goes here */}
-      </IonContent>
+      <IonRouterOutlet>
+        <Route 
+          exact 
+          path={ROUTES.SEARCH.ROOT} 
+          component={SearchView} 
+        />
+      </IonRouterOutlet>
     </IonPage>
   );
 };

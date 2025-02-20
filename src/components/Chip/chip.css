@@ -10,12 +10,13 @@
 
 .ion-chip {
     min-width: 70px;
-    height: 37px;
+    height: 20px;
     padding: 5px;
     border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .ion-label {

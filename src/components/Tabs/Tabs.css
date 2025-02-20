@@ -1,13 +1,13 @@
 .tabs-container {
-  width: 100%;
+  width: auto;
   display: flex;
-  justify-content: center;
+  
 }
 
 .tabs-inner-container {
   display: flex;
   width: 100%;
-  max-width: 300px; /* Adjust this value based on your design needs */
+  max-width: 80px; 
 }
 
 .tab {
