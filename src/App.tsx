@@ -19,6 +19,8 @@ import ProfileTab from './navigation/ProfileTab';
 // import SearchTab from './navigation/SearchTab';
 import { ROUTES } from './utils/routes';
 import ErrorBoundary from './components/ErrorBoundary';
+import { ForgotPasswordView } from './views/ForgotPasswordView';
+import { ForgotPasswordLoginView } from './views/ForgotPasswordLoginView';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -55,6 +57,13 @@ const App: React.FC = () => {
           {user ? <Redirect to={ROUTES.HOME.ROOT} /> : <AuthView />}
         </Route>
         
+        {!user && (
+          <>
+            <Route path={ROUTES.AUTH.FORGOT_PASSWORD} component={ForgotPasswordView} />
+            <Route path={ROUTES.AUTH.FORGOT_PASSWORD_LOGIN} component={ForgotPasswordLoginView} />
+          </>
+        )}
+
         {user ? (
           <IonTabs>
             <IonRouterOutlet>

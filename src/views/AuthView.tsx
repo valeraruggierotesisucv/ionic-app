@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IonContent, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonPage } from '@ionic/react';
 import { InputField, InputFieldVariant } from '../components/InputField/InputField';
 import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 import { Tabs, Tab } from '../components/Tabs/Tabs';
@@ -8,10 +8,13 @@ import { useAuth } from '../contexts/AuthContext';
 import './authView.css';
 import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
 import { eye, eyeOff, mail, person } from 'ionicons/icons';
+import { useHistory } from 'react-router-dom';
+import { ROUTES } from '../utils/routes';
 
 export function AuthView() {
   const { login, signup } = useAuth();
   const [activeTab, setActiveTab] = useState('login');
+  const history = useHistory();
   
   // Login form state
   const [email, setEmail] = useState('');
@@ -55,7 +58,6 @@ export function AuthView() {
         label="Correo"
         value={email}
         onChangeText={setEmail}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
         placeholder="ejemplo@email.com"
         icon={mail}
       />
@@ -63,12 +65,20 @@ export function AuthView() {
         label="Contraseña"
         value={password}
         onChangeText={setPassword}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
         secureTextEntry={!showPassword}
-        placeholder="¿Olvidaste tu contraseña?"
+        placeholder="Contraseña"
         icon={showPassword ? eye : eyeOff}
         onPressIcon={() => setShowPassword(!showPassword)}
       />
+      <div className="forgot-password-container">
+        <button
+          onClick={() => history.push(ROUTES.AUTH.FORGOT_PASSWORD)}
+          
+          style={{ backgroundColor: '#D9D9D9' }}
+        >
+          <p style={{ color: '#050F71', fontSize: 17, fontFamily: 'SF-Pro-Text-Semibold' }}>¿Olvidaste tu contraseña?</p>
+        </button>
+      </div>
     </div>
   );
 
@@ -78,7 +88,6 @@ export function AuthView() {
         label="Nombre de Usuario"
         value={username}
         onChangeText={setUsername}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
         placeholder="Nombre de usuario"
         icon={person}
       />
@@ -86,7 +95,6 @@ export function AuthView() {
         label="Nombre Completo"
         value={fullName}
         onChangeText={setFullName}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
         placeholder="Nombre completo"
         icon={person}
       />
@@ -94,7 +102,6 @@ export function AuthView() {
         label="Correo"
         value={registerEmail}
         onChangeText={setRegisterEmail}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
         placeholder="ejemplo@email.com"
         icon={mail}
       />
@@ -102,13 +109,11 @@ export function AuthView() {
         label="Fecha de Nacimiento"
         value={birthDate}
         onChange={setBirthDate}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
       />
       <InputField
         label="Contraseña"
         value={registerPassword}
         onChangeText={setRegisterPassword}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
         secureTextEntry={!showRegisterPassword}
         placeholder="Contraseña"
         icon={showRegisterPassword ? eye : eyeOff}
@@ -118,7 +123,6 @@ export function AuthView() {
         label="Confirmar Contraseña"
         value={confirmPassword}
         onChangeText={setConfirmPassword}
-        variant={InputFieldVariant.GRAY_BACKGROUND}
         secureTextEntry={!showConfirmPassword}
         placeholder="Confirmar contraseña"
         icon={showConfirmPassword ? eyeOff : eye}
@@ -149,7 +153,7 @@ export function AuthView() {
           <div className="auth-content">
             {activeTab === 'login' ? renderLoginForm() : renderRegisterForm()}
             
-            <div className="button-container">
+            <div className="button-container" style={activeTab === 'register' ? { marginTop: 20 } : undefined}>
               <Button
                 label="Continuar"
                 size={ButtonSize.LARGE}
