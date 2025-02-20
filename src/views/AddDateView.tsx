@@ -1,9 +1,10 @@
-import React from 'react';
-import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonContent, IonFooter, IonHeader, IonPage, IonText } from '@ionic/react';
 import { Button } from '../components/Button/Button';
 import { AppHeader } from '../components/AppHeader/AppHeader';
 import { StepsEnum } from './AddDefaultView';
 import "../styles/footer.css"; 
+import "../styles/error.css"; 
 import { Calendar } from '../components/Calendar/Calendar';
 
 interface AddDateViewProps {
@@ -27,11 +28,15 @@ export function AddDateView({
   endTime, 
   setEndTime
 }: AddDateViewProps) {
+  const [showError, setShowError] = useState(false); 
 
   function handleNext() {
-    if (setStep) {
-      setStep(StepsEnum.DEFAULT);
-    }
+    if(!date || !startTime || !endTime){
+      setShowError(true)
+      return 
+    } 
+    setShowError(true)
+    setStep(StepsEnum.DEFAULT)
   }
 
   return (
@@ -48,7 +53,7 @@ export function AddDateView({
           onStartTimeChange={setStartTime}
           onEndTimeChange={setEndTime}
         />
-        
+        { showError && <IonText className='error-message'> {" * Debe indicar fecha y hora del evento"} </IonText>}  
        </IonContent>
 
        <IonFooter className='footer'>
