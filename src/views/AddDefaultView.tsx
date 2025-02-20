@@ -172,26 +172,27 @@ export function AddDefaultView({
   };
 */
 
-/*
   const CategoryPill = () => {
     function onClear(){
       setCategory(null)
     }
-
+    
     return(
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+      <IonRow className="custom-row">
+        <IonCol size="10" className="chips-col">          
         <Chip
           label={category?.toUpperCase() || ""}
           variant={ChipVariant.LIGHT}
           onPress={() => setStep(StepsEnum.CATEGORY)}
-        />
-        <TouchableOpacity onPress={onClear} style={styles.clear}>
-          <MaterialCommunityIcons name="close" size={16} color={theme.colors["secondary"]} />
-        </TouchableOpacity>
-      </View>      
+        /> 
+        </IonCol>
+        <IonCol size="2" className="clear-button-col">
+          <IonIcon icon={closeCircle} style={{ width: "100px", height: "20px"}} onClick={onClear}/>        
+        </IonCol>       
+      </IonRow> 
     )
   }
-*/
+
 /*
   const MusicPill = () => {
     function onClear(){
@@ -286,6 +287,21 @@ export function AddDefaultView({
             onPress={() => setStep(StepsEnum.DATE)}
           />
         )}
+
+         {/* Categoría */}
+          {category ? (
+            <DisplayInput
+              label="CATEGORÍA"
+              data={<CategoryPill/>}
+            />
+          ) : (
+            <Input
+              label="CATEGORÍA"
+              placeholder="Agrega la categoria de tu evento"
+              variant={InputVariant.ARROW}
+              onPress={() => setStep(StepsEnum.CATEGORY)}
+            />
+          )}
       </div>
 
 
