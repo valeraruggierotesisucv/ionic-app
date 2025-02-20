@@ -32,29 +32,31 @@ export function Tabs({
   };
 
   return (
-    <div className={`tabs-container ${className}`} style={{ gap: gap }}>
-      {tabs.map((tab) => {
-        const isSelected = activeTab === tab.id;
-        const wasSelected = previousTabRef.current === tab.id;
-        
-        return (
-          <button
-            key={tab.id}
-            className={`tab ${isSelected ? 'selected' : ''} ${wasSelected ? 'was-selected' : ''}`}
-            onClick={() => handleTabPress(tab)}
-            role="tab"
-            aria-selected={isSelected}
-          >
-            {tab.label}
-            {(isSelected || wasSelected) && (
-              <div 
-                className="tab-indicator"
-                key={isSelected ? 'selected' : 'unselected'}
-              />
-            )}
-          </button>
-        );
-      })}
+    <div className={`tabs-container ${className}`}>
+      <div className="tabs-inner-container" style={{ gap }}>
+        {tabs.map((tab) => {
+          const isSelected = activeTab === tab.id;
+          const wasSelected = previousTabRef.current === tab.id;
+          
+          return (
+            <button
+              key={tab.id}
+              className={`tab ${isSelected ? 'selected' : ''} ${wasSelected ? 'was-selected' : ''}`}
+              onClick={() => handleTabPress(tab)}
+              role="tab"
+              aria-selected={isSelected}
+            >
+              {tab.label}
+              {(isSelected || wasSelected) && (
+                <div 
+                  className="tab-indicator"
+                  key={isSelected ? 'selected' : 'unselected'}
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

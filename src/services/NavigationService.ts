@@ -9,5 +9,13 @@ export class NavigationService {
     return ROUTES.HOME.ROOT;
   }
 
+  static goToEditProfile() {
+    return ROUTES.PROFILE.EDIT;
+  }
+
+  static goToConfiguration() {
+    return ROUTES.PROFILE.CONFIGURATION;
+  }
+
   // Add more navigation methods as needed
 } 

@@ -1,5 +1,6 @@
 import './ProfileCard.css';
 import { Avatar } from '../Avatar/Avatar';
+import { IMAGE_PLACEHOLDER } from '../../utils/consts';
 
 interface ProfileCardProps {
   profileImage?: string;
@@ -19,7 +20,7 @@ interface ProfileCardProps {
 }
 
 export function ProfileCard({
-  profileImage,
+  profileImage=IMAGE_PLACEHOLDER,
   username,
   biography,
   events,

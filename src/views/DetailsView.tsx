@@ -2,7 +2,7 @@ import React from 'react';
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { NavigationService } from '../services/NavigationService';
 
-const Tab1Detail: React.FC = () => {
+export const DetailsView: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -22,5 +22,3 @@ const Tab1Detail: React.FC = () => {
     </IonPage>
   );
 };
-
-export default Tab1Detail; 

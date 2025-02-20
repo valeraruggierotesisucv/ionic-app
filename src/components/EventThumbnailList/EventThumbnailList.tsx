@@ -1,7 +1,7 @@
 import { IonImg } from '@ionic/react';
 import './EventThumbnailList.css';
 
-interface EventThumbnail {
+export interface EventThumbnail {
   id: string;
   imageUrl: string;
 }

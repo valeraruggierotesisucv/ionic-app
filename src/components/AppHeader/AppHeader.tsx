@@ -1,4 +1,4 @@
-import { IonIcon } from '@ionic/react';
+import { IonHeader, IonIcon, IonToolbar } from '@ionic/react';
 import { chevronBackOutline, settingsOutline } from 'ionicons/icons';
 import './AppHeader.css';
 
@@ -10,6 +10,8 @@ interface AppHeaderProps {
 
 export function AppHeader({ title, goBack, goToConfig }: AppHeaderProps) {
   return (
+    <IonHeader className="ion-no-border">
+    <IonToolbar>
     <header className="app-header">
       <div className="left-container">
         {goBack && (
@@ -51,5 +53,8 @@ export function AppHeader({ title, goBack, goToConfig }: AppHeaderProps) {
         )}
       </div>
     </header>
+
+    </IonToolbar>
+    </IonHeader>
   );
 }
