@@ -14,5 +14,9 @@ export const ROUTES = {
   },
   PROFILE: {
     ROOT: '/profile',
+    EDIT: '/profile/edit',
+    FOLLOWERS: '/profile/followers',
+    FOLLOWED: '/profile/followed',
+    EVENTS: '/profile/events',
   },
 } as const; 

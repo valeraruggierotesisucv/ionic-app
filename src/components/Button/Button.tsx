@@ -34,13 +34,14 @@ export function Button({
 }: ButtonProps) {
   return (
     <IonButton
+
       className={`${size} ${variant} ${disabled ? 'disabled' : ''}`}
       onClick={onClick}
       disabled={disabled}
       color={'primary'}
       style={{ ...style, fontSize }}
     >
-      <IonLabel>{label}</IonLabel>
+      <IonLabel style={{ fontFamily: 'SF-Pro-Rounded-Semibold' }}>{label}</IonLabel>
     </IonButton>
   );
 }
