@@ -11,7 +11,7 @@ import { DisplayInput } from "../components/DisplayInput/DisplayInput";
 import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
-import { CustomModal } from "../components/ImageModal/ImageModal";
+import { CustomModal } from "../components/CustomModal/CustomModal";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -81,6 +81,8 @@ export function AddDefaultView({
   //const [isAudioModalVisible, setAudioModalVisible] = useState(false);
   //const [isLocationModalVisible, setLocationModalVisible] = useState(false);
   const [imageModal, setImageModal] = useState(false); 
+  const [locationModal, setLocationModal] = useState(false);
+  const [musicModal, setMusicModal] = useState(false); 
   
   /*
   const handleStopRecording = () => {
@@ -156,12 +158,12 @@ export function AddDefaultView({
       <IonRow className="custom-row">
         <IonCol size="10" className="chips-col">          
           <Chip
-            label="latitud"
+            label=""
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
           />
           <Chip
-            label="longitud"
+            label=""
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
           />
@@ -316,7 +318,7 @@ export function AddDefaultView({
                     label="Música"
                     placeholder="Agrega música a tu evento"
                     variant={InputVariant.ARROW}
-                    onPress={() => console.log("Musica")}
+                    onPress={() => setMusicModal(true)}
                 />
             }
 
@@ -331,7 +333,7 @@ export function AddDefaultView({
                 label="Ubicación"
                 placeholder="Agrega tu ubicación"
                 variant={InputVariant.ARROW}
-                onPress={() => console.log("LOCATION")}
+                onPress={() => setLocationModal(true)}
               />
             )} 
       </div>
@@ -339,11 +341,24 @@ export function AddDefaultView({
       <CustomModal 
         isOpen={imageModal}
       >        
-        <div className="custom-modal">
-          <IonButton expand="block" className="custom-button">Tomar foto</IonButton>
-          <IonButton expand="block" className="custom-button">Elegir de la Galería</IonButton>
-          <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>Cancelar</IonButton>
-        </div>     
+        <IonButton expand="block" className="custom-button">Tomar foto</IonButton>
+        <IonButton expand="block" className="custom-button">Elegir de la Galería</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>Cancelar</IonButton>
+      </CustomModal>
+
+      <CustomModal 
+        isOpen={locationModal}
+      >        
+        <IonButton expand="block" className="custom-button">Agregar mi ubicación</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={() => setLocationModal(false)}>Cancelar</IonButton>
+      </CustomModal>
+
+      <CustomModal 
+        isOpen={musicModal}
+      >       
+        <IonButton expand="block" className="custom-button">Escoger de los archivos</IonButton>
+        <IonButton expand="block" className="custom-button">Grabar Audio</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={() => setMusicModal(false)}>Cancelar</IonButton> 
       </CustomModal>
 
       <IonFooter className="footer">

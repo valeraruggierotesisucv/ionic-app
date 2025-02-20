@@ -1,5 +1,5 @@
 import { IonModal, IonIcon } from '@ionic/react';
-import "./imageModal.css"; 
+import "./customModal.css"; 
 
 interface CustomModalProps {
   isOpen: boolean;

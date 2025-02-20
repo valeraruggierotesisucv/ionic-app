@@ -39,11 +39,6 @@
     padding: 0px;
     height: 50px;
 }
-
-.custom-modal {
-    display: flex;
-    flex-direction: column;
-}
   
 .custom-button {
     --background: #FFFFFF; 
