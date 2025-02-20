@@ -1,12 +1,15 @@
-import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonText } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText } from "@ionic/react";
 import React from "react";
 import { Button } from "../components/Button/Button";
-import { addSharp } from "ionicons/icons";
+import { addSharp, closeCircle } from "ionicons/icons";
 import { CategoriesEnum } from "../utils/shareEnums";
 import "../styles/addDefaultView.css"; 
 import { AppHeader } from "../components/AppHeader/AppHeader";
 import "../styles/header.css"; 
 import Input, { InputVariant } from "../components/Input/Input";
+import { DisplayInput } from "../components/DisplayInput/DisplayInput";
+import { formatHour } from "../utils/formatHour";
+import { Chip, ChipVariant } from "../components/Chip/Chip";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -23,12 +26,12 @@ interface AddDefaultViewProps {
   setTitle: (title: string) => void; 
   description: string | null;
   setDescription: (text: string | null) => void;
-  //date: Date | null;
-  //setDate: (date: Date | null) => void; 
-  //startsAt: Date | null;
-  //setStartsAt: (date: Date | null) => void; 
-  //endsAt: Date | null;
-  //setEndsAt: (date: Date | null) => void; 
+  date: Date | null;
+  setDate: (date: Date | null) => void; 
+  startsAt: Date | null;
+  setStartsAt: (date: Date | null) => void; 
+  endsAt: Date | null;
+  setEndsAt: (date: Date | null) => void; 
   category: CategoriesEnum | null;
   setCategory: (category: CategoriesEnum | null) => void; 
   //location: LatLng | null;
@@ -50,12 +53,12 @@ export function AddDefaultView({
   setTitle, 
   description,
   setDescription,
-  //date,
-  //setDate, 
-  //startsAt,
-  //setStartsAt, 
-  //endsAt,
-  //setEndsAt, 
+  date,
+  setDate, 
+  startsAt,
+  setStartsAt, 
+  endsAt,
+  setEndsAt, 
   category,
   setCategory, 
   //location,
@@ -81,7 +84,9 @@ export function AddDefaultView({
     stopRecording();
     setAudioModalVisible(false);
   };
+  */
 
+  /*
   const handleCurrentLocation = () => {
     if(origin){
       setLocation({
@@ -91,7 +96,9 @@ export function AddDefaultView({
       setLocationModalVisible(false)
     }
   }
+    */
 
+  
   const DatePills = () => {
     if (startsAt === null || endsAt === null || date === null) return;
 
@@ -105,10 +112,11 @@ export function AddDefaultView({
       setStartsAt(null); 
       setEndsAt(null); 
     }
+    
 
     return (
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-        <View style={{ flexDirection: "row", gap: 8 }}>
+      <IonRow style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+        <IonCol style={{ flexDirection: "row", gap: 8 }}>
           <Chip
             label={start}
             variant={ChipVariant.LIGHT}
@@ -124,15 +132,15 @@ export function AddDefaultView({
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
           />
-        </View>
-        <TouchableOpacity onPress={onClear} style={styles.clear}>
-          <MaterialCommunityIcons name="close" size={16} color={theme.colors["secondary"]} />
-        </TouchableOpacity>
-      </View>
+        </IonCol>
+        <IonButton onClick={onClear} fill="clear">
+          <IonIcon name={closeCircle} />
+        </IonButton>
+      </IonRow>
       
     );
   };
-
+/*
   const LocationPills = () => {
     if (!location) return;
 
@@ -163,7 +171,9 @@ export function AddDefaultView({
       
     );
   };
+*/
 
+/*
   const CategoryPill = () => {
     function onClear(){
       setCategory(null)
@@ -182,7 +192,8 @@ export function AddDefaultView({
       </View>      
     )
   }
-
+*/
+/*
   const MusicPill = () => {
     function onClear(){
       setMusicFile(null)
@@ -200,7 +211,9 @@ export function AddDefaultView({
       </View>      
     )
   }
+*/
 
+/*
   useEffect(() => {
     if (imageUri) {
       setImage(imageUri); 
@@ -260,7 +273,20 @@ export function AddDefaultView({
           required={description ? false : true}
         />
 
-        
+        {/* FECHA Y HORA */}
+        {date && startsAt && endsAt ? (
+          <DisplayInput
+            label="¿Cuando?"
+            data={<DatePills />}
+          />
+        ) : (
+          <Input
+            label="¿Cuando?"
+            placeholder="Agregar fecha y hora"
+            variant={InputVariant.ARROW}
+            onPress={() => setStep(StepsEnum.DATE)}
+          />
+        )}
       </div>
 
 

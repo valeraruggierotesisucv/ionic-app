@@ -19,6 +19,8 @@
     background-color: white;
     font-family: 'SF-Pro-Text-Regular', sans-serif;
     height: 50px;
+    display: flex;
+    align-items: center;
   }
   
   .required {
