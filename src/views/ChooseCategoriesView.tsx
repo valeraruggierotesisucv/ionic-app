@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonButton, IonText, IonFooter, IonIcon } from '@ionic/react';
+import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonButton, IonText, IonFooter, IonIcon, IonHeader } from '@ionic/react';
 import React, { useState } from 'react';
 import { CategoriesEnum, StepsEnum } from '../utils/shareEnums';
 import { CategoryButton } from '../components/CategoryButton/CategoryButton';
@@ -6,6 +6,7 @@ import { Button } from '../components/Button/Button';
 import "../styles/footer.css"; 
 import "../styles/chooseCategories.css"; 
 import { trophySharp, musicalNoteSharp, peopleSharp, keypadSharp, imageSharp, headsetSharp, brushSharp, bookSharp, colorPaletteSharp} from "ionicons/icons"; 
+import { AppHeader } from '../components/AppHeader/AppHeader';
 
 interface ChooseCategoryProps {
   step?: StepsEnum;
@@ -57,7 +58,9 @@ export function ChooseCategoriesView ({
 
   return (
     <IonPage>
-
+      <IonHeader className="header">
+        <AppHeader title='CATEGORIA' goBack={handleNext}/> 
+      </IonHeader>
       <div className='categories-wrap'>        
         <IonRow>
           {categories.map((category) => (

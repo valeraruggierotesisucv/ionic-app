@@ -1,6 +1,11 @@
-import { IonText } from "@ionic/react";
+import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonText } from "@ionic/react";
 import React from "react";
 import { Button } from "../components/Button/Button";
+import { addSharp } from "ionicons/icons";
+import { CategoriesEnum } from "../utils/shareEnums";
+import "../styles/addDefaultView.css"; 
+import { AppHeader } from "../components/AppHeader/AppHeader";
+import "../styles/header.css"; 
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -10,58 +15,58 @@ export enum StepsEnum {
 }
 
 interface AddDefaultViewProps {
-    /*
+    
   step: StepsEnum;
   setStep: (step: StepsEnum) => void;
-  title: string | null; 
-  setTitle: (title: string) => void; 
-  description: string | null;
-  setDescription: (text: string | null) => void;
-  date: Date | null;
-  setDate: (date: Date | null) => void; 
-  startsAt: Date | null;
-  setStartsAt: (date: Date | null) => void; 
-  endsAt: Date | null;
-  setEndsAt: (date: Date | null) => void; 
+  //title: string | null; 
+  //setTitle: (title: string) => void; 
+  //description: string | null;
+  //setDescription: (text: string | null) => void;
+  //date: Date | null;
+  //setDate: (date: Date | null) => void; 
+  //startsAt: Date | null;
+  //setStartsAt: (date: Date | null) => void; 
+  //endsAt: Date | null;
+  //setEndsAt: (date: Date | null) => void; 
   category: CategoriesEnum | null;
   setCategory: (category: CategoriesEnum | null) => void; 
-  location: LatLng | null;
-  setLocation: (location: LatLng | null) => void;
-  musicFile: { nameFile: string; uri: string } | null;
-  setMusicFile: (file: { nameFile: string; uri: string } | null) => void;
+  //location: LatLng | null;
+  //setLocation: (location: LatLng | null) => void;
+  //musicFile: { nameFile: string; uri: string } | null;
+  //setMusicFile: (file: { nameFile: string; uri: string } | null) => void;
   onAddEvent: () => void;
   image: string | null;
   setImage: (image: string | null) => void;
   buttonLabel: string;
   edit?: boolean; 
   disable: boolean
-*/}
+}
 
 export function AddDefaultView({
-    /*
+    
   setStep,
-  title, 
-  setTitle, 
-  description,
-  setDescription,
-  date,
-  setDate, 
-  startsAt,
-  setStartsAt, 
-  endsAt,
-  setEndsAt, 
+  //title, 
+  //setTitle, 
+  //description,
+  //setDescription,
+  //date,
+  //setDate, 
+  //startsAt,
+  //setStartsAt, 
+  //endsAt,
+  //setEndsAt, 
   category,
   setCategory, 
-  location,
-  setLocation, 
-  musicFile,
-  setMusicFile,
-  onAddEvent,
+  //location,
+  //setLocation, 
+  //musicFile,
+  //setMusicFile,
+  //onAddEvent,
   image,
   setImage,
   edit = false, 
   disable = false
-*/}: AddDefaultViewProps) {
+}: AddDefaultViewProps) {
   //const { t } = useTranslation();
   //const { isModalVisible, imageUri, openCamera, openGallery, setModalVisible } = useImagePicker();
   //const { musicFileUri, pickMusicFile } = useMusicPicker();
@@ -215,10 +220,29 @@ export function AddDefaultView({
   }, [audioFileUri]);
 */
   return (
-    <>
-      <IonText>Hola</IonText>
-      <Button label="ADD"></Button>
-    </>
+    <IonPage>
+      <IonHeader className="header">
+        <AppHeader title='Nuevo Evento'/> 
+      </IonHeader>
+      <div>
+      <IonButton fill="clear" onClick={() => console.log("ONCLICK")} className="image-container">
+        {image ? (
+          <IonImg src={image} />
+        ) : (
+          <div className="placeholder">
+            <IonIcon icon={addSharp} style={{ fontSize: '48px', color: 'black' }} />
+          </div>
+        )}
+      </IonButton>
+      </div>
+      <IonFooter className="footer">
+        <Button 
+          label='Publicar'
+          onClick={() => console.log("Publicar")}
+        />
+      </IonFooter>
+
+    </IonPage>
   );
 }
 
