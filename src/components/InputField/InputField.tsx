@@ -37,7 +37,7 @@ export function InputField({
     <div className={`input-field-container ${className || ''}`}>
       <label className="input-label">{label}</label>
       <div
-        className={`input-container ${
+        className={`inputField-container ${
           variant === InputFieldVariant.GRAY_BACKGROUND ? 'gray-background' : ''
         } ${error ? 'input-error' : ''}`}
       >

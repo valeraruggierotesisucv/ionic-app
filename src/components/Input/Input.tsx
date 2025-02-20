@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
   onChangeValue,
 }) => {
   return (
-    <div onClick={onPress} className="container">
+    <div onClick={onPress} className="input-container">
       <IonLabel className="label" style={{ flex: placeholder ? 0.45 : 1 }}>
         {label}{' '}
         {required && <span className="required">*</span>}

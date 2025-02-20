@@ -7,6 +7,9 @@ import { Route } from 'react-router-dom';
 import { ProfileView } from '../views/ProfileView';
 import { EditProfileView } from '../views/EditProfileView';
 import { ConfigurationView } from '../views/ConfigurationView';
+import { ChangePasswordView } from '../views/ChangePasswordView';
+import { FollowedView } from '../views/FollowedView';
+import { FollowersView } from '../views/FollowersView';
 
 const ProfileTab: React.FC = () => {
   const { logout } = useAuth(); 
@@ -28,6 +31,22 @@ const ProfileTab: React.FC = () => {
           path={ROUTES.PROFILE.CONFIGURATION} 
           component={ConfigurationView} 
         />
+
+        <Route 
+          exact 
+          path={ROUTES.PROFILE.CHANGE_PASSWORD} 
+          component={ChangePasswordView} 
+        />
+        <Route 
+          exact 
+          path={ROUTES.PROFILE.FOLLOWED} 
+          component={FollowedView} 
+        />
+        <Route 
+          exact 
+          path={ROUTES.PROFILE.FOLLOWERS} 
+          component={FollowersView} 
+        />  
       </IonRouterOutlet>
     </IonPage>
   );

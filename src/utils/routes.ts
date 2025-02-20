@@ -19,6 +19,7 @@ export const ROUTES = {
     FOLLOWED: '/profile/followed',
     EVENTS: '/profile/events',
     CONFIGURATION: '/profile/configuration',
+    CHANGE_PASSWORD: '/profile/change-password',
   },
   AUTH: {
     ROOT: '/',
