@@ -136,42 +136,40 @@ export function AddDefaultView({
         <IonCol size="2" className="clear-button-col">
           <IonIcon icon={closeCircle} style={{ width: "100px", height: "20px"}} onClick={onClear}/>        
         </IonCol>       
-      </IonRow>
-      
+      </IonRow>      
     );
   };
-/*
+
   const LocationPills = () => {
     if (!location) return;
-
+    /*
     function onClear(){
       setLocation(null)
     }
     const latitude = location.latitude.toFixed(3);
     const longitude = location.longitude.toFixed(3);
 
+    */
     return (
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-        <View style={{ flexDirection: "row", gap: 8 }}>
+      <IonRow className="custom-row">
+        <IonCol size="10" className="chips-col">          
           <Chip
-            label={latitude}
+            label="latitud"
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
           />
           <Chip
-            label={longitude}
+            label="longitud"
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
           />
-        </View>
-        <TouchableOpacity onPress={onClear} style={styles.clear}>
-          <MaterialCommunityIcons name="close" size={16} color={theme.colors["secondary"]} />
-        </TouchableOpacity>
-      </View>
-      
+        </IonCol>
+        <IonCol size="2" className="clear-button-col">
+          <IonIcon icon={closeCircle} style={{ width: "100px", height: "20px"}} onClick={() => console.log("CLEAR LOCATION")}/>        
+        </IonCol>       
+      </IonRow> 
     );
   };
-*/
 
   const CategoryPill = () => {
     function onClear(){
@@ -319,6 +317,21 @@ export function AddDefaultView({
                     onPress={() => console.log("Musica")}
                 />
             }
+
+           {/* UBICACIÓN */}
+            {location ? (
+              <DisplayInput
+                label="Ubicación"
+                data={<LocationPills />}
+              />
+            ) : (
+              <Input
+                label="Ubicación"
+                placeholder="Agrega tu ubicación"
+                variant={InputVariant.ARROW}
+                onPress={() => console.log("LOCATION")}
+              />
+            )} 
       </div>
 
 

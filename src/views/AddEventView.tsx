@@ -22,7 +22,7 @@ export function AddEventView() {
   const [endTime, setEndTime] = useState<Date | null>(null);
   const [category, setCategory] = useState<CategoriesEnum | null>(null);
   const [categoryId, setCategoryId] = useState<number|null>(null); 
-  //const [location, setLocation] = useState<LatLng | null>(null);
+  const [location, setLocation] = useState(null);
   const [image, setImage] = useState<string | null>(null);
   const [musicFile, setMusicFile] = useState<{nameFile: string; uri: string;} | null>(null);
   const [step, setStep] = useState<StepsEnum>(StepsEnum.DEFAULT);
