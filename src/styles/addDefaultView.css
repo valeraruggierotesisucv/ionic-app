@@ -40,3 +40,16 @@
     height: 50px;
 }
 
+.custom-modal {
+    display: flex;
+    flex-direction: column;
+}
+  
+.custom-button {
+    --background: #FFFFFF; 
+    --box-shadow: 0px; 
+    font-weight: 500;
+    font-family: 'SF-Pro-Text-Semibold';
+    color: #007AFF;
+}
+  

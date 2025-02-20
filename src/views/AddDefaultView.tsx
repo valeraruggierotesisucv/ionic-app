@@ -1,5 +1,5 @@
 import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText } from "@ionic/react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../components/Button/Button";
 import { closeCircle, addSharp} from "ionicons/icons";
 import { CategoriesEnum } from "../utils/shareEnums";
@@ -11,6 +11,7 @@ import { DisplayInput } from "../components/DisplayInput/DisplayInput";
 import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
+import { CustomModal } from "../components/ImageModal/ImageModal";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -79,6 +80,7 @@ export function AddDefaultView({
   //const { audioFileUri, startRecording, stopRecording, isRecording } = useAudioRecorder();
   //const [isAudioModalVisible, setAudioModalVisible] = useState(false);
   //const [isLocationModalVisible, setLocationModalVisible] = useState(false);
+  const [imageModal, setImageModal] = useState(false); 
   
   /*
   const handleStopRecording = () => {
@@ -243,7 +245,7 @@ export function AddDefaultView({
       {/* CONTENT */}
       <div>
         {/* IMAGEN */}
-        <IonButton fill="clear" onClick={() => console.log("ONCLICK")} className="image-container">
+        <IonButton fill="clear" onClick={() => setImageModal(true)} className="image-container">
           {image ? (
             <IonImg src={image} />
           ) : (
@@ -333,7 +335,16 @@ export function AddDefaultView({
               />
             )} 
       </div>
-
+      
+      <CustomModal 
+        isOpen={imageModal}
+      >        
+        <div className="custom-modal">
+          <IonButton expand="block" className="custom-button">Tomar foto</IonButton>
+          <IonButton expand="block" className="custom-button">Elegir de la Galería</IonButton>
+          <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>Cancelar</IonButton>
+        </div>     
+      </CustomModal>
 
       <IonFooter className="footer">
         <Button 
