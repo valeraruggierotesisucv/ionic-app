@@ -66,7 +66,7 @@ export function AuthView() {
         variant={InputFieldVariant.GRAY_BACKGROUND}
         secureTextEntry={!showPassword}
         placeholder="¿Olvidaste tu contraseña?"
-        icon={showPassword ? eyeOff : eye}
+        icon={showPassword ? eye : eyeOff}
         onPressIcon={() => setShowPassword(!showPassword)}
       />
     </div>
@@ -111,7 +111,7 @@ export function AuthView() {
         variant={InputFieldVariant.GRAY_BACKGROUND}
         secureTextEntry={!showRegisterPassword}
         placeholder="Contraseña"
-        icon={showRegisterPassword ? eyeOff : eye}
+        icon={showRegisterPassword ? eye : eyeOff}
         onPressIcon={() => setShowRegisterPassword(!showRegisterPassword)}
       />
       <InputField
