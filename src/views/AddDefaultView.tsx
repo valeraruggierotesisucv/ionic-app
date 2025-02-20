@@ -6,6 +6,7 @@ import { CategoriesEnum } from "../utils/shareEnums";
 import "../styles/addDefaultView.css"; 
 import { AppHeader } from "../components/AppHeader/AppHeader";
 import "../styles/header.css"; 
+import Input, { InputVariant } from "../components/Input/Input";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -18,10 +19,10 @@ interface AddDefaultViewProps {
     
   step: StepsEnum;
   setStep: (step: StepsEnum) => void;
-  //title: string | null; 
-  //setTitle: (title: string) => void; 
-  //description: string | null;
-  //setDescription: (text: string | null) => void;
+  title: string | null; 
+  setTitle: (title: string) => void; 
+  description: string | null;
+  setDescription: (text: string | null) => void;
   //date: Date | null;
   //setDate: (date: Date | null) => void; 
   //startsAt: Date | null;
@@ -45,10 +46,10 @@ interface AddDefaultViewProps {
 export function AddDefaultView({
     
   setStep,
-  //title, 
-  //setTitle, 
-  //description,
-  //setDescription,
+  title, 
+  setTitle, 
+  description,
+  setDescription,
   //date,
   //setDate, 
   //startsAt,
@@ -224,17 +225,45 @@ export function AddDefaultView({
       <IonHeader className="header">
         <AppHeader title='Nuevo Evento'/> 
       </IonHeader>
+
+      {/* CONTENT */}
       <div>
-      <IonButton fill="clear" onClick={() => console.log("ONCLICK")} className="image-container">
-        {image ? (
-          <IonImg src={image} />
-        ) : (
-          <div className="placeholder">
-            <IonIcon icon={addSharp} style={{ fontSize: '48px', color: 'black' }} />
-          </div>
-        )}
-      </IonButton>
+        {/* IMAGEN */}
+        <IonButton fill="clear" onClick={() => console.log("ONCLICK")} className="image-container">
+          {image ? (
+            <IonImg src={image} />
+          ) : (
+            <div className="image-placeholder">
+              <IonIcon icon={addSharp} style={{ fontSize: '48px', color: 'black' }} />
+            </div>
+          )}
+        </IonButton>
+
+        {/* Título */}
+        <Input
+          label="Titulo"
+          placeholder="Agregar título"
+          multiline={false}
+          variant={InputVariant.DEFAULT}
+          value={title ?? ""}
+          onChangeValue={setTitle}
+          required={title ? false : true}
+        />
+
+         {/* Descripción */}
+        <Input
+          label="Descripción"
+          placeholder="Agrega una descripción"
+          variant={InputVariant.DEFAULT}
+          value={description ?? ""}
+          onChangeValue={setDescription}
+          required={description ? false : true}
+        />
+
+        
       </div>
+
+
       <IonFooter className="footer">
         <Button 
           label='Publicar'
