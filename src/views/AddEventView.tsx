@@ -4,6 +4,9 @@ import { IonPage } from '@ionic/react';
 import "../theme/footer.css"; 
 import { AppHeader } from '../components/AppHeader/AppHeader';
 import { StepsEnum } from '../utils/shareEnums';
+import { AddDefaultView } from './AddDefaultView';
+import AddDateView from './AddDateView';
+import ChooseCategoryView from './ChooseCategoryView';
 
 
 const AddEventView: React.FC = () => {
@@ -33,6 +36,22 @@ const AddEventView: React.FC = () => {
           : 
           <AppHeader title={step === StepsEnum.DATE ? 'Cuando?' : step === StepsEnum.CATEGORY ? 'CATERGORÍA' : StepsEnum.DEFAULT} />
       }
+
+      { step === StepsEnum.DEFAULT && (
+        <AddDefaultView
+        />
+      )}
+
+        {step === StepsEnum.DATE && (
+          <AddDateView
+          />
+        )}
+
+        {step === StepsEnum.CATEGORY && (
+          <ChooseCategoryView
+
+          />
+        )}
     </IonPage>
   );
 };

@@ -1,4 +1,6 @@
+import { IonText } from "@ionic/react";
 import React from "react";
+import { Button } from "../components/Button/Button";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -214,7 +216,8 @@ export function AddDefaultView({
 */
   return (
     <>
-      
+      <IonText>Hola</IonText>
+      <Button label="ADD"></Button>
     </>
   );
 }
