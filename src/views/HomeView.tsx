@@ -63,7 +63,7 @@ const events = [
 
 ]
 
-const Tab1Home: React.FC = () => {
+export const HomeView: React.FC = () => {
   const { user } = useAuth(); 
   return (
     <IonPage>
@@ -110,4 +110,3 @@ const Tab1Home: React.FC = () => {
   );
 };
 
-export default Tab1Home; 

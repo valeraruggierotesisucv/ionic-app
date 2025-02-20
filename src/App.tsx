@@ -59,31 +59,26 @@ const App: React.FC = () => {
           <IonTabs>
             <IonRouterOutlet>
               <Route path={ROUTES.HOME.ROOT} component={HomeTab} />
-              <Route path={ROUTES.ADD.ROOT} component={AddTab} />
               <Route path={ROUTES.NOTIFICATIONS.ROOT} component={NotificationsTab} />
+              <Route path={ROUTES.ADD.ROOT} component={AddTab} />
               <Route path={ROUTES.PROFILE.ROOT} component={ProfileTab} />
               <Route path={ROUTES.SEARCH.ROOT} component={SearchTab} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="home" href={ROUTES.HOME.ROOT}>
                 <IonIcon icon={home} />
-                <IonLabel>Home</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="add" href={ROUTES.ADD.ROOT}>
-                <IonIcon icon={addCircle} />
-                <IonLabel>Add</IonLabel>
               </IonTabButton>
               <IonTabButton tab="search" href={ROUTES.SEARCH.ROOT}>
                 <IonIcon icon={search} />
-                <IonLabel>Search</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="add" href={ROUTES.ADD.ROOT}>
+                <IonIcon icon={addCircle} />
               </IonTabButton>
               <IonTabButton tab="notifications" href={ROUTES.NOTIFICATIONS.ROOT}>
                 <IonIcon icon={notifications} />
-                <IonLabel>Notifications</IonLabel>
               </IonTabButton>
               <IonTabButton tab="profile" href={ROUTES.PROFILE.ROOT}>
                 <IonIcon icon={person} />
-                <IonLabel>Profile</IonLabel>
               </IonTabButton>
             </IonTabBar>
           </IonTabs>
