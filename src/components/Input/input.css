@@ -11,6 +11,7 @@
   .label {
     font-weight: bold;
     font-family: 'SF-Pro-Rounded-Bold', sans-serif;
+    color: black;
   }
   
   .placeholder {
