@@ -4,6 +4,7 @@ import { Button } from '../components/Button/Button';
 import { AppHeader } from '../components/AppHeader/AppHeader';
 import { StepsEnum } from './AddDefaultView';
 import "../styles/footer.css"; 
+import { Calendar } from '../components/Calendar/Calendar';
 
 interface AddDateViewProps {
   step: StepsEnum, 
@@ -39,7 +40,15 @@ export function AddDateView({
         <AppHeader title='¿Cuándo?' goBack={handleNext}/> 
       </IonHeader>
        <IonContent>
-
+        <Calendar 
+          date={date}
+          initialStartTime={startTime}
+          initialEndTime={endTime}
+          onDateChange={setDate}
+          onStartTimeChange={setStartTime}
+          onEndTimeChange={setEndTime}
+        />
+        
        </IonContent>
 
        <IonFooter className='footer'>

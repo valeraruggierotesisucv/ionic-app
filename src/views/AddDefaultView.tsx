@@ -1,7 +1,7 @@
 import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText } from "@ionic/react";
 import React from "react";
 import { Button } from "../components/Button/Button";
-import { addSharp, closeCircle } from "ionicons/icons";
+import { closeCircle, addSharp} from "ionicons/icons";
 import { CategoriesEnum } from "../utils/shareEnums";
 import "../styles/addDefaultView.css"; 
 import { AppHeader } from "../components/AppHeader/AppHeader";
@@ -65,7 +65,7 @@ export function AddDefaultView({
   //setLocation, 
   //musicFile,
   //setMusicFile,
-  //onAddEvent,
+  onAddEvent,
   image,
   setImage,
   edit = false, 
@@ -115,8 +115,8 @@ export function AddDefaultView({
     
 
     return (
-      <IonRow style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-        <IonCol style={{ flexDirection: "row", gap: 8 }}>
+      <IonRow className="custom-row">
+        <IonCol size="10" className="chips-col">          
           <Chip
             label={start}
             variant={ChipVariant.LIGHT}
@@ -131,11 +131,11 @@ export function AddDefaultView({
             label={formattedDate}
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
-          />
+          />        
         </IonCol>
-        <IonButton onClick={onClear} fill="clear">
-          <IonIcon name={closeCircle} />
-        </IonButton>
+        <IonCol size="2" className="clear-button-col">
+          <IonIcon icon={closeCircle} style={{ width: "100px", height: "20px"}} onClick={onClear}/>        
+        </IonCol>       
       </IonRow>
       
     );
@@ -293,7 +293,7 @@ export function AddDefaultView({
       <IonFooter className="footer">
         <Button 
           label='Publicar'
-          onClick={() => console.log("Publicar")}
+          onClick={onAddEvent}
         />
       </IonFooter>
 

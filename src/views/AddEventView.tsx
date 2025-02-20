@@ -30,6 +30,9 @@ export function AddEventView() {
 
   async function handleAddEvent() {     
     //title && description && date && startTime && endTime && category && image && musicFile && location && session
+    console.log("title ", title); 
+    console.log("descripcion ", description); 
+    console.log(`cuando ${date}, ${startTime}, ${endTime}`); 
     if (category) {
       setDisable(true);      
       /*
