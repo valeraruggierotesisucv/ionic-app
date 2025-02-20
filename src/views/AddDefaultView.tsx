@@ -10,6 +10,7 @@ import Input, { InputVariant } from "../components/Input/Input";
 import { DisplayInput } from "../components/DisplayInput/DisplayInput";
 import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
+import { truncateString } from "../utils/formatString";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -36,8 +37,8 @@ interface AddDefaultViewProps {
   setCategory: (category: CategoriesEnum | null) => void; 
   //location: LatLng | null;
   //setLocation: (location: LatLng | null) => void;
-  //musicFile: { nameFile: string; uri: string } | null;
-  //setMusicFile: (file: { nameFile: string; uri: string } | null) => void;
+  musicFile: { nameFile: string; uri: string } | null;
+  setMusicFile: (file: { nameFile: string; uri: string } | null) => void;
   onAddEvent: () => void;
   image: string | null;
   setImage: (image: string | null) => void;
@@ -63,8 +64,8 @@ export function AddDefaultView({
   setCategory, 
   //location,
   //setLocation, 
-  //musicFile,
-  //setMusicFile,
+  musicFile,
+  setMusicFile,
   onAddEvent,
   image,
   setImage,
@@ -193,25 +194,27 @@ export function AddDefaultView({
     )
   }
 
-/*
+
   const MusicPill = () => {
     function onClear(){
       setMusicFile(null)
-    }
+    }    
 
     return(
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-        <Chip 
-          label={truncateString(musicFile?.nameFile || "", 30)} 
-          variant={ChipVariant.LIGHT} 
-        />
-        <TouchableOpacity onPress={onClear} style={styles.clear}>
-          <MaterialCommunityIcons name="close" size={16} color={theme.colors["secondary"]} />
-        </TouchableOpacity>
-      </View>      
+      <IonRow className="custom-row">
+        <IonCol size="10" className="chips-col">          
+          <Chip 
+            label={truncateString(musicFile?.nameFile || "", 30)} 
+            variant={ChipVariant.LIGHT} 
+          />
+        </IonCol>
+        <IonCol size="2" className="clear-button-col">
+          <IonIcon icon={closeCircle} style={{ width: "100px", height: "20px"}} onClick={onClear}/>        
+        </IonCol>       
+      </IonRow>     
     )
   }
-*/
+
 
 /*
   useEffect(() => {
@@ -291,17 +294,31 @@ export function AddDefaultView({
          {/* Categoría */}
           {category ? (
             <DisplayInput
-              label="CATEGORÍA"
+              label="Categoría"
               data={<CategoryPill/>}
             />
           ) : (
             <Input
-              label="CATEGORÍA"
+              label="Categoría"
               placeholder="Agrega la categoria de tu evento"
               variant={InputVariant.ARROW}
               onPress={() => setStep(StepsEnum.CATEGORY)}
             />
           )}
+
+          {/* MÚSICA */}
+          { musicFile
+                ? <DisplayInput
+                    label="Música"
+                    data={<MusicPill />}
+                  />
+                : <Input 
+                    label="Música"
+                    placeholder="Agrega música a tu evento"
+                    variant={InputVariant.ARROW}
+                    onPress={() => console.log("Musica")}
+                />
+            }
       </div>
 
 

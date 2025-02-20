@@ -24,7 +24,7 @@ export function AddEventView() {
   const [categoryId, setCategoryId] = useState<number|null>(null); 
   //const [location, setLocation] = useState<LatLng | null>(null);
   const [image, setImage] = useState<string | null>(null);
-  //const [musicFile, setMusicFile] = useState<{nameFile: string; uri: string;} | null>(null);
+  const [musicFile, setMusicFile] = useState<{nameFile: string; uri: string;} | null>(null);
   const [step, setStep] = useState<StepsEnum>(StepsEnum.DEFAULT);
   const [disable, setDisable] = useState(false); 
 
@@ -100,6 +100,8 @@ export function AddEventView() {
           setEndsAt={setEndTime}
           category={category}
           setCategory={setCategory}
+          musicFile={musicFile}
+          setMusicFile={setMusicFile}
           image={image}
           setImage={setImage}
           onAddEvent={handleAddEvent}
