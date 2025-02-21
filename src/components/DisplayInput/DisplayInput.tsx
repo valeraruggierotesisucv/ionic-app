@@ -4,12 +4,13 @@ import './displayInput.css';
 
 interface DisplayInputProps {
   label: string;
-  data: React.ReactNode;
+  onPress: () => void;
+  data?: string;
 }
 
-export const DisplayInput: React.FC<DisplayInputProps> = ({ label, data }) => {
+export const DisplayInput: React.FC<DisplayInputProps> = ({ label, onPress, data }) => {
   return (
-    <div className="display-input-container">
+    <div className="display-input-container" onClick={onPress}>
       <IonLabel className="display-input-label" >
         {label}
       </IonLabel>

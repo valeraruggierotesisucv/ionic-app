@@ -79,7 +79,13 @@ export function ProfileView() {
     history.push(ROUTES.PROFILE.CONFIGURATION);
   };
 
+  const handleFollowers = () => {
+    history.push(ROUTES.PROFILE.FOLLOWERS);
+  };
 
+  const handleFollowed = () => {
+    history.push(ROUTES.PROFILE.FOLLOWED);
+  };
 
   return (
     <IonPage>
@@ -94,6 +100,8 @@ export function ProfileView() {
             following={100}
             onEditProfile={handleEditProfile}
             onConfigureProfile={handleConfigureProfile}
+            onFollowers={handleFollowers}
+            onFollowed={handleFollowed}
         />
 
         <EventThumbnailList

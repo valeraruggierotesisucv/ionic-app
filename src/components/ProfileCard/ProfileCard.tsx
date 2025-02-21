@@ -62,7 +62,7 @@ export function ProfileCard({
           <p className="biography">{biography}</p>
         </div>
 
-        <div className="button-container">
+        <div className="profileCard-button-container">
           {onFollow && (
             <button
               className={`continue-button ${isFollowing ? 'unfollow-button' : ''}`}

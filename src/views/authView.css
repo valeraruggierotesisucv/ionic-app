@@ -58,6 +58,7 @@
     flex-direction: column;
     gap: 24px;
     padding: 16px;
+    background-color: transparent;
 }
 
 .forgot-password-container h2 {
