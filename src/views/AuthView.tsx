@@ -73,8 +73,7 @@ export function AuthView() {
       <div className="forgot-password-container">
         <button
           onClick={() => history.push(ROUTES.AUTH.FORGOT_PASSWORD)}
-          
-          style={{ backgroundColor: '#D9D9D9' }}
+          style={{ backgroundColor: 'transparent' }}
         >
           <p style={{ color: '#050F71', fontSize: 17, fontFamily: 'SF-Pro-Text-Semibold' }}>¿Olvidaste tu contraseña?</p>
         </button>
