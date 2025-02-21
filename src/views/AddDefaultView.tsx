@@ -12,6 +12,7 @@ import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
 import { CustomModal } from "../components/CustomModal/CustomModal";
+import { Camera, CameraResultType } from "@capacitor/camera";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -84,6 +85,19 @@ export function AddDefaultView({
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
   
+  const handleOpenCamera = async() => { 
+    const image = await Camera.getPhoto({
+      quality: 100, 
+      allowEditing: false, 
+      resultType: CameraResultType.DataUrl
+    }); 
+
+    if(image){
+      setImage(image.dataUrl!); 
+      console.log(image.dataUrl); 
+    }
+    
+  }
   /*
   const handleStopRecording = () => {
     stopRecording();
@@ -341,7 +355,7 @@ export function AddDefaultView({
       <CustomModal 
         isOpen={imageModal}
       >        
-        <IonButton expand="block" className="custom-button">Tomar foto</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={handleOpenCamera}>Tomar foto</IonButton>
         <IonButton expand="block" className="custom-button">Elegir de la Galería</IonButton>
         <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>Cancelar</IonButton>
       </CustomModal>
