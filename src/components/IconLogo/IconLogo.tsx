@@ -1,5 +1,5 @@
 import { IonImg } from "@ionic/react";
-import iconLogo from '../../assets/images/IconLogo.png';
+import iconLogo from '../../../public/images/IconLogo.png';
 const iconLogoWidth = 200;
 const iconLogoHeight = 200;
 

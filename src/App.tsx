@@ -46,6 +46,7 @@ import { useAuth } from './contexts/AuthContext';
 import { AuthView } from './views/AuthView';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { OnBoardingView } from './views/OnboardingView';
 
 setupIonicReact();
 
@@ -71,13 +72,15 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         <Route exact path="/">
-          {user ? <Redirect to={ROUTES.HOME.ROOT} /> : <AuthView />}
+          {user ? <Redirect to={ROUTES.HOME.ROOT} /> : <OnBoardingView />}
         </Route>
         
         {!user && (
           <>
             <Route path={ROUTES.AUTH.FORGOT_PASSWORD} component={ForgotPasswordView} />
+            <Route path={ROUTES.AUTH.AUTH} component={AuthView} />
             <Route path={ROUTES.AUTH.FORGOT_PASSWORD_LOGIN} component={ForgotPasswordLoginView} />
+            <Route path={ROUTES.AUTH.ONBOARDING} component={OnBoardingView} />
           </>
         )}
 

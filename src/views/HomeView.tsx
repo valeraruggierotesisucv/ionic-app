@@ -9,6 +9,8 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { AppHeader } from '../components/AppHeader/AppHeader';
 import { EventCard } from '../components/EventCard/EventCard';
+import { useHistory } from 'react-router-dom';
+import { ROUTES } from '../utils/routes';
 
 
 const events = [
@@ -65,6 +67,7 @@ const events = [
 
 export const HomeView: React.FC = () => {
   const { user } = useAuth(); 
+  const history = useHistory();
   return (
     <IonPage>
       <AppHeader />
@@ -89,7 +92,7 @@ export const HomeView: React.FC = () => {
           onShare={() => console.log("")}
           onComment={async() => console.log("")}
           onPressUser={() => console.log("")}
-          onMoreDetails={() => console.log("")}   
+          onMoreDetails={() => history.push(ROUTES.HOME.EVENT_DETAILS)}   
           userComment={{
             username: 'joe',
             profileImage: 'https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//defaultProfile.jpg',

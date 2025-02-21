@@ -152,7 +152,7 @@ export function AuthView() {
           <div className="auth-content">
             {activeTab === 'login' ? renderLoginForm() : renderRegisterForm()}
             
-            <div className="button-container" style={activeTab === 'register' ? { marginTop: 20 } : undefined}>
+            <div className="auth-button-container" style={activeTab === 'register' ? { marginTop: 20 } : undefined}>
               <Button
                 label="Continuar"
                 size={ButtonSize.LARGE}
