@@ -245,7 +245,7 @@ export function AddDefaultView({
       </IonHeader>
 
       {/* CONTENT */}
-      <div>
+      <IonContent>
         {/* IMAGEN */}
         <IonButton fill="clear" onClick={() => setImageModal(true)} className="image-container">
           {image ? (
@@ -336,7 +336,7 @@ export function AddDefaultView({
                 onPress={() => setLocationModal(true)}
               />
             )} 
-      </div>
+      </IonContent>
       
       <CustomModal 
         isOpen={imageModal}

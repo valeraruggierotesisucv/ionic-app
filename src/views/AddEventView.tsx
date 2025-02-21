@@ -81,10 +81,8 @@ export function AddEventView() {
   }
 
   return (
-    <IonPage>
-           
-    
-      { step === StepsEnum.DEFAULT && (
+    <>
+    { step === StepsEnum.DEFAULT && (
         <AddDefaultView
           step={step}
           setStep={setStep}
@@ -133,7 +131,7 @@ export function AddEventView() {
             setCategoryId={setCategoryId}
           />
         )}
-        
-    </IonPage>
+    </>        
+  
   );
 };
