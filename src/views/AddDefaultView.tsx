@@ -12,7 +12,7 @@ import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
 import { CustomModal } from "../components/CustomModal/CustomModal";
-import { Camera, CameraResultType } from "@capacitor/camera";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -85,18 +85,31 @@ export function AddDefaultView({
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
   
-  const handleOpenCamera = async() => { 
+  const handleOpenCamera = async() => {
+    setImageModal(false); 
+  
+    const permissions = await Camera.checkPermissions();
+  
+    if (permissions.camera !== 'granted') {
+      const permissionRequest = await Camera.requestPermissions();
+  
+      if (permissionRequest.camera !== 'granted') {
+        console.error('Permissions not granted for camera access');
+        return; 
+      }
+    }
+  
     const image = await Camera.getPhoto({
       quality: 100, 
       allowEditing: false, 
-      resultType: CameraResultType.DataUrl
-    }); 
-
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera
+    });
+  
     if(image){
       setImage(image.dataUrl!); 
       console.log(image.dataUrl); 
     }
-    
   }
   /*
   const handleStopRecording = () => {
