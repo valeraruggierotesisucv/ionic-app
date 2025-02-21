@@ -4,6 +4,7 @@ import { SocialInteractions } from "../SocialInteractions/SocialInteractions";
 import { UserCard, UserCardVariant } from "../UserCard/UserCard";
 import './eventCard.css'; 
 import { Chip, ChipVariant } from '../Chip/Chip';
+import { useTranslation } from 'react-i18next';
 //import { DisplayEvent } from "../DisplayEvent/DisplayEvent";
 //import { CommentsSection } from "../CommentsSection/CommentsSection";
 //import { Chip, ChipVariant } from "../Chip/Chip";
@@ -64,7 +65,7 @@ export function EventCard({
   musicUrl,
   handleLike,
 }: EventCardProps) {
-  //const { t } = useTranslation();
+  const { t } = useTranslation();
   const [commentsVisible, setCommentsVisible] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
 
@@ -136,7 +137,7 @@ export function EventCard({
         {variant === "default" && onMoreDetails && (
         <div className="button-containers">
           <IonButton fill="clear" onClick={onMoreDetails} className='more-details'>
-              <IonText className='more-details-text'>Ver más detalles...</IonText>
+              <IonText className='more-details-text'>{t("common.see_more_details")}</IonText>
           </IonButton>
         </div>
         )}

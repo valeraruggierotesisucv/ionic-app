@@ -15,6 +15,7 @@ import HomeTab from './navigation/HomeTab';
 import AddTab from './navigation/AddTab';
 import NotificationsTab from './navigation/NotificationsTab';
 import ProfileTab from './navigation/ProfileTab';
+import i18n from '../i18n'
 // Import SearchTab if you have it
 // import SearchTab from './navigation/SearchTab';
 import { ROUTES } from './utils/routes';
@@ -43,12 +44,28 @@ import './theme/variables.css';
 import SearchTab from './navigation/SearchTab';
 import { useAuth } from './contexts/AuthContext';
 import { AuthView } from './views/AuthView';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
 const App: React.FC = () => {
   const { user } = useAuth(); 
   
+  const [isI18nInitialized, setIsI18nInitialized] = useState(false);
+
+  useEffect(() => {
+    i18n.init().then(() => {
+      setIsI18nInitialized(true);
+    }).catch((error: any) => {
+      console.error("i18n initialization failed", error);
+    });
+  }, []);
+
+  if (!isI18nInitialized) {
+    return null;
+  }
+
   return(
     <ErrorBoundary>
     <IonApp>
