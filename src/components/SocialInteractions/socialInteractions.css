@@ -8,4 +8,6 @@
     padding: 0px;
     --padding-start: 7px;
     --padding-end: 7px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
 }

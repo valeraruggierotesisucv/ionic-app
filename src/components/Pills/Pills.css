@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: row;  /* Ensure row direction */
+    overflow-x: auto;
+    gap: 8px;
+    padding: 8px 0px;
+    width: 100%;  /* Take full width */
+    align-items: center;  /* Center pills vertically */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  .container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  
+  .pill {
+    white-space: nowrap;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: var(--ion-color-primary);
+    border: none;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    flex: 0 0 auto;  /* Don't grow, don't shrink, auto basis */
+    min-width: fit-content;  /* Ensure content fits */
+  }
+  
+  .selected-pill {
+    background-color: white;
+    color: var(--ion-color-primary);
+  }
