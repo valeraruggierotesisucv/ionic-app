@@ -102,7 +102,7 @@ export function EventCard({
   }, [commentsVisible]);
 
   return (
-    <IonRow className='container'>
+    <IonRow className='event-card-container'>
         <UserCard
           profileImage={profileImage}
           username={username}
