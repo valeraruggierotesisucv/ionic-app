@@ -12,7 +12,7 @@ import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
 import { CustomModal } from "../components/CustomModal/CustomModal";
-import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import { Camera, CameraResultType, CameraSource, GalleryImageOptions } from "@capacitor/camera";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -111,6 +111,33 @@ export function AddDefaultView({
       console.log(image.dataUrl); 
     }
   }
+
+  const handleOpenGallery = async () => {
+    const permissions = await Camera.checkPermissions();
+
+    if (permissions.photos !== 'granted') {
+      const permissionRequest = await Camera.requestPermissions();
+
+      if (permissionRequest.photos !== 'granted') {
+        console.error('Permissions not granted for photo access');
+        return; // Salir si no se conceden los permisos
+      }
+    }
+
+    // Abrir la galería para seleccionar una foto
+    const image = await Camera.getPhoto({
+      quality: 90, // Puedes ajustar la calidad según sea necesario
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Photos // Cambia a CameraSource.Photos para usar la galería
+    });
+
+    if (image) {
+      setImage(image.dataUrl!);
+      console.log(image.dataUrl);
+    }
+  }
+
   /*
   const handleStopRecording = () => {
     stopRecording();
@@ -369,7 +396,7 @@ export function AddDefaultView({
         isOpen={imageModal}
       >        
         <IonButton expand="block" className="custom-button" onClick={handleOpenCamera}>Tomar foto</IonButton>
-        <IonButton expand="block" className="custom-button">Elegir de la Galería</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={handleOpenGallery}>Elegir de la Galería</IonButton>
         <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>Cancelar</IonButton>
       </CustomModal>
 
