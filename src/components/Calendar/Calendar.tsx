@@ -128,18 +128,20 @@ export function Calendar({
 
   return (
     <div className="calendar-container">
+      <div className='calendar-picker-container'>
+        <IonDatetime
+          presentation="date"
+          value={date?.toISOString()}
+          onIonChange={e => {
+            const value = Array.isArray(e.detail.value) ? e.detail.value[0] : e.detail.value;
+            onDateChange(value ? new Date(value) : null);
+          }}
+          min={today.toISOString()}
+          max={maxDate?.toISOString() || nextYear.toISOString()}
+          className="calendar-picker"
+        />
+      </div>
       
-      <IonDatetime
-        presentation="date"
-        value={date?.toISOString()}
-        onIonChange={e => {
-          const value = Array.isArray(e.detail.value) ? e.detail.value[0] : e.detail.value;
-          onDateChange(value ? new Date(value) : null);
-        }}
-        min={today.toISOString()}
-        max={maxDate?.toISOString() || nextYear.toISOString()}
-        className="calendar-picker"
-      />
 
       <div className="time-inputs">
         <TimePickerInput

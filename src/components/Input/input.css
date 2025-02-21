@@ -3,22 +3,28 @@
     flex-direction: row;
     align-items: center;
     padding: 10px;
-    border-bottom: 2px solid #ccc; /* Personaliza con tu color de tema */
+    border-bottom: 2px solid #ccc; 
     justify-content: space-between;
+    height: 60px;
   }
   
   .label {
     font-weight: bold;
     font-family: 'SF-Pro-Rounded-Bold', sans-serif;
+    color: black;
   }
   
   .placeholder {
     flex: 1;
     color: gray;
+    background-color: white;
     font-family: 'SF-Pro-Text-Regular', sans-serif;
+    height: 50px;
+    display: flex;
+    align-items: center;
   }
   
   .required {
-    color: red; /* Personaliza con el color rojo de tu tema */
+    color: red; 
   }
   

@@ -110,3 +110,13 @@
   background-color: #f4f4f4;
   color: #666;
 } 
+
+.calendar-picker {
+  background-color: transparent;
+}
+
+.calendar-picker-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

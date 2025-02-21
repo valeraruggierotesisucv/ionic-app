@@ -1,0 +1,50 @@
+.image-container {
+    width: 100%;
+    height: 250px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.image-placeholder {
+    width: 100%;
+    height: 270px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--ion-color-light);
+}
+
+.custom-row {
+    width: 100%;
+    display: flex;
+    padding: 0px;
+}
+
+.chips-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: "flex-start";
+    align-items: center;
+    padding: 0px;
+    height: 50px;
+}
+  
+  
+.clear-button-col {    
+    display: flex;
+    flex-direction: row;
+    justify-content: "flex-end";
+    align-items: center;
+    padding: 0px;
+    height: 50px;
+}
+  
+.custom-button {
+    --background: #FFFFFF; 
+    --box-shadow: 0px; 
+    font-weight: 500;
+    font-family: 'SF-Pro-Text-Semibold';
+    color: #007AFF;
+}
+  

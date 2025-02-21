@@ -9,13 +9,13 @@ interface DisplayInputProps {
 
 export const DisplayInput: React.FC<DisplayInputProps> = ({ label, data }) => {
   return (
-    <IonItem lines="full" className="display-input-container">
+    <div className="display-input-container">
       <IonLabel className="display-input-label" >
         {label}
       </IonLabel>
       <div className="display-input-data">
         {data}
       </div>
-    </IonItem>
+    </div>
   );
 };

@@ -1,18 +1,12 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonFooter, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { AppHeader } from '../components/AppHeader/AppHeader';
+import { Button } from '../components/Button/Button';
+import {AddEventView} from '../views/AddEventView';
 
 const AddTab: React.FC = () => {
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Add</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        {/* Add content goes here */}
-      </IonContent>
-    </IonPage>
+    <AddEventView />
   );
 };
 
