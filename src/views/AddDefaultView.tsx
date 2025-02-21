@@ -1,5 +1,5 @@
 import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../components/Button/Button";
 import { closeCircle, addSharp} from "ionicons/icons";
 import { CategoriesEnum } from "../utils/shareEnums";
@@ -13,6 +13,7 @@ import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
 import { CustomModal } from "../components/CustomModal/CustomModal";
 import { Camera, CameraResultType, CameraSource, GalleryImageOptions } from "@capacitor/camera";
+import useImagePicker from "../hooks/useImagePicker";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -84,59 +85,8 @@ export function AddDefaultView({
   const [imageModal, setImageModal] = useState(false); 
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
-  
-  const handleOpenCamera = async() => {
-    setImageModal(false); 
-  
-    const permissions = await Camera.checkPermissions();
-  
-    if (permissions.camera !== 'granted') {
-      const permissionRequest = await Camera.requestPermissions();
-  
-      if (permissionRequest.camera !== 'granted') {
-        console.error('Permissions not granted for camera access');
-        return; 
-      }
-    }
-  
-    const image = await Camera.getPhoto({
-      quality: 100, 
-      allowEditing: false, 
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera
-    });
-  
-    if(image){
-      setImage(image.dataUrl!); 
-      console.log(image.dataUrl); 
-    }
-  }
+  const { image: imageUri, error, loading, handleOpenCamera, handleOpenGallery } = useImagePicker();
 
-  const handleOpenGallery = async () => {
-    const permissions = await Camera.checkPermissions();
-
-    if (permissions.photos !== 'granted') {
-      const permissionRequest = await Camera.requestPermissions();
-
-      if (permissionRequest.photos !== 'granted') {
-        console.error('Permissions not granted for photo access');
-        return; // Salir si no se conceden los permisos
-      }
-    }
-
-    // Abrir la galería para seleccionar una foto
-    const image = await Camera.getPhoto({
-      quality: 90, // Puedes ajustar la calidad según sea necesario
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Photos // Cambia a CameraSource.Photos para usar la galería
-    });
-
-    if (image) {
-      setImage(image.dataUrl!);
-      console.log(image.dataUrl);
-    }
-  }
 
   /*
   const handleStopRecording = () => {
@@ -272,13 +222,14 @@ export function AddDefaultView({
   }
 
 
-/*
+
   useEffect(() => {
     if (imageUri) {
       setImage(imageUri); 
+      setImageModal(false); 
     }
   }, [imageUri]);
-
+/*
   useEffect(() => {
     if(musicFileUri){
       setMusicFile(musicFileUri)
