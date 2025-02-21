@@ -20,4 +20,9 @@ export const ROUTES = {
     EVENTS: '/profile/events',
     CONFIGURATION: '/profile/configuration',
   },
+  AUTH: {
+    ROOT: '/',
+    FORGOT_PASSWORD: '/forgot-password',
+    FORGOT_PASSWORD_LOGIN: '/forgot-password-login',
+  },
 } as const; 
