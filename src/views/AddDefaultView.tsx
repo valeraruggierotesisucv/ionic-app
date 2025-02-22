@@ -1,5 +1,5 @@
 import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../components/Button/Button";
 import { closeCircle, addSharp} from "ionicons/icons";
 import { CategoriesEnum } from "../utils/shareEnums";
@@ -12,6 +12,9 @@ import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
 import { CustomModal } from "../components/CustomModal/CustomModal";
+import { Camera, CameraResultType, CameraSource, GalleryImageOptions } from "@capacitor/camera";
+import useImagePicker from "../hooks/useImagePicker";
+import { Geolocation } from "@capacitor/geolocation";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -36,8 +39,8 @@ interface AddDefaultViewProps {
   setEndsAt: (date: Date | null) => void; 
   category: CategoriesEnum | null;
   setCategory: (category: CategoriesEnum | null) => void; 
-  //location: LatLng | null;
-  //setLocation: (location: LatLng | null) => void;
+  location: {latitude: number, longitude: number} | null;
+  setLocation: (location: {latitude: number, longitude: number} | null) => void;
   musicFile: { nameFile: string; uri: string } | null;
   setMusicFile: (file: { nameFile: string; uri: string } | null) => void;
   onAddEvent: () => void;
@@ -63,8 +66,8 @@ export function AddDefaultView({
   setEndsAt, 
   category,
   setCategory, 
-  //location,
-  //setLocation, 
+  location,
+  setLocation, 
   musicFile,
   setMusicFile,
   onAddEvent,
@@ -83,6 +86,21 @@ export function AddDefaultView({
   const [imageModal, setImageModal] = useState(false); 
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
+  const { image: imageUri, error, loading, handleOpenCamera, handleOpenGallery } = useImagePicker();
+
+  const getCurrentLocation = () => {
+    Geolocation.getCurrentPosition()
+      .then((resp) => {
+        setLocation({
+          latitude: resp.coords.latitude,
+          longitude: resp.coords.longitude,
+        });
+        setLocationModal(false); 
+      })
+      .catch((error) => {
+        console.log('Error obteniendo la ubicación', error);
+      });
+  };
   
   /*
   const handleStopRecording = () => {
@@ -90,18 +108,6 @@ export function AddDefaultView({
     setAudioModalVisible(false);
   };
   */
-
-  /*
-  const handleCurrentLocation = () => {
-    if(origin){
-      setLocation({
-        latitude: origin.coords.latitude,
-        longitude: origin.coords.longitude,
-      })
-      setLocationModalVisible(false)
-    }
-  }
-    */
 
   
   const DatePills = () => {
@@ -146,30 +152,29 @@ export function AddDefaultView({
 
   const LocationPills = () => {
     if (!location) return;
-    /*
+    
     function onClear(){
       setLocation(null)
     }
     const latitude = location.latitude.toFixed(3);
     const longitude = location.longitude.toFixed(3);
 
-    */
     return (
       <IonRow className="custom-row">
         <IonCol size="10" className="chips-col">          
           <Chip
-            label=""
+            label={latitude}
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
           />
           <Chip
-            label=""
+            label={longitude}
             variant={ChipVariant.LIGHT}
             onPress={() => setStep(StepsEnum.DATE)}
           />
         </IonCol>
         <IonCol size="2" className="clear-button-col">
-          <IonIcon icon={closeCircle} style={{ width: "100px", height: "20px"}} onClick={() => console.log("CLEAR LOCATION")}/>        
+          <IonIcon icon={closeCircle} style={{ width: "100px", height: "20px"}} onClick={onClear}/>        
         </IonCol>       
       </IonRow> 
     );
@@ -218,13 +223,14 @@ export function AddDefaultView({
   }
 
 
-/*
+
   useEffect(() => {
     if (imageUri) {
       setImage(imageUri); 
+      setImageModal(false); 
     }
   }, [imageUri]);
-
+/*
   useEffect(() => {
     if(musicFileUri){
       setMusicFile(musicFileUri)
@@ -245,7 +251,7 @@ export function AddDefaultView({
       </IonHeader>
 
       {/* CONTENT */}
-      <div>
+      <IonContent>
         {/* IMAGEN */}
         <IonButton fill="clear" onClick={() => setImageModal(true)} className="image-container">
           {image ? (
@@ -336,20 +342,20 @@ export function AddDefaultView({
                 onPress={() => setLocationModal(true)}
               />
             )} 
-      </div>
+      </IonContent>
       
       <CustomModal 
         isOpen={imageModal}
       >        
-        <IonButton expand="block" className="custom-button">Tomar foto</IonButton>
-        <IonButton expand="block" className="custom-button">Elegir de la Galería</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={handleOpenCamera}>Tomar foto</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={handleOpenGallery}>Elegir de la Galería</IonButton>
         <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>Cancelar</IonButton>
       </CustomModal>
 
       <CustomModal 
         isOpen={locationModal}
       >        
-        <IonButton expand="block" className="custom-button">Agregar mi ubicación</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={getCurrentLocation}>Agregar mi ubicación</IonButton>
         <IonButton expand="block" className="custom-button" onClick={() => setLocationModal(false)}>Cancelar</IonButton>
       </CustomModal>
 

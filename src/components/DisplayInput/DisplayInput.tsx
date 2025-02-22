@@ -4,8 +4,8 @@ import './displayInput.css';
 
 interface DisplayInputProps {
   label: string;
-  onPress: () => void;
-  data?: string;
+  onPress?: () => void;
+  data?: React.ReactNode;
 }
 
 export const DisplayInput: React.FC<DisplayInputProps> = ({ label, onPress, data }) => {
