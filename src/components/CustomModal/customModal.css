@@ -1,13 +1,14 @@
 .custom-modal {
-    --width: 80%;
+    --width: auto;
     --max-width: 400px;
     --height: auto;
     --border-radius: 16px;
   }
   
-  .modal-container {
+  .custom-modal-container {
     position: relative;
     background: white;
+    padding: 24px;
   }
   
   .close-button ion-icon {
@@ -16,7 +17,7 @@
     color: #000;
   }
   
-  .modal-content {
+  .custom-modal-content {
     display: flex;
     flex-direction: column;
     align-items: center;

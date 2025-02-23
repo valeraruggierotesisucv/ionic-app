@@ -10,6 +10,8 @@ import { ConfigurationView } from '../views/ConfigurationView';
 import { ChangePasswordView } from '../views/ChangePasswordView';
 import { FollowedView } from '../views/FollowedView';
 import { FollowersView } from '../views/FollowersView';
+import { EventDetailsView } from '../views/EventDetailsView';
+import { EditEventView } from '../views/EditEventView';
 
 const ProfileTab: React.FC = () => {
   const { logout } = useAuth(); 
@@ -47,6 +49,16 @@ const ProfileTab: React.FC = () => {
           path={ROUTES.PROFILE.FOLLOWERS} 
           component={FollowersView} 
         />  
+        <Route 
+          exact 
+          path={ROUTES.PROFILE.EVENT_DETAILS} 
+          component={EventDetailsView} 
+        />
+        <Route 
+          exact 
+          path={ROUTES.PROFILE.EDIT_EVENT} 
+          component={EditEventView} 
+        />
       </IonRouterOutlet>
     </IonPage>
   );

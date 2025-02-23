@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    gap: 24px;
+    padding: 16px;
 }
 
 .avatar-section {
@@ -42,9 +44,10 @@
     flex: 1;
 }
 
-.button-container {
-    padding: 16px;
-    margin-top: auto;
+.edit-profile-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
 }
 
 .button-container ion-button {

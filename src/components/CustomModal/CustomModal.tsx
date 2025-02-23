@@ -14,9 +14,9 @@ export function CustomModal({ isOpen, children, onClose }: CustomModalProps) {
       className="custom-modal"
       onDidDismiss={onClose}
     >
-      <div className="modal-container">
+      <div className="custom-modal-container">
           
-        <div className="modal-content">
+        <div className="custom-modal-content">
           {children}
         </div>
       </div>
