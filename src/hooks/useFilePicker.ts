@@ -7,7 +7,7 @@ const useFilePicker = () => {
 
   const handleOpenFilePicker = async () => {
     try {
-        const result = await FilePicker.pickMedia(); 
+        const result = await FilePicker.pickFiles(); 
         const file = result.files[0]; 
         
         if(file){
