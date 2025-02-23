@@ -44,7 +44,7 @@ interface AddDefaultViewProps {
   location: {latitude: number, longitude: number} | null;
   setLocation: (location: {latitude: number, longitude: number} | null) => void;
   musicFile: { nameFile: string; uri: string } | null;
-  setMusicFile: (file: { nameFile: string; uri: string } | null) => void;
+  setMusicFile: (file: { nameFile: string; uri: string, mimeType: string} | null) => void;
   onAddEvent: () => void;
   image: string | null;
   setImage: (image: string | null) => void;
@@ -217,7 +217,7 @@ export function AddDefaultView({
   
   useEffect(() => {
     if(audioFileUri){
-      setMusicFile({ nameFile: "Audio", uri: audioFileUri}); 
+      setMusicFile(audioFileUri); 
       setMusicModal(false); 
     }
 

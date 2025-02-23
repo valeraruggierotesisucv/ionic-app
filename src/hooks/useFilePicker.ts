@@ -2,7 +2,8 @@ import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { useState } from 'react';
 
 const useFilePicker = () => {
-  const [musicFile, setMusicFile] = useState<{ nameFile: string; uri: string } | null>(null);
+  const [musicFile, setMusicFile] = useState<{ nameFile: string; uri: string, mimeType: string} | null>(null);
+  const [musicBlob, setMusicBlob] = useState<Blob | null>(null); 
   
 
   const handleOpenFilePicker = async () => {
@@ -13,7 +14,8 @@ const useFilePicker = () => {
         const file = result.files[0]; 
         
         if(file && file.data){
-            setMusicFile({ nameFile: file.name, uri: file.data})
+          setMusicFile({ nameFile: file.name, uri: file.data, mimeType: file.mimeType}); 
+           
         }
         
         console.log(file); 
@@ -27,6 +29,7 @@ const useFilePicker = () => {
   return {
     handleOpenFilePicker,
     musicFile,
+    musicBlob
   };
 };
 

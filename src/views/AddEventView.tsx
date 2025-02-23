@@ -6,12 +6,16 @@ import { AddDefaultView } from './AddDefaultView';
 import { AddDateView } from './AddDateView';
 import { ChooseCategoriesView } from './ChooseCategoriesView';
 import { image } from 'ionicons/icons';
+import { useAuth } from '../contexts/AuthContext';
+import { FileController } from '../controllers/FileController';
+import { LocationController } from '../controllers/LocationController';
+import { FileTypeEnum } from '../services/storage';
 
 
 export function AddEventView() {
   //const { t } = useTranslation();
   //const toast =  useToast(); 
-  //const { session, user } = useAuth(); 
+  const { session, user } = useAuth(); 
   //const navigation = useNavigation<AddStackNavigationProp>();
   //const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -24,29 +28,30 @@ export function AddEventView() {
   const [categoryId, setCategoryId] = useState<number|null>(null); 
   const [location, setLocation] = useState<{ latitude: number, longitude: number} | null>(null);
   const [image, setImage] = useState<string | null>(null);
-  const [musicFile, setMusicFile] = useState<{nameFile: string; uri: string;} | null>(null);
+  const [musicFile, setMusicFile] = useState<{nameFile: string; uri: string; mimeType:string;} | null>(null);
   const [step, setStep] = useState<StepsEnum>(StepsEnum.DEFAULT);
   const [disable, setDisable] = useState(false); 
 
-  async function handleAddEvent() {     
-    //title && description && date && startTime && endTime && category && image && musicFile && location && session
-    console.log("title ", title); 
-    console.log("descripcion ", description); 
-    console.log(`cuando ${date}, ${startTime}, ${endTime}`); 
-    if (category) {
+  async function handleAddEvent() {   
+    //title && description && date && startTime && endTime && category && image && musicFile && location && session    
+    if (image && musicFile) {
       setDisable(true);      
-      /*
+      console.log("publicando evento.."); 
       const locationData = {
         latitude: location?.latitude,
         longitude: location?.longitude, 
       }
-      */
+      
       try{
+        console.log("subiendo imagen..."); 
+        const imageUrl = await FileController.uploadFile(image, FileTypeEnum.IMAGE, "image/jpeg"); 
+        console.log(imageUrl); 
+        console.log("subiendo archivo..."); 
+        console.log(musicFile); 
+        const musicUrl = await FileController.uploadFile(musicFile.uri, FileTypeEnum.AUDIO, musicFile.mimeType); 
+        console.log(musicUrl); 
+        //const locationId = await LocationController.addLocation(session?.access_token, locationData); 
         /*
-        const imageUrl = await FileController.uploadFile(image, FileTypeEnum.IMAGE); 
-        const musicUrl = await FileController.uploadFile(musicFile.uri, FileTypeEnum.AUDIO); 
-        const locationId = await LocationController.addLocation(session?.access_token, locationData); 
-
         const eventData = {
           userId: user?.id,
           title: title,
@@ -57,9 +62,12 @@ export function AddEventView() {
           eventImage: imageUrl,
           eventMusic: musicUrl, 
           categoryId: categoryId,                                
-          locationId: locationId      
+          locationId: "falta"      
         }
+
+        console.log(eventData); 
         */
+        
         
         //await AddEventController.postEvent(session?.access_token, eventData); 
         
@@ -70,6 +78,7 @@ export function AddEventView() {
         //Alert.alert("Error", (error as Error).message);
       }
     }else{
+      console.log(" falta algo"); 
       /*
       toast.show(t("addEvent.require_fields"), {
         type: "normal",
