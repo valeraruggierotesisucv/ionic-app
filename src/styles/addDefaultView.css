@@ -47,4 +47,10 @@
     font-family: 'SF-Pro-Text-Semibold';
     color: #007AFF;
 }
-  
+
+.success-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -8,10 +8,19 @@ import { FileController } from '../controllers/FileController';
 import { LocationController } from '../controllers/LocationController';
 import { FileTypeEnum } from '../services/storage';
 import { AddEventController } from '../controllers/AddEventController';
+import { Modal } from '../components/Modal/Modal';
+import { useHistory } from 'react-router';
+import { ROUTES } from '../utils/routes';
+import { IonImg, IonText } from '@ionic/react';
+import { useTranslation } from 'react-i18next';
+import "../styles/addDefaultView.css";
+
 
 export function AddEventView() {
   const { session, user } = useAuth(); 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const history = useHistory();
+  const { t } = useTranslation();
 
   const [title, setTitle] = useState<string| null>(null); 
   const [description, setDescription] = useState<string | null>(null);
@@ -121,7 +130,28 @@ export function AddEventView() {
             setCategoryId={setCategoryId}
           />
         )}
-
+        <Modal 
+          isOpen={modalVisible} 
+          onClose={() => {
+            history.push(ROUTES.HOME.ROOT);
+            setModalVisible(false); 
+          }}
+        >   
+          <div className='success-modal'>
+          <IonImg 
+              src="../../images/Onboarding.png"
+              style={{ width: '200px', height: '200px', marginBottom: '16px' }}
+            />
+            <IonText style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              textAlign: 'center',
+              marginBottom: '8px'
+            }}>
+              {t("addEvent.event_published")}
+            </IonText>
+          </div>
+        </Modal>
     </>        
   
   );
