@@ -16,6 +16,7 @@ import { Camera, CameraResultType, CameraSource, GalleryImageOptions } from "@ca
 import useImagePicker from "../hooks/useImagePicker";
 import { Geolocation } from "@capacitor/geolocation";
 import { VoiceRecorder } from "capacitor-voice-recorder";
+import useCurrentLocation from "../hooks/useCurrentLocation";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -77,32 +78,14 @@ export function AddDefaultView({
   edit = false, 
   disable = false
 }: AddDefaultViewProps) {
-  //const { t } = useTranslation();
-  //const { isModalVisible, imageUri, openCamera, openGallery, setModalVisible } = useImagePicker();
-  //const { musicFileUri, pickMusicFile } = useMusicPicker();
-  //const { location : origin, getCurrentLocation } = useCurrentLocation(); 
-  //const { audioFileUri, startRecording, stopRecording, isRecording } = useAudioRecorder();
-  //const [isAudioModalVisible, setAudioModalVisible] = useState(false);
-  //const [isLocationModalVisible, setLocationModalVisible] = useState(false);
+
   const [imageModal, setImageModal] = useState(false); 
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
   const [isRecording, setIsRecording] = useState(false); 
-  const { image: imageUri, error, loading, handleOpenCamera, handleOpenGallery } = useImagePicker();
+  const { image: imageUri, handleOpenCamera, handleOpenGallery } = useImagePicker();
+  const { location: locationCoords, getCurrentLocation } = useCurrentLocation();
 
-  const getCurrentLocation = () => {
-    Geolocation.getCurrentPosition()
-      .then((resp) => {
-        setLocation({
-          latitude: resp.coords.latitude,
-          longitude: resp.coords.longitude,
-        });
-        setLocationModal(false); 
-      })
-      .catch((error) => {
-        console.log('Error obteniendo la ubicación', error);
-      });
-  };
   
   const handleStartRecording = async() => {
     const permission = await VoiceRecorder.requestAudioRecordingPermission(); 
@@ -121,13 +104,12 @@ export function AddDefaultView({
 
     if (result.value) {
       const audioBase64 = result.value.recordDataBase64;
+      setMusicFile({ nameFile: "Audio", uri: audioBase64}); 
       console.log(audioBase64); 
     } else {
-      // Manejar error al detener la grabación
       console.log("Failed to stop recording");
     }
-  };
-  
+  }; 
 
   
   const DatePills = () => {
@@ -250,6 +232,14 @@ export function AddDefaultView({
       setImageModal(false); 
     }
   }, [imageUri]);
+
+  useEffect(() => {
+    if (locationCoords) {
+      setLocation(locationCoords); 
+      setLocationModal(false); 
+    }
+  }, [locationCoords]);
+  
 /*
   useEffect(() => {
     if(musicFileUri){
