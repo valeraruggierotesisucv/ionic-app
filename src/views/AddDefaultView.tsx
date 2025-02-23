@@ -12,10 +12,7 @@ import { formatHour } from "../utils/formatHour";
 import { Chip, ChipVariant } from "../components/Chip/Chip";
 import { truncateString } from "../utils/formatString";
 import { CustomModal } from "../components/CustomModal/CustomModal";
-import { Camera, CameraResultType, CameraSource, GalleryImageOptions } from "@capacitor/camera";
 import useImagePicker from "../hooks/useImagePicker";
-import { Geolocation } from "@capacitor/geolocation";
-import { VoiceRecorder } from "capacitor-voice-recorder";
 import useCurrentLocation from "../hooks/useCurrentLocation";
 import useAudioRecorder from "../hooks/useAudioRecorder";
 
