@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { mail } from 'ionicons/icons';
 import { ROUTES } from '../utils/routes';
 import forgotPasswordImage from '../../public/images/SuccessEmail.png';
-import './forgotPasswordView.css';
+import '../styles/forgotPasswordView.css';
 
 export function ForgotPasswordView() {
     const [email, setEmail] = useState('');

@@ -5,7 +5,7 @@ import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 import { Tabs, Tab } from '../components/Tabs/Tabs';
 import { IconLogo } from '../components/IconLogo/IconLogo';
 import { useAuth } from '../contexts/AuthContext';
-import './authView.css';
+import '../styles/authView.css';
 import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
 import { eye, eyeOff, mail, person } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';

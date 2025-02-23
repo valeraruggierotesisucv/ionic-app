@@ -14,7 +14,7 @@ import { NotificationType } from "../components/NotificationItem/NotificationIte
 import { NotificationsController } from "../controllers/NotificationsController";
 import { IMAGE_PLACEHOLDER } from "../utils/consts";
 import { Button, ButtonSize, ButtonVariant } from "../components/Button/Button";
-import "./eventDetailsView.css";
+import "../styles/eventDetailsView.css";
 import { ROUTES } from "../utils/routes";
 
 interface LocationState {
