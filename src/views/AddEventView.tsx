@@ -11,7 +11,7 @@ import { AddEventController } from '../controllers/AddEventController';
 import { Modal } from '../components/Modal/Modal';
 import { useHistory } from 'react-router';
 import { ROUTES } from '../utils/routes';
-import { IonImg, IonText } from '@ionic/react';
+import { IonImg, IonText, useIonViewDidEnter } from '@ionic/react';
 import { useTranslation } from 'react-i18next';
 import "../styles/addDefaultView.css";
 
@@ -77,6 +77,23 @@ export function AddEventView() {
     
   }
 
+  function cleanForm() {
+    setTitle(null); 
+    setDescription(null);
+    setDate(null);
+    setStartTime(null);
+    setEndTime(null);
+    setImage(null); 
+    setCategory(null);
+    setCategoryId(null); 
+    setMusicFile(null); 
+    setLocation(null);
+  }
+
+  useIonViewDidEnter(() => {
+    cleanForm()
+  })
+  
   return (
     <>
     { step === StepsEnum.DEFAULT && (
