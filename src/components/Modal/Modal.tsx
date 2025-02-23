@@ -13,7 +13,7 @@ export function Modal({ isOpen, onClose, children }: ModalProps) {
     <IonModal 
       isOpen={isOpen} 
       onDidDismiss={onClose}
-      className="custom-modal"
+      className="modal"
     >
       <div className="modal-container">
         <button 

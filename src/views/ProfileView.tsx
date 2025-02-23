@@ -42,13 +42,12 @@ export function ProfileView() {
       setIsLoading(false);
     }catch(error){
       console.error("Error in fetchProfile:", error);
-      
     }
   };
   useIonViewWillEnter(() => {
     fetchProfile();
   });
-  
+
   const handleEditProfile = () => {
     history.push(ROUTES.PROFILE.EDIT);
   };
@@ -89,7 +88,7 @@ export function ProfileView() {
 
         <EventThumbnailList
             events={events}
-            onPressEvent={(id) => {console.log("Event pressed", id)}}
+            onPressEvent={(id) => {history.push(ROUTES.PROFILE.EVENT_DETAILS.replace(":eventId", id), { canEdit: true })}}
         />
         </>
         )}
