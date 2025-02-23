@@ -1,4 +1,4 @@
-import { apiRequest } from "../../utils/apiRequest";
+import { apiRequest } from "../utils/apiRequest";
 
 export class FollowUserModel {
     public userIdFollows: string;

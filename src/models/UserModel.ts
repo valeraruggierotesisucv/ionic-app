@@ -1,4 +1,4 @@
-import { apiRequest } from "../../utils/apiRequest";
+import { apiRequest } from "../utils/apiRequest";
 
 export class UserModel {
     public userId: string;
@@ -169,5 +169,5 @@ export class UserModel {
         }
     }
 }
-
 export default UserModel;
+

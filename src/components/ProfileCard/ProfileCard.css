@@ -50,9 +50,10 @@
   font-weight: 700;
 }
 
-.user-info {
+.userCard-info {
   width: 100%;
   text-align: left;
+  flex-direction: column;
 }
 
 .username {

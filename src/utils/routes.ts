@@ -2,6 +2,7 @@ export const ROUTES = {
   HOME: {
     ROOT: '/home',
     EVENT_DETAILS: '/home/event-details',
+    PROFILE_DETAILS: '/home/profile-details/:userId',
   },
   ADD: {
     ROOT: '/add',

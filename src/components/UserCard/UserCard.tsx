@@ -28,7 +28,7 @@ export function UserCard({
   disabled,
 }: UserCardProps) {
   return (
-    <IonRow className="user-card-container ion-align-items-center">
+    <IonRow className="user-card-container ion-align-items-center" onClick={onPressUser}>
       <IonCol size="auto" className="ion-no-padding">
         <IonAvatar className="user-avatar">
           <img src={profileImage} alt="Profile" />
