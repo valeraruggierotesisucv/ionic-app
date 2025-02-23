@@ -5,7 +5,7 @@ const useCurrentLocation = () => {
   const [location, setLocation] = useState<{latitude: number, longitude: number} | null>(null);
   const [error, setError] = useState(null);
 
-  const getCurrentLocation = useCallback(() => {
+  const getCurrentLocation = async() => {
     Geolocation.getCurrentPosition()
       .then(resp => {
         setLocation({
@@ -17,7 +17,7 @@ const useCurrentLocation = () => {
         console.error('Error obteniendo la ubicación', err);
         setError(err);
       });
-  }, []);
+  };
 
   return {
     location,

@@ -17,6 +17,7 @@ import useImagePicker from "../hooks/useImagePicker";
 import { Geolocation } from "@capacitor/geolocation";
 import { VoiceRecorder } from "capacitor-voice-recorder";
 import useCurrentLocation from "../hooks/useCurrentLocation";
+import useAudioRecorder from "../hooks/useAudioRecorder";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -82,35 +83,9 @@ export function AddDefaultView({
   const [imageModal, setImageModal] = useState(false); 
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
-  const [isRecording, setIsRecording] = useState(false); 
   const { image: imageUri, handleOpenCamera, handleOpenGallery } = useImagePicker();
   const { location: locationCoords, getCurrentLocation } = useCurrentLocation();
-
-  
-  const handleStartRecording = async() => {
-    const permission = await VoiceRecorder.requestAudioRecordingPermission(); 
-
-    if(permission){
-      setIsRecording(true); 
-      await VoiceRecorder.startRecording();       
-    }
-  }
-
-  
-  const handleStopRecording = async() => {
-    setIsRecording(false); 
-    const result = await VoiceRecorder.stopRecording();
-    setMusicModal(false);
-
-    if (result.value) {
-      const audioBase64 = result.value.recordDataBase64;
-      setMusicFile({ nameFile: "Audio", uri: audioBase64}); 
-      console.log(audioBase64); 
-    } else {
-      console.log("Failed to stop recording");
-    }
-  }; 
-
+  const { musicFile: musicFileUri, isRecording, handleStartRecording, handleStopRecording} = useAudioRecorder(); 
   
   const DatePills = () => {
     if (startsAt === null || endsAt === null || date === null) return;
@@ -240,14 +215,15 @@ export function AddDefaultView({
     }
   }, [locationCoords]);
   
-/*
+
   useEffect(() => {
     if(musicFileUri){
-      setMusicFile(musicFileUri)
+      setMusicFile({ nameFile: "Audio", uri: musicFileUri}); 
+      setMusicModal(false); 
     }
 
   }, [musicFileUri]); 
-
+/*
   useEffect(() => {
     if (audioFileUri) {
       setMusicFile(audioFileUri);
