@@ -15,7 +15,6 @@ import { CustomModal } from "../components/CustomModal/CustomModal";
 import useImagePicker from "../hooks/useImagePicker";
 import useCurrentLocation from "../hooks/useCurrentLocation";
 import useAudioRecorder from "../hooks/useAudioRecorder";
-import { FilePicker } from "@capawesome/capacitor-file-picker";
 import useFilePicker from "../hooks/useFilePicker";
 
 export enum StepsEnum {
@@ -331,6 +330,7 @@ export function AddDefaultView({
       
       <CustomModal 
         isOpen={imageModal}
+        onClose={() => setImageModal(false)}
       >        
         <IonButton expand="block" className="custom-button" onClick={handleOpenCamera}>Tomar foto</IonButton>
         <IonButton expand="block" className="custom-button" onClick={handleOpenGallery}>Elegir de la Galería</IonButton>
@@ -339,6 +339,7 @@ export function AddDefaultView({
 
       <CustomModal 
         isOpen={locationModal}
+        onClose={() => setLocationModal(false)}
       >        
         <IonButton expand="block" className="custom-button" onClick={getCurrentLocation}>Agregar mi ubicación</IonButton>
         <IonButton expand="block" className="custom-button" onClick={() => setLocationModal(false)}>Cancelar</IonButton>
@@ -346,6 +347,7 @@ export function AddDefaultView({
 
       <CustomModal 
         isOpen={musicModal}
+        onClose={() => setMusicModal(false)}
       >       
         <IonButton expand="block" className="custom-button" onClick={handleOpenFilePicker}>Escoger de los archivos</IonButton>
         <IonButton expand="block" className="custom-button" onClick={ isRecording ? handleStopRecording : handleStartRecording } >{ isRecording ? "Detener grabación" : "Grabar Audio"}</IonButton>
