@@ -40,12 +40,14 @@ export function AuthView() {
     if (activeTab === 'login') {
       try {
         await login(email, password);
+        history.push(ROUTES.HOME.ROOT);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
         // await signup(registerEmail, registerPassword);
+        history.push(ROUTES.HOME.ROOT);
       } catch (error) {
         console.error(error);
       }
