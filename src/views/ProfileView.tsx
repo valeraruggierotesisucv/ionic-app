@@ -1,4 +1,4 @@
-import { IonContent } from "@ionic/react";
+import { IonContent, IonLoading, useIonViewWillEnter } from "@ionic/react";
 
 import { IonPage, IonToolbar } from "@ionic/react";
 
@@ -8,69 +8,47 @@ import { ProfileCard } from "../components/ProfileCard/ProfileCard";
 import { EventThumbnail, EventThumbnailList } from "../components/EventThumbnailList/EventThumbnailList";
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
+import { useEffect, useState } from "react";
+import UserModel from "../models/UserModel";
+import { ProfileController } from "../controllers/ProfileController";
+import { useAuth } from "../contexts/AuthContext";
+import { Loading } from "../components/Loading/Loading";
 
-const events: EventThumbnail[] = [
-    {
-        id: "1",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "2",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "3",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "4",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "5",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "6",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "7",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "8",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "9",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "10",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "11",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "12",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "13",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-    {
-        id: "14",
-        imageUrl: "https://www.musicokey.com/wp-content/uploads/2022/02/Martin-Garrix.jpg",
-    },
-];
+export interface EventSummary {
+    id: string;
+    imageUrl: string;
+}
 
 export function ProfileView() {
   const history = useHistory();
+  const [user, setUser] = useState<UserModel | null>(null);
+  const [events, setEvents] = useState<EventSummary[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const {session, user: authUser} = useAuth();
 
+  const fetchProfile = async () => {
+    try{
+      if(!session) return;
+      const user = await ProfileController.getProfile(
+        session?.access_token, 
+        authUser?.id || ""
+      );
+      setUser(user);
+      const events = await ProfileController.getUserEvents(
+        session?.access_token, 
+        authUser?.id || ""
+      );
+      setEvents(events);
+      setIsLoading(false);
+    }catch(error){
+      console.error("Error in fetchProfile:", error);
+      
+    }
+  };
+  useIonViewWillEnter(() => {
+    fetchProfile();
+  });
+  
   const handleEditProfile = () => {
     history.push(ROUTES.PROFILE.EDIT);
   };
@@ -92,12 +70,17 @@ export function ProfileView() {
       <AppHeader />
 
       <IonContent >
+        {isLoading ? (
+          <Loading/>
+        ) : (
+          <>
         <ProfileCard 
-            username="John Doe"
-            biography="I am a software engineer"
-            events={10}
-            followers={100}
-            following={100}
+            username={user?.username || ""}
+            biography={user?.biography || ""}
+            profileImage={user?.profileImage || ""}
+            events={events.length}
+            followers={user?.followersCounter || 0}
+            following={user?.followingCounter || 0}
             onEditProfile={handleEditProfile}
             onConfigureProfile={handleConfigureProfile}
             onFollowers={handleFollowers}
@@ -108,9 +91,8 @@ export function ProfileView() {
             events={events}
             onPressEvent={(id) => {console.log("Event pressed", id)}}
         />
-      
-        
-        
+        </>
+        )}
       </IonContent>
     </IonPage>
   );
