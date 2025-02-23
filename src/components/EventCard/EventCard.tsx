@@ -5,6 +5,7 @@ import { UserCard, UserCardVariant } from "../UserCard/UserCard";
 import './eventCard.css'; 
 import { Chip, ChipVariant } from '../Chip/Chip';
 import { useTranslation } from 'react-i18next';
+import { CommentsSection } from '../CommentsSection/CommentsSection';
 //import { DisplayEvent } from "../DisplayEvent/DisplayEvent";
 //import { CommentsSection } from "../CommentsSection/CommentsSection";
 //import { Chip, ChipVariant } from "../Chip/Chip";
@@ -110,7 +111,7 @@ export function EventCard({
           variant={UserCardVariant.DEFAULT}
           onPressUser={onPressUser}
         />
-        <IonImg src={eventImage} alt="Event" className='image' style={{margin: '0px 0px 0px 0px'}} />
+        <IonImg src={eventImage} alt="Event" className='image'  />
         
         
         <div className='content-container'>
@@ -152,14 +153,14 @@ export function EventCard({
             musicUrl={musicUrl}
           />
         )*/}
-        {/*commentsVisible && comments && (
+        {commentsVisible && comments && (
           <CommentsSection
             comments={comments}
             onAddComment={handleAddComment}
             isOpen={commentsVisible}
             setIsOpen={setCommentsVisible}
           />
-        )*/}
+        )}
         </div>
     </IonRow>         
   );

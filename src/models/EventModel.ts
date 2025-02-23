@@ -1,5 +1,5 @@
-import { apiRequest } from "../../utils/apiRequest";
-import { formatHour } from "../../utils/formatHour";
+import { apiRequest } from "../utils/apiRequest";
+import { formatHour } from "../utils/formatHour";
 export class EventModel {
     eventId: string; 
     profileImage: string; 

@@ -57,7 +57,7 @@ export function ProfileCard({
           </div>
         </div>
         
-        <div className="user-info">
+        <div className="userCard-info">
           <h2 className="username">{username}</h2>
           <p className="biography">{biography}</p>
         </div>

@@ -1,4 +1,4 @@
-import { apiRequest } from "../../utils/apiRequest";
+import { apiRequest } from "../utils/apiRequest";
 import { NotificationType } from "../components/NotificationItem/NotificationItem";
 
 export class NotificationModel{
