@@ -63,12 +63,7 @@ export function AddEventView() {
         console.error("Error in AddEventView:", error);
       }
     }else{
-      /*
-      toast.show(t("addEvent.require_fields"), {
-        type: "normal",
-        placement: "top",
-      })
-        */
+      console.error("Error in AddEventView");
     }
     
   }

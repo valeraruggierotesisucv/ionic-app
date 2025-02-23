@@ -49,7 +49,6 @@ export async function uploadFile(uri: string, type: FileTypeEnum, mimeType: stri
   }
 
   try{
-    console.log("uri-->", uri); 
     let blob; 
 
     if(type === FileTypeEnum.IMAGE){
