@@ -1,5 +1,6 @@
 import { EventModel } from "../models/EventModel";
 import { t } from "i18next";
+
 export class AddEventController {
     static async postEvent(token: string, event : object){
         try {

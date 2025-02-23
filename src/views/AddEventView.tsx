@@ -10,14 +10,12 @@ import { useAuth } from '../contexts/AuthContext';
 import { FileController } from '../controllers/FileController';
 import { LocationController } from '../controllers/LocationController';
 import { FileTypeEnum } from '../services/storage';
+import { AddEventController } from '../controllers/AddEventController';
 
 
 export function AddEventView() {
-  //const { t } = useTranslation();
-  //const toast =  useToast(); 
   const { session, user } = useAuth(); 
-  //const navigation = useNavigation<AddStackNavigationProp>();
-  //const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const [title, setTitle] = useState<string| null>(null); 
   const [description, setDescription] = useState<string | null>(null);
@@ -33,8 +31,8 @@ export function AddEventView() {
   const [disable, setDisable] = useState(false); 
 
   async function handleAddEvent() {   
-    //title && description && date && startTime && endTime && category && image && musicFile && location && session    
-    if (image && musicFile) {
+   
+    if (title && description && date && startTime && endTime && category && image && musicFile && location && session) {
       setDisable(true);      
       console.log("publicando evento.."); 
       const locationData = {
@@ -50,8 +48,9 @@ export function AddEventView() {
         console.log(musicFile); 
         const musicUrl = await FileController.uploadFile(musicFile.uri, FileTypeEnum.AUDIO, musicFile.mimeType); 
         console.log(musicUrl); 
-        //const locationId = await LocationController.addLocation(session?.access_token, locationData); 
-        /*
+        const locationId = await LocationController.addLocation(session?.access_token, locationData); 
+        console.log("location creada ", locationId); 
+        
         const eventData = {
           userId: user?.id,
           title: title,
@@ -62,23 +61,18 @@ export function AddEventView() {
           eventImage: imageUrl,
           eventMusic: musicUrl, 
           categoryId: categoryId,                                
-          locationId: "falta"      
-        }
-
-        console.log(eventData); 
-        */
+          locationId: locationId   
+        } 
         
+        const result = await AddEventController.postEvent(session?.access_token, eventData); 
+        console.log(result); 
         
-        //await AddEventController.postEvent(session?.access_token, eventData); 
-        
-        //setModalVisible(true);
+        setModalVisible(true);
         setDisable(false); 
       }catch(error){
         console.error("Error in AddEventView:", error);
-        //Alert.alert("Error", (error as Error).message);
       }
     }else{
-      console.log(" falta algo"); 
       /*
       toast.show(t("addEvent.require_fields"), {
         type: "normal",
