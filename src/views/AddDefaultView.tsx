@@ -15,6 +15,7 @@ import { CustomModal } from "../components/CustomModal/CustomModal";
 import { Camera, CameraResultType, CameraSource, GalleryImageOptions } from "@capacitor/camera";
 import useImagePicker from "../hooks/useImagePicker";
 import { Geolocation } from "@capacitor/geolocation";
+import { VoiceRecorder } from "capacitor-voice-recorder";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -86,6 +87,7 @@ export function AddDefaultView({
   const [imageModal, setImageModal] = useState(false); 
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
+  const [isRecording, setIsRecording] = useState(false); 
   const { image: imageUri, error, loading, handleOpenCamera, handleOpenGallery } = useImagePicker();
 
   const getCurrentLocation = () => {
@@ -102,12 +104,30 @@ export function AddDefaultView({
       });
   };
   
-  /*
-  const handleStopRecording = () => {
-    stopRecording();
-    setAudioModalVisible(false);
+  const handleStartRecording = async() => {
+    const permission = await VoiceRecorder.requestAudioRecordingPermission(); 
+
+    if(permission){
+      setIsRecording(true); 
+      await VoiceRecorder.startRecording();       
+    }
+  }
+
+  
+  const handleStopRecording = async() => {
+    setIsRecording(false); 
+    const result = await VoiceRecorder.stopRecording();
+    setMusicModal(false);
+
+    if (result.value) {
+      const audioBase64 = result.value.recordDataBase64;
+      console.log(audioBase64); 
+    } else {
+      // Manejar error al detener la grabación
+      console.log("Failed to stop recording");
+    }
   };
-  */
+  
 
   
   const DatePills = () => {
@@ -363,7 +383,7 @@ export function AddDefaultView({
         isOpen={musicModal}
       >       
         <IonButton expand="block" className="custom-button">Escoger de los archivos</IonButton>
-        <IonButton expand="block" className="custom-button">Grabar Audio</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={ isRecording ? handleStopRecording : handleStartRecording } >{ isRecording ? "Detener grabación" : "Grabar Audio"}</IonButton>
         <IonButton expand="block" className="custom-button" onClick={() => setMusicModal(false)}>Cancelar</IonButton> 
       </CustomModal>
 
