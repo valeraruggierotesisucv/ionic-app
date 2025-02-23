@@ -15,6 +15,8 @@ import { CustomModal } from "../components/CustomModal/CustomModal";
 import useImagePicker from "../hooks/useImagePicker";
 import useCurrentLocation from "../hooks/useCurrentLocation";
 import useAudioRecorder from "../hooks/useAudioRecorder";
+import { FilePicker } from "@capawesome/capacitor-file-picker";
+import useFilePicker from "../hooks/useFilePicker";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -82,8 +84,9 @@ export function AddDefaultView({
   const [musicModal, setMusicModal] = useState(false); 
   const { image: imageUri, handleOpenCamera, handleOpenGallery } = useImagePicker();
   const { location: locationCoords, getCurrentLocation } = useCurrentLocation();
-  const { musicFile: musicFileUri, isRecording, handleStartRecording, handleStopRecording} = useAudioRecorder(); 
-  
+  const { musicFile: audioFileUri, isRecording, handleStartRecording, handleStopRecording} = useAudioRecorder(); 
+  const { musicFile: musicFileUri, handleOpenFilePicker }= useFilePicker(); 
+
   const DatePills = () => {
     if (startsAt === null || endsAt === null || date === null) return;
 
@@ -212,21 +215,21 @@ export function AddDefaultView({
     }
   }, [locationCoords]);
   
-
   useEffect(() => {
-    if(musicFileUri){
-      setMusicFile({ nameFile: "Audio", uri: musicFileUri}); 
+    if(audioFileUri){
+      setMusicFile({ nameFile: "Audio", uri: audioFileUri}); 
       setMusicModal(false); 
     }
 
-  }, [musicFileUri]); 
-/*
+  }, [audioFileUri]); 
+
   useEffect(() => {
-    if (audioFileUri) {
-      setMusicFile(audioFileUri);
+    if (musicFileUri) {
+      setMusicFile(musicFileUri);
+      setMusicModal(false); 
     }
-  }, [audioFileUri]);
-*/
+  }, [musicFileUri]);
+
   return (
     <IonPage>
       <IonHeader className="header">
@@ -345,7 +348,7 @@ export function AddDefaultView({
       <CustomModal 
         isOpen={musicModal}
       >       
-        <IonButton expand="block" className="custom-button">Escoger de los archivos</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={handleOpenFilePicker}>Escoger de los archivos</IonButton>
         <IonButton expand="block" className="custom-button" onClick={ isRecording ? handleStopRecording : handleStartRecording } >{ isRecording ? "Detener grabación" : "Grabar Audio"}</IonButton>
         <IonButton expand="block" className="custom-button" onClick={() => setMusicModal(false)}>Cancelar</IonButton> 
       </CustomModal>
