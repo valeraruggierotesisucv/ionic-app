@@ -1,5 +1,6 @@
 import { LocationModel } from "../models/LocationModel";
 import { t } from "i18next";
+
 export class LocationController{
     static async addLocation(token: string, location: object){
         try{

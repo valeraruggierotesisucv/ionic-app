@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
-import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { AppHeader } from '../components/AppHeader/AppHeader';
 import { CategoriesEnum, StepsEnum } from '../utils/shareEnums';
 import { AddDefaultView } from './AddDefaultView';
 import { AddDateView } from './AddDateView';
 import { ChooseCategoriesView } from './ChooseCategoriesView';
-import { image } from 'ionicons/icons';
+import { useAuth } from '../contexts/AuthContext';
+import { FileController } from '../controllers/FileController';
+import { LocationController } from '../controllers/LocationController';
+import { FileTypeEnum } from '../services/storage';
+import { AddEventController } from '../controllers/AddEventController';
+import { Modal } from '../components/Modal/Modal';
+import { useHistory } from 'react-router';
+import { ROUTES } from '../utils/routes';
+import { IonImg, IonText } from '@ionic/react';
+import { useTranslation } from 'react-i18next';
+import "../styles/addDefaultView.css";
 
 
 export function AddEventView() {
-  //const { t } = useTranslation();
-  //const toast =  useToast(); 
-  //const { session, user } = useAuth(); 
-  //const navigation = useNavigation<AddStackNavigationProp>();
-  //const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const { session, user } = useAuth(); 
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const history = useHistory();
+  const { t } = useTranslation();
 
   const [title, setTitle] = useState<string| null>(null); 
   const [description, setDescription] = useState<string | null>(null);
@@ -24,27 +31,23 @@ export function AddEventView() {
   const [categoryId, setCategoryId] = useState<number|null>(null); 
   const [location, setLocation] = useState<{ latitude: number, longitude: number} | null>(null);
   const [image, setImage] = useState<string | null>(null);
-  const [musicFile, setMusicFile] = useState<{nameFile: string; uri: string;} | null>(null);
+  const [musicFile, setMusicFile] = useState<{nameFile: string; uri: string; mimeType:string;} | null>(null);
   const [step, setStep] = useState<StepsEnum>(StepsEnum.DEFAULT);
   const [disable, setDisable] = useState(false); 
 
-  async function handleAddEvent() {     
-    //title && description && date && startTime && endTime && category && image && musicFile && location && session
-    console.log("title ", title); 
-    console.log("descripcion ", description); 
-    console.log(`cuando ${date}, ${startTime}, ${endTime}`); 
-    if (category) {
+  async function handleAddEvent() {   
+   
+    if (title && description && date && startTime && endTime && category && image && musicFile && location && session) {
       setDisable(true);      
-      /*
+      console.log("publicando evento.."); 
       const locationData = {
         latitude: location?.latitude,
         longitude: location?.longitude, 
       }
-      */
+      
       try{
-        /*
-        const imageUrl = await FileController.uploadFile(image, FileTypeEnum.IMAGE); 
-        const musicUrl = await FileController.uploadFile(musicFile.uri, FileTypeEnum.AUDIO); 
+        const imageUrl = await FileController.uploadFile(image, FileTypeEnum.IMAGE, "image/jpeg"); 
+        const musicUrl = await FileController.uploadFile(musicFile.uri, FileTypeEnum.AUDIO, musicFile.mimeType); 
         const locationId = await LocationController.addLocation(session?.access_token, locationData); 
 
         const eventData = {
@@ -57,25 +60,19 @@ export function AddEventView() {
           eventImage: imageUrl,
           eventMusic: musicUrl, 
           categoryId: categoryId,                                
-          locationId: locationId      
-        }
-        */
+          locationId: locationId   
+        } 
         
-        //await AddEventController.postEvent(session?.access_token, eventData); 
+        const result = await AddEventController.postEvent(session?.access_token, eventData); 
+        console.log(result); 
         
-        //setModalVisible(true);
+        setModalVisible(true);
         setDisable(false); 
       }catch(error){
         console.error("Error in AddEventView:", error);
-        //Alert.alert("Error", (error as Error).message);
       }
     }else{
-      /*
-      toast.show(t("addEvent.require_fields"), {
-        type: "normal",
-        placement: "top",
-      })
-        */
+      console.error("Error in AddEventView");
     }
     
   }
@@ -133,6 +130,28 @@ export function AddEventView() {
             setCategoryId={setCategoryId}
           />
         )}
+        <Modal 
+          isOpen={modalVisible} 
+          onClose={() => {
+            history.push(ROUTES.HOME.ROOT);
+            setModalVisible(false); 
+          }}
+        >   
+          <div className='success-modal'>
+          <IonImg 
+              src="../../images/Onboarding.png"
+              style={{ width: '200px', height: '200px', marginBottom: '16px' }}
+            />
+            <IonText style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              textAlign: 'center',
+              marginBottom: '8px'
+            }}>
+              {t("addEvent.event_published")}
+            </IonText>
+          </div>
+        </Modal>
     </>        
   
   );

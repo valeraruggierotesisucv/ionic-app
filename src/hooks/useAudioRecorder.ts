@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 
 const useAudioRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
-  const [musicFile, setMusicFile] = useState<string | null>(null);
+  const [musicFile, setMusicFile] = useState< { nameFile: string; uri: string, mimeType: string}  | null>(null);
   const [error, setError] = useState(null);
 
   const handleStartRecording = async () => {
@@ -28,7 +28,7 @@ const useAudioRecorder = () => {
             setIsRecording(false); 
             if (result.value) {
                 const audioBase64 = result.value.recordDataBase64;
-                setMusicFile(audioBase64); 
+                setMusicFile({ nameFile: "Audio", uri: audioBase64, mimeType: result.value.mimeType}); 
                 console.log(audioBase64); 
             } else {
                 console.log("Failed to stop recording");
