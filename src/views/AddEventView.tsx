@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { IonContent, IonFooter, IonHeader, IonPage } from '@ionic/react';
-import { AppHeader } from '../components/AppHeader/AppHeader';
 import { CategoriesEnum, StepsEnum } from '../utils/shareEnums';
 import { AddDefaultView } from './AddDefaultView';
 import { AddDateView } from './AddDateView';
 import { ChooseCategoriesView } from './ChooseCategoriesView';
-import { image } from 'ionicons/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { FileController } from '../controllers/FileController';
 import { LocationController } from '../controllers/LocationController';
 import { FileTypeEnum } from '../services/storage';
 import { AddEventController } from '../controllers/AddEventController';
-
 
 export function AddEventView() {
   const { session, user } = useAuth(); 
@@ -41,16 +37,10 @@ export function AddEventView() {
       }
       
       try{
-        console.log("subiendo imagen..."); 
         const imageUrl = await FileController.uploadFile(image, FileTypeEnum.IMAGE, "image/jpeg"); 
-        console.log(imageUrl); 
-        console.log("subiendo archivo..."); 
-        console.log(musicFile); 
         const musicUrl = await FileController.uploadFile(musicFile.uri, FileTypeEnum.AUDIO, musicFile.mimeType); 
-        console.log(musicUrl); 
         const locationId = await LocationController.addLocation(session?.access_token, locationData); 
-        console.log("location creada ", locationId); 
-        
+
         const eventData = {
           userId: user?.id,
           title: title,
@@ -136,6 +126,7 @@ export function AddEventView() {
             setCategoryId={setCategoryId}
           />
         )}
+
     </>        
   
   );
