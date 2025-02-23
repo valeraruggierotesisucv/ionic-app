@@ -164,7 +164,7 @@ export const HomeView = () => {
           eventId={event.eventId}
           eventImage={event.eventImage}
           isLiked={event.isLiked}
-          profileImage={userComment.profileImage}
+          profileImage={event.profileImage}
           endsAt={event.endsAt}
           latitude={event.latitude}
           category={event.category}
