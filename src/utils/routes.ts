@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: {
     ROOT: '/home',
-    DETAIL: '/home/detail',
+    EVENT_DETAILS: '/home/event-details',
   },
   ADD: {
     ROOT: '/add',
@@ -23,7 +23,9 @@ export const ROUTES = {
   },
   AUTH: {
     ROOT: '/',
+    AUTH: '/auth',
     FORGOT_PASSWORD: '/forgot-password',
     FORGOT_PASSWORD_LOGIN: '/forgot-password-login',
+    ONBOARDING: '/onboarding',
   },
 } as const; 

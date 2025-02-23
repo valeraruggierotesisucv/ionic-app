@@ -3,7 +3,7 @@ import { AppHeader } from "../components/AppHeader/AppHeader";
 import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
-import successImage from '../assets/images/Success.png';
+import successImage from '../../public/images/Success.png';
 import './forgotPasswordLoginView.css';
 
 export function ForgotPasswordLoginView() {

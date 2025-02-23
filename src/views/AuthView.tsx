@@ -40,12 +40,14 @@ export function AuthView() {
     if (activeTab === 'login') {
       try {
         await login(email, password);
+        history.push(ROUTES.HOME.ROOT);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
         // await signup(registerEmail, registerPassword);
+        history.push(ROUTES.HOME.ROOT);
       } catch (error) {
         console.error(error);
       }
@@ -152,7 +154,7 @@ export function AuthView() {
           <div className="auth-content">
             {activeTab === 'login' ? renderLoginForm() : renderRegisterForm()}
             
-            <div className="button-container" style={activeTab === 'register' ? { marginTop: 20 } : undefined}>
+            <div className="auth-button-container" style={activeTab === 'register' ? { marginTop: 20 } : undefined}>
               <Button
                 label="Continuar"
                 size={ButtonSize.LARGE}

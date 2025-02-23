@@ -7,7 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 import { mail } from 'ionicons/icons';
 import { ROUTES } from '../utils/routes';
-import forgotPasswordImage from '../assets/images/SuccessEmail.png';
+import forgotPasswordImage from '../../public/images/SuccessEmail.png';
 import './forgotPasswordView.css';
 
 export function ForgotPasswordView() {

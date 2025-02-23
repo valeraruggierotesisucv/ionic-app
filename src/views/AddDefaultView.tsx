@@ -246,9 +246,8 @@ export function AddDefaultView({
 */
   return (
     <IonPage>
-      <IonHeader className="header">
-        <AppHeader title='Nuevo Evento'/> 
-      </IonHeader>
+      <AppHeader title='Nuevo Evento'/> 
+      
 
       {/* CONTENT */}
       <IonContent>
