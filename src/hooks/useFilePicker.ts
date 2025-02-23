@@ -7,11 +7,13 @@ const useFilePicker = () => {
 
   const handleOpenFilePicker = async () => {
     try {
-        const result = await FilePicker.pickFiles(); 
+        const result = await FilePicker.pickFiles({
+            readData: true, 
+        }); 
         const file = result.files[0]; 
         
-        if(file){
-            setMusicFile({ nameFile: file.name, uri: file.name})
+        if(file && file.data){
+            setMusicFile({ nameFile: file.name, uri: file.data})
         }
         
         console.log(file); 
