@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Button, ButtonSize, ButtonVariant } from "../components/Button/Button";
 import { Avatar } from "../components/Avatar/Avatar";
 import { camera, checkmarkCircle } from 'ionicons/icons';
-import './editProfileView.css';
+import '../styles/editProfileView.css';
 import useImagePicker from "../hooks/useImagePicker";
 import { CustomModal } from "../components/CustomModal/CustomModal";
 import { IMAGE_PLACEHOLDER } from "../utils/consts";

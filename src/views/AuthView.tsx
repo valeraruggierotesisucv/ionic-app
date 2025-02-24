@@ -1,76 +1,92 @@
-import { useState } from 'react';
-import { IonButton, IonContent, IonPage } from '@ionic/react';
+import { useState, useEffect, useRef } from 'react';
+import { IonButton, IonContent, IonPage, IonAlert } from '@ionic/react';
 import { InputField, InputFieldVariant } from '../components/InputField/InputField';
 import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 import { Tabs, Tab } from '../components/Tabs/Tabs';
 import { IconLogo } from '../components/IconLogo/IconLogo';
 import { useAuth } from '../contexts/AuthContext';
-import './authView.css';
+import '../styles/authView.css';
 import { DateTimePickerField } from '../components/DateTimePickerField/DateTimePickerField';
 import { eye, eyeOff, mail, person } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
+import * as Yup from 'yup';
+import { SignUpController } from '../controllers/SignUpController';
+import { Formik } from 'formik';
 
 export function AuthView() {
   const { login, signup } = useAuth();
   const [activeTab, setActiveTab] = useState('login');
   const history = useHistory();
   
-  // Login form state
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
-  // Register form state
-  const [username, setUsername] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [registerEmail, setRegisterEmail] = useState('');
-  const [birthDate, setBirthDate] = useState(new Date());
-  const [registerPassword, setRegisterPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  // Separate password visibility states for login and register forms
+  const [loginPasswordVisible, setLoginPasswordVisible] = useState(false);
+  const [registerPasswordVisible, setRegisterPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+  // Update the useEffect to also reset form values when switching tabs
+  useEffect(() => {
+    setLoginPasswordVisible(false);
+    setRegisterPasswordVisible(false);
+    setConfirmPasswordVisible(false);
+  }, [activeTab]);
 
   const tabs: Tab[] = [
     { id: 'login', label: 'Iniciar Sesión' },
     { id: 'register', label: 'Registro' },
   ];
 
-  const handleSubmit = async () => {
-    if (activeTab === 'login') {
-      try {
-        await login(email, password);
-        history.push(ROUTES.HOME.ROOT);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        // await signup(registerEmail, registerPassword);
-        history.push(ROUTES.HOME.ROOT);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+  // Validation schemas
+  const loginSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Email inválido')
+      .required('Email es requerido'),
+    password: Yup.string()
+      .min(6, 'La contraseña debe tener al menos 6 caracteres')
+      .required('Contraseña es requerida'),
+  });
 
-  const renderLoginForm = () => (
+  const registerSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Nombre de usuario es requerido'),
+    fullName: Yup.string()
+      .required('Nombre completo es requerido'),
+    email: Yup.string()
+      .email('Email inválido')
+      .required('Email es requerido'),
+    birthDate: Yup.date()
+      .max(new Date(), 'La fecha debe ser en el pasado')
+      .required('Fecha de nacimiento es requerida'),
+    password: Yup.string()
+      .min(6, 'La contraseña debe tener al menos 6 caracteres')
+      .required('Contraseña es requerida'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password')], 'Las contraseñas deben coincidir')
+      .required('Confirmar contraseña es requerida')
+  });
+
+  const renderLoginForm = ({ values, errors, touched, handleChange }: any) => (
     <div className="form-container">
       <InputField
         label="Correo"
-        value={email}
-        onChangeText={setEmail}
+        value={values.email}
+        onChangeText={handleChange('email')}
         placeholder="ejemplo@email.com"
         icon={mail}
+        error={touched.email && errors.email}
       />
       <InputField
         label="Contraseña"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry={!showPassword}
+        value={values.password}
+        onChangeText={handleChange('password')}
+        secureTextEntry={!loginPasswordVisible}
         placeholder="Contraseña"
-        icon={showPassword ? eye : eyeOff}
-        onPressIcon={() => setShowPassword(!showPassword)}
+        icon={loginPasswordVisible ? eye : eyeOff}
+        onPressIcon={() => setLoginPasswordVisible(!loginPasswordVisible)}
+        error={touched.password && errors.password}
       />
       <div className="forgot-password-container">
         <button
@@ -83,57 +99,127 @@ export function AuthView() {
     </div>
   );
 
-  const renderRegisterForm = () => (
+  const renderRegisterForm = ({ values, errors, touched, handleChange, setFieldValue }: any) => (
     <div className="form-container">
       <InputField
         label="Nombre de Usuario"
-        value={username}
-        onChangeText={setUsername}
+        value={values.username}
+        onChangeText={handleChange('username')}
+
         placeholder="Nombre de usuario"
         icon={person}
+        error={touched.username && errors.username}
       />
       <InputField
         label="Nombre Completo"
-        value={fullName}
-        onChangeText={setFullName}
+        value={values.fullName}
+        onChangeText={handleChange('fullName')}
+
         placeholder="Nombre completo"
         icon={person}
+        error={touched.fullName && errors.fullName}
       />
       <InputField
         label="Correo"
-        value={registerEmail}
-        onChangeText={setRegisterEmail}
+        value={values.email}
+        onChangeText={handleChange('email')}
+
         placeholder="ejemplo@email.com"
         icon={mail}
+        error={touched.email && errors.email}
       />
       <DateTimePickerField
         label="Fecha de Nacimiento"
-        value={birthDate}
-        onChange={setBirthDate}
+        value={values.birthDate}
+        onChange={(date) => setFieldValue('birthDate', date)}
+        error={touched.birthDate && errors.birthDate}
       />
       <InputField
         label="Contraseña"
-        value={registerPassword}
-        onChangeText={setRegisterPassword}
-        secureTextEntry={!showRegisterPassword}
+        value={values.password}
+        onChangeText={handleChange('password')}
+        secureTextEntry={!registerPasswordVisible}
         placeholder="Contraseña"
-        icon={showRegisterPassword ? eye : eyeOff}
-        onPressIcon={() => setShowRegisterPassword(!showRegisterPassword)}
+        icon={registerPasswordVisible ? eye : eyeOff}
+        onPressIcon={() => setRegisterPasswordVisible(!registerPasswordVisible)}
+        error={touched.password && errors.password}
       />
       <InputField
         label="Confirmar Contraseña"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry={!showConfirmPassword}
+        value={values.confirmPassword}
+        onChangeText={handleChange('confirmPassword')}
+        secureTextEntry={!confirmPasswordVisible}
         placeholder="Confirmar contraseña"
-        icon={showConfirmPassword ? eyeOff : eye}
-        onPressIcon={() => setShowConfirmPassword(!showConfirmPassword)}
+        icon={confirmPasswordVisible ? eye : eyeOff}
+        onPressIcon={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+        error={touched.confirmPassword && errors.confirmPassword}
       />
     </div>
   );
 
+  const handleLoginSubmit = async (values: any) => {
+    try {
+      const { error } = await login(values.email, values.password);
+      
+      if (error) {
+        setAlertMessage(error);
+        setShowAlert(true);
+        return;
+      }
+      
+      history.push(ROUTES.HOME.ROOT);
+    } catch (error) {
+      setAlertMessage("Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+      setShowAlert(true);
+    }
+  };
+
+  const handleRegisterSubmit = async (values: any) => {
+    try {
+      const { user, error } = await signup(
+        values.email, 
+        values.password, 
+        values.fullName, 
+        values.username
+      );
+      
+      if (error) {
+        setAlertMessage(error);
+        setShowAlert(true);
+        return;
+      }
+
+      if (!user) {
+        setAlertMessage("Error al crear el usuario");
+        setShowAlert(true);
+        return;
+      }
+
+      await SignUpController.signUp({
+        userId: user.id,
+        username: values.username,
+        fullName: values.fullName,
+        email: values.email,
+        birthDate: values.birthDate
+      });
+
+      history.push(ROUTES.HOME.ROOT);
+    } catch (error) {
+      setAlertMessage("Error al registrarse. Por favor, inténtalo de nuevo.");
+      setShowAlert(true);
+    }
+  };
+
   return (
     <IonPage>
+      <IonAlert
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        header={'Error'}
+        message={alertMessage}
+        buttons={['OK']}
+        cssClass="custom-alert"
+      />
       <IonContent>
         <div className="auth-container">
           <div className="auth-header">
@@ -152,16 +238,58 @@ export function AuthView() {
           </div>
 
           <div className="auth-content">
-            {activeTab === 'login' ? renderLoginForm() : renderRegisterForm()}
-            
-            <div className="auth-button-container" style={activeTab === 'register' ? { marginTop: 20 } : undefined}>
-              <Button
-                label="Continuar"
-                size={ButtonSize.LARGE}
-                variant={ButtonVariant.PRIMARY}
-                onClick={handleSubmit}
-              />
-            </div>
+            {activeTab === 'login' ? (
+              <Formik
+                initialValues={{ email: '', password: '' }}
+                validationSchema={loginSchema}
+                onSubmit={handleLoginSubmit}
+                key="login"
+              >
+                {(formikProps) => (
+                  <>
+                    {renderLoginForm(formikProps)}
+                    <div className="auth-button-container">
+                      <Button
+                        label="Iniciar Sesión"
+                        size={ButtonSize.LARGE}
+                        variant={ButtonVariant.PRIMARY}
+                        onClick={formikProps.handleSubmit}
+                        disabled={!formikProps.isValid || formikProps.isSubmitting}
+                      />
+                    </div>
+                  </>
+                )}
+              </Formik>
+            ) : (
+              <Formik
+                initialValues={{
+                  username: '',
+                  fullName: '',
+                  email: '',
+                  birthDate: new Date(),
+                  password: '',
+                  confirmPassword: ''
+                }}
+                validationSchema={registerSchema}
+                onSubmit={handleRegisterSubmit}
+                key="register"
+              >
+                {(formikProps) => (
+                  <>
+                    {renderRegisterForm(formikProps)}
+                    <div className="auth-button-container" style={{ marginTop: 20 }}>
+                      <Button
+                        label="Registrarse"
+                        size={ButtonSize.LARGE}
+                        variant={ButtonVariant.PRIMARY}
+                        onClick={formikProps.handleSubmit}
+                        disabled={!formikProps.isValid || formikProps.isSubmitting}
+                      />
+                    </div>
+                  </>
+                )}
+              </Formik>
+            )}
           </div>
         </div>
       </IonContent>

@@ -3,13 +3,12 @@ import { AppHeader } from "../components/AppHeader/AppHeader";
 import { useAuth } from "../contexts/AuthContext";
 import Input, { InputVariant } from "../components/Input/Input";
 import { DisplayInput } from "../components/DisplayInput/DisplayInput";
-import "./configurationView.css";
 import { useHistory } from "react-router-dom";
 import { ROUTES } from "../utils/routes";
 import { CustomModal } from "../components/CustomModal/CustomModal";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import "../styles/configurationView.css";
 
 export function ConfigurationView() {
     const history = useHistory();

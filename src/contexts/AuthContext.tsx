@@ -7,11 +7,11 @@ import { AuthUser, Session } from '@supabase/supabase-js';
 interface AuthContextType {
     user: AuthUser | null;
     session: Session | null;
-    login: (email:string, password: string) => void;
+    login: (email:string, password: string) => Promise<{error?: string}>;
     logout: () => void;
-    resetPassword: (email:string) => void
-    signup: (email:string, password: string, fullname: string, username: string) => Promise<AuthUser | null | undefined>
-    updatePassword: (password: string) => void
+    resetPassword: (email:string) => void;
+    signup: (email:string, password: string, fullname: string, username: string) => Promise<{user: AuthUser | null, error?: string}>;
+    updatePassword: (password: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,38 +21,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [session, setSession] = useState<Session | null>(null);
 
     const signup = async(email: string, password: string, fullname: string, username: string) => {
-        
         try {
-            const { error, data} = await supabase.auth.signUp({
-                    email: email, 
-                    password: password,
+            const { error, data } = await supabase.auth.signUp({
+                email: email, 
+                password: password,
                 options: {
                     data: {
                         full_name: fullname,
                         username: username,           
                     }
                 }
-            })
-            if(error) console.log(error.message)
-            setUser(data.user);
-            setSession(data.session)
-            return data.user
+            });
 
+            if(error) {
+                return { user: null, error: error.message };
+            }
+
+            setUser(data.user);
+            setSession(data.session);
+            return { user: data.user, error: undefined };
         } catch (error: any) {
-           console.log(error.message)
             console.error("Error signing up:", error);
+            return { user: null, error: "Error al registrarse. Por favor, inténtalo de nuevo." };
         }
     }
 
     const login = async(email: string, password: string) => {
-        const { error, data} = await supabase.auth.signInWithPassword({
-            email: email, 
-            password: password
-        })
+        try {
+            const response = await supabase.auth.signInWithPassword({
+                email: email, 
+                password: password
+            });
 
-        if (error) console.log(error.message); 
-        setUser(data.user);
-        setSession(data.session)
+            if(response.error) {
+                return { error: response.error.message };
+            }
+
+            setUser(response.data.user);
+            setSession(response.data.session);
+            return { error: undefined };
+        } catch (error: any) {
+            console.error("Error logging in:", error);
+            return { error: "Error al iniciar sesión. Por favor, inténtalo de nuevo." };
+        }
     };
 
     const updatePassword = async(password: string) => {
