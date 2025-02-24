@@ -24,7 +24,7 @@
     color: white;
     cursor: pointer;
     flex: 0 0 auto;  
-    min-width: fit-content;  /
+    min-width: fit-content; 
   }
   
   .selected-pill {
