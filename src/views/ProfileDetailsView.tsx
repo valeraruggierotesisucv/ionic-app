@@ -10,6 +10,8 @@ import { ProfileCard } from "../components/ProfileCard/ProfileCard";
 import { EventThumbnailList } from "../components/EventThumbnailList/EventThumbnailList";
 import UserModel from "../models/UserModel";
 import "../styles/profileDetailsView.css";
+import { NotificationType } from "../components/NotificationItem/NotificationItem";
+import { NotificationsController } from "../controllers/NotificationsController";
 
 export function ProfileDetailsView() {
     const { t } = useTranslation();
@@ -66,6 +68,16 @@ export function ProfileDetailsView() {
             );
             if (response.success) {
                 setIsFollowing(true);
+
+                // Send notification      
+                const notificationData = {
+                    fromUserId: authUser?.id, 
+                    toUserId: userId, 
+                    type:  NotificationType.FOLLOW, 
+                    message: t("notifications.FOLLOW")
+                }; 
+                await NotificationsController.createNotification(session?.access_token, notificationData); 
+
                 if (user) {
                     setUser({ ...user, followersCounter: user.followersCounter + 1 });
                 }
