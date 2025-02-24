@@ -1,4 +1,4 @@
-package io.ionic.demo.pg.react;
+package dev.expo.eventify;
 
 import com.getcapacitor.BridgeActivity;
 
