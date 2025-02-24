@@ -20,7 +20,7 @@ import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
 import { LikeEventController } from '../controllers/LikeEventController';
 import { useIonViewWillEnter } from '@ionic/react';
-import { usePushNotifications } from '../contexts/PushNotificationsContext';
+import { NotificationsController } from '../controllers/NotificationsController';
 
 
 
@@ -78,7 +78,7 @@ export const HomeView = () => {
     }      
   };
 
-  const onComment = async (eventId: string, comment: string) => {
+  const onComment = async (eventId: string, comment: string, eventImage: string) => {
     if(session && user){
       try {
         await CommentEventController.createComment(session?.access_token, eventId, {
@@ -93,9 +93,13 @@ export const HomeView = () => {
           fromUserId: user.id, 
           toUserId: toUserId.data,  
           type:  NotificationType.COMMENT_EVENT, 
-          message: t("notifications.COMMENT")
+          message: t("notifications.COMMENT"), 
+          eventImage: eventImage
         }
 
+        if(session){
+          await NotificationsController.createNotification(session?.access_token, notificationData); 
+        } 
 
       } catch (error) {
         console.error("Error adding comment", error);
@@ -103,10 +107,9 @@ export const HomeView = () => {
     }    
   }
 
-  const handleLike = async (eventId: string) => {
+  const handleLike = async (eventId: string, eventImage: string, isLike: boolean) => {
     if (session && user) {
       try {
-        console.log("LIKE")
         setEvents(currentEvents => {
           const newEvents = currentEvents?.map(event => 
             event.eventId === eventId 
@@ -117,22 +120,20 @@ export const HomeView = () => {
           return newEvents;
         });
         const result = await LikeEventController.likeEvent(session.access_token, eventId, user.id);
-        console.log("finding this event-->", eventId)
         const toUserId = await ProfileController.getUserId(session.access_token, eventId); 
-        console.log("toUserId-->", toUserId); 
 
         // Send notification      
         const notificationData = {
           fromUserId: user.id, 
           toUserId: toUserId.data,  
           type:  NotificationType.LIKE_EVENT, 
-          message: t("notifications.LIKE")
+          message: t("notifications.LIKE"), 
+          eventImage: eventImage
         }
   
-        // if(session){
-        //   const notificationResult = await NotificationsController.createNotification(session?.access_token, notificationData); 
-        //   console.log("Notificación enviada: " , notificationResult);
-        // } 
+        if(session && !isLike){
+          await NotificationsController.createNotification(session?.access_token, notificationData); 
+        } 
         
         if(result.isActive){
           setEvents(currentEvents => {
@@ -182,7 +183,7 @@ export const HomeView = () => {
               musicUrl={event.musicUrl}
               startsAt={event.startsAt}
               title={event.title}
-              handleLike={() => handleLike(event.eventId)}
+              handleLike={() => handleLike(event.eventId, event.eventImage, event.isLiked)}
               onShare={() => console.log("")}
               onComment={onComment}
               onPressUser={() => { console.log("onPressUser"); history.push(`/home/profile-details/${event.userId}`)}}
