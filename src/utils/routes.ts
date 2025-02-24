@@ -9,6 +9,8 @@ export const ROUTES = {
   },
   SEARCH: {
     ROOT: '/search',
+    EVENT_DETAILS: '/search/event-details/:eventId',
+    PROFILE_DETAILS: '/search/profile-details/:userId',
   },
   NOTIFICATIONS: {
     ROOT: '/notifications',

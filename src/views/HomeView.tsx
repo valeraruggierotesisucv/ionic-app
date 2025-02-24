@@ -3,7 +3,8 @@ import {
   IonContent, 
   IonLoading, 
   IonPage, 
-  IonText
+  IonText,
+  useIonViewWillLeave
 } from '@ionic/react';
 import { useAuth } from '../contexts/AuthContext';
 import { AppHeader } from '../components/AppHeader/AppHeader';
@@ -18,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
 import { LikeEventController } from '../controllers/LikeEventController';
+import { useIonViewWillEnter } from '@ionic/react';
 
 
 
@@ -38,34 +40,31 @@ export const HomeView = () => {
 
   const { session, user } = useAuth();
   
-  useEffect(() => {
    
-      async function fetchEvents (){
-        setIsLoading(true); 
-        if(session && user){
-          try {
-            const result = await ListEventsController.getHomeEvents(session.access_token, user.id)
-            setEvents(result); 
-            setIsLoading(false)
-          } catch (error) {
-            console.error("Error fetching events", error);
-            setIsLoading(false)
-          }
-        }            
-      }    
-      async function fetchProfile(){
-        if (!session) return
-        const profile = await ProfileController.getProfile(session?.access_token, user?.id || "");
-        setUserComment({
-          "username": profile.username, 
-          "profileImage": profile.profileImage || IMAGE_PLACEHOLDER
-        })
+  async function fetchEvents (){
+    setIsLoading(true); 
+    if(session && user){
+      try {
+        const result = await ListEventsController.getHomeEvents(session.access_token, user.id)
+        setEvents(result); 
+        setIsLoading(false)
+      } catch (error) {
+        console.error("Error fetching events", error);
+        setIsLoading(false)
       }
+    }            
+  }    
+  async function fetchProfile(){
+    if (!session) return
+    const profile = await ProfileController.getProfile(session?.access_token, user?.id || "");
+    setUserComment({
+      "username": profile.username, 
+      "profileImage": profile.profileImage || IMAGE_PLACEHOLDER
+    })
+  }
 
-      fetchEvents()
-      fetchProfile()
 
-  }, []);
+
 
   const fetchComments = async (eventId: string) => {
     if(session){
@@ -151,36 +150,47 @@ export const HomeView = () => {
     }
   };
 
+  useIonViewWillEnter(() => {
+    fetchEvents()
+    fetchProfile()
+  });
+
+  useIonViewWillLeave(() => {
+    setEvents([])
+  });
   return (
     <IonPage>
       <AppHeader />
       <IonContent className="">
-      {isLoading && <Loading />}
-      {events && events.map((event) => (
-        <EventCard 
-          key={event.eventId}
-          date={event.date}
-          description={event.description}
-          eventId={event.eventId}
-          eventImage={event.eventImage}
-          isLiked={event.isLiked}
-          profileImage={event.profileImage}
-          endsAt={event.endsAt}
-          latitude={event.latitude}
-          category={event.category}
-          username={event.username}
-          musicUrl={event.musicUrl}
-          startsAt={event.startsAt}
-          title={event.title}
-          handleLike={() => handleLike(event.eventId)}
-          onShare={() => console.log("")}
-          onComment={onComment}
-          onPressUser={() => { history.push(ROUTES.HOME.PROFILE_DETAILS.replace(":userId", event.userId))}}
-          onMoreDetails={() => history.push(ROUTES.HOME.EVENT_DETAILS.replace(":eventId", event.eventId))}   
-          userComment={userComment}
-          fetchComments={() => fetchComments(event.eventId)}
-        />
-      ))}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          events && events.map((event) => (
+            <EventCard 
+              key={event.eventId}
+              date={event.date}
+              description={event.description}
+              eventId={event.eventId}
+              eventImage={event.eventImage}
+              isLiked={event.isLiked}
+              profileImage={event.profileImage}
+              endsAt={event.endsAt}
+              latitude={event.latitude}
+              category={event.category}
+              username={event.username}
+              musicUrl={event.musicUrl}
+              startsAt={event.startsAt}
+              title={event.title}
+              handleLike={() => handleLike(event.eventId)}
+              onShare={() => console.log("")}
+              onComment={onComment}
+              onPressUser={() => { console.log("onPressUser"); history.push(`/home/profile-details/${event.userId}`)}}
+              onMoreDetails={() => history.push(ROUTES.HOME.EVENT_DETAILS)}   
+              userComment={userComment}
+              fetchComments={() => fetchComments(event.eventId)}
+            />
+          ))
+        )}
       </IonContent>
     </IonPage>
   );

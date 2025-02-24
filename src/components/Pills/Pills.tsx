@@ -32,7 +32,7 @@ export function Pills({
   };
 
   return (
-    <div className="container">
+    <div className="pills-container">
       {pills.map((category) => (
         <button
           key={category.id}
