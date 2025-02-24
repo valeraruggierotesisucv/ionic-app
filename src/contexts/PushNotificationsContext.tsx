@@ -1,11 +1,11 @@
-// context/PushNotificationContext.js
-
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { PushNotifications, PushNotificationSchema } from '@capacitor/push-notifications';
+import { NotificationsController } from '../controllers/NotificationsController';
+import { useAuth } from './AuthContext';
 
 interface NotificationContextType {
     registrationToken: string | null; 
-    notifications: PushNotificationSchema[]
+    notifications: PushNotificationSchema[]; 
 }
 
 const PushNotificationContext = createContext<NotificationContextType| undefined>(undefined);
@@ -13,6 +13,12 @@ const PushNotificationContext = createContext<NotificationContextType| undefined
 export const PushNotificationProvider = ({ children }: { children: ReactNode }) => {
     const [registrationToken, setRegistrationToken] = useState<string | null>(null);
     const [notifications, setNotifications] = useState<PushNotificationSchema[]>([]);
+    const { session, user } = useAuth(); 
+
+    async function updateToken(userId: string){
+        if (!user || !session || !registrationToken) return
+        await NotificationsController.updateNotificationToken(session.access_token, userId, registrationToken); 
+      }
 
     useEffect(() => {
         const registerNotifications = async () => {
@@ -33,6 +39,9 @@ export const PushNotificationProvider = ({ children }: { children: ReactNode }) 
             await PushNotifications.addListener('registration', token => {
                 console.info('Registration token: ', token.value);
                 setRegistrationToken(token.value);
+                if(session && user){
+                    NotificationsController.updateNotificationToken(session?.access_token, user?.id, token.value); 
+                }           
             });
 
             await PushNotifications.addListener('registrationError', err => {
@@ -56,6 +65,12 @@ export const PushNotificationProvider = ({ children }: { children: ReactNode }) 
             PushNotifications.removeAllListeners();
         };
     }, []);
+
+    useEffect(() => {
+        if(user){
+          updateToken(user.id)
+        }
+      }, [registrationToken, user])
 
     return (
         <PushNotificationContext.Provider value={{ registrationToken, notifications }}>
