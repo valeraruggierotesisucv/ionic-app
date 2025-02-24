@@ -20,6 +20,7 @@ import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
 import { LikeEventController } from '../controllers/LikeEventController';
 import { useIonViewWillEnter } from '@ionic/react';
+import { usePushNotifications } from '../contexts/PushNotificationsContext';
 
 
 
