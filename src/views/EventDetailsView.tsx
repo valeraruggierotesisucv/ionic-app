@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonSpinner } from "@ionic/react";
+import { IonContent, IonPage, IonSpinner, useIonViewWillEnter } from "@ionic/react";
 import { AppHeader } from "../components/AppHeader/AppHeader";
 import { useHistory, useParams, useLocation } from "react-router-dom";
 import { EventCard } from "../components/EventCard/EventCard";
@@ -16,6 +16,7 @@ import { IMAGE_PLACEHOLDER } from "../utils/consts";
 import { Button, ButtonSize, ButtonVariant } from "../components/Button/Button";
 import "../styles/eventDetailsView.css";
 import { ROUTES } from "../utils/routes";
+import { Loading } from "../components/Loading/Loading";
 
 interface LocationState {
     canEdit?: boolean;
@@ -97,38 +98,38 @@ export function EventDetailsView() {
         }
     };
 
-    useEffect(() => {
-        const fetchEventDetails = async () => {
-            if (!session || !user || !eventId) return;
+    
 
-            setIsLoading(true);
-            try {
-                const result = await EventDetailsController.getEventDetails(session.access_token, eventId, user.id);
-                setEvent(result);
+    const fetchEventDetails = async () => {
+        if (!session || !user || !eventId) return;
 
-                const profile = await ProfileController.getProfile(session.access_token, user.id);
-                setUserComment({
-                    username: profile.username,
-                    profileImage: profile.profileImage || IMAGE_PLACEHOLDER
-                });
-            } catch (error) {
-                console.error("Error fetching event details:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+        setIsLoading(true);
+        try {
+            const result = await EventDetailsController.getEventDetails(session.access_token, eventId, user.id);
+            setEvent(result);
 
+            const profile = await ProfileController.getProfile(session.access_token, user.id);
+            setUserComment({
+                username: profile.username,
+                profileImage: profile.profileImage || IMAGE_PLACEHOLDER
+            });
+        } catch (error) {
+            console.error("Error fetching event details:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useIonViewWillEnter(() => {
         fetchEventDetails();
-    }, [session, user, eventId]);
+    });
 
     if (isLoading) {
         return (
             <IonPage>
                 <AppHeader title="Event Details" goBack={() => history.goBack()} />
                 <IonContent className="ion-padding">
-                    <div className="loading-container">
-                        <IonSpinner />
-                    </div>
+                    <Loading />
                 </IonContent>
             </IonPage>
         );
@@ -158,6 +159,7 @@ export function EventDetailsView() {
                         latitude={event?.latitude}
                         longitude={event?.longitude}
                         startsAt={event?.startsAt}
+                        endsAt={event?.endsAt}
                         category={event?.category}
                         onPressUser={() => {}}
                         onComment={onComment}

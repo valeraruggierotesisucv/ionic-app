@@ -16,6 +16,7 @@ import useImagePicker from "../hooks/useImagePicker";
 import useCurrentLocation from "../hooks/useCurrentLocation";
 import useAudioRecorder from "../hooks/useAudioRecorder";
 import useFilePicker from "../hooks/useFilePicker";
+import { useHistory } from "react-router-dom";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -49,11 +50,12 @@ interface AddDefaultViewProps {
   setImage: (image: string | null) => void;
   buttonLabel: string;
   edit?: boolean; 
-  disable: boolean
+  disable: boolean;
+  goBack?: boolean;
 }
 
 export function AddDefaultView({
-    
+  goBack=false,
   setStep,
   title, 
   setTitle, 
@@ -85,6 +87,7 @@ export function AddDefaultView({
   const { location: locationCoords, getCurrentLocation } = useCurrentLocation();
   const { musicFile: audioFileUri, isRecording, handleStartRecording, handleStopRecording} = useAudioRecorder(); 
   const { musicFile: musicFileUri, handleOpenFilePicker }= useFilePicker(); 
+  const history = useHistory();
 
   const DatePills = () => {
     if (startsAt === null || endsAt === null || date === null) return;
@@ -231,7 +234,7 @@ export function AddDefaultView({
 
   return (
     <IonPage>
-      <AppHeader title='Nuevo Evento'/> 
+      <AppHeader title={goBack ? 'Editar Evento' : 'Nuevo Evento'} goBack={goBack ? () => history.goBack() : undefined}/> 
       
 
       {/* CONTENT */}

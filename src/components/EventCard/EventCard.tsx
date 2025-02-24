@@ -6,6 +6,8 @@ import './eventCard.css';
 import { Chip, ChipVariant } from '../Chip/Chip';
 import { useTranslation } from 'react-i18next';
 import { CommentsSection } from '../CommentsSection/CommentsSection';
+import { DisplayInput } from "../DisplayInput/DisplayInput";
+import { AudioPlayer } from "../AudioPlayer/AudioPlayer";
 import { ShareEventController } from '../../controllers/ShareEventController';
 //import { DisplayEvent } from "../DisplayEvent/DisplayEvent";
 //import { CommentsSection } from "../CommentsSection/CommentsSection";
@@ -41,6 +43,86 @@ interface EventCardProps {
   onMoreDetails?: () => void;
   fetchComments: () => Promise<Comment[]>;
   handleLike: () => void;
+}
+
+interface PillsProps {
+  startsAt: string;
+  endsAt: string;
+  date: string;
+}
+
+interface LocationPillsProps {
+  latitude: string;
+  longitude: string;
+}
+
+interface DisplayEventProps {
+  latitude?: string;
+  longitude?: string;
+  startsAt?: string;
+  endsAt?: string;
+  date?: string;
+  category?: string;
+  musicUrl?: string;
+}
+
+const Pills = ({ startsAt, endsAt, date }: PillsProps) => {
+  return (
+    <div style={{ display: "flex", gap: "8px" }}>
+      <Chip label={startsAt} variant={ChipVariant.LIGHT} />
+      <Chip label={endsAt} variant={ChipVariant.LIGHT} />
+      <Chip label={date} variant={ChipVariant.LIGHT} />
+    </div>
+  );
+};
+
+const LocationPills = ({ latitude, longitude }: LocationPillsProps) => {
+  const lat = parseFloat(latitude).toFixed(3);
+  const long = parseFloat(longitude).toFixed(3);
+  return (
+    <div style={{ display: "flex", gap: "8px" }}>
+      <Chip label={lat} variant={ChipVariant.LIGHT} />
+      <Chip label={long} variant={ChipVariant.LIGHT} />
+    </div>
+  );
+};
+
+export function DisplayEvent({
+  latitude,
+  longitude,
+  startsAt,
+  endsAt,
+  date,
+  category,
+  musicUrl,
+}: DisplayEventProps) {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      {musicUrl && <AudioPlayer uri={musicUrl} />}
+      <DisplayInput
+        label={t("common.location").toUpperCase()}
+        data={<LocationPills latitude={latitude || ""} longitude={longitude || ""} />}
+      />
+
+      <DisplayInput
+        label={t("common.when").toUpperCase()}
+        data={
+          <Pills
+            startsAt={startsAt || ""}
+            endsAt={endsAt || ""}
+            date={date || ""}
+          />
+        }
+      />
+
+      <DisplayInput
+        label={t("common.category").toUpperCase()}
+        data={<Chip label={category || ""} variant={ChipVariant.LIGHT} />}
+      />
+    </div>
+  );
 }
 
 export function EventCard({
@@ -145,7 +227,7 @@ export function EventCard({
           </IonButton>
         </div>
         )}
-        {/*variant === "details" && (
+        {variant === "details" && (
           <DisplayEvent
             latitude={latitude}
             longitude={longitude}
@@ -155,7 +237,7 @@ export function EventCard({
             category={category}
             musicUrl={musicUrl}
           />
-        )*/}
+        )}
         {commentsVisible && comments && (
           <CommentsSection
             comments={comments}

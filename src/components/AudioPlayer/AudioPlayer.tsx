@@ -16,9 +16,14 @@ export function AudioPlayer({ uri }: AudioPlayerProps) {
   useEffect(() => {
     const audio = new Audio(uri);
     audioRef.current = audio;
+    
 
     audio.addEventListener('loadedmetadata', () => {
-      setDuration(audio.duration * 1000);
+      if (audio.duration == Infinity) {
+        setDuration(0);
+      } else {
+        setDuration(audio.duration * 1000);
+      }
     });
 
     audio.addEventListener('timeupdate', () => {

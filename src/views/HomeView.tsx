@@ -187,7 +187,7 @@ export const HomeView = () => {
               onShare={() => console.log("")}
               onComment={onComment}
               onPressUser={() => { console.log("onPressUser"); history.push(`/home/profile-details/${event.userId}`)}}
-              onMoreDetails={() => history.push(ROUTES.HOME.EVENT_DETAILS)}   
+              onMoreDetails={() => history.push(ROUTES.HOME.EVENT_DETAILS.replace(":eventId", event.eventId))}   
               userComment={userComment}
               fetchComments={() => fetchComments(event.eventId)}
             />
