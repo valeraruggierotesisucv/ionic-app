@@ -83,6 +83,7 @@ export class EventModel {
             ); 
         }catch(error){
             console.error("Error updating event: ", error);
+            console.log(error)
             throw new Error("Failed to update event.");
         }
     }
