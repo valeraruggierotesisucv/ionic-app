@@ -6,6 +6,7 @@ import './eventCard.css';
 import { Chip, ChipVariant } from '../Chip/Chip';
 import { useTranslation } from 'react-i18next';
 import { CommentsSection } from '../CommentsSection/CommentsSection';
+import { ShareEventController } from '../../controllers/ShareEventController';
 //import { DisplayEvent } from "../DisplayEvent/DisplayEvent";
 //import { CommentsSection } from "../CommentsSection/CommentsSection";
 //import { Chip, ChipVariant } from "../Chip/Chip";
@@ -60,7 +61,6 @@ export function EventCard({
   userComment,
   onPressUser,
   onComment,
-  onShare,
   onMoreDetails,
   fetchComments,
   musicUrl,
@@ -70,6 +70,9 @@ export function EventCard({
   const [commentsVisible, setCommentsVisible] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
 
+  const onShare = async () => {
+    await ShareEventController.shareEvent(t("common.share_message", {eventName: title, eventDate: date.toString()}));
+  }
   const handleAddComment = async (comment: string) => {
     try {
       await onComment(eventId, comment, eventImage);
