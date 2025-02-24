@@ -7,7 +7,7 @@ import { InputFieldVariant } from "../components/InputField/InputField";
 import { InputField } from "../components/InputField/InputField";
 import { Button } from "../components/Button/Button";
 import { useState } from "react";
-import "./changePasswordView.css";
+import "../styles/changePasswordView.css";
 import { useAuth } from "../contexts/AuthContext";
 import { CustomModal } from "../components/CustomModal/CustomModal";
 import { Formik } from "formik";

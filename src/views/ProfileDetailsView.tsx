@@ -9,7 +9,7 @@ import { FollowUserController } from "../controllers/FollowUserController";
 import { ProfileCard } from "../components/ProfileCard/ProfileCard";
 import { EventThumbnailList } from "../components/EventThumbnailList/EventThumbnailList";
 import UserModel from "../models/UserModel";
-import "./profileDetailsView.css";
+import "../styles/profileDetailsView.css";
 
 export function ProfileDetailsView() {
     const { t } = useTranslation();

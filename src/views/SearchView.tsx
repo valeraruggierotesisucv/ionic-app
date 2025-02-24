@@ -3,7 +3,7 @@ import { AppHeader } from "../components/AppHeader/AppHeader";
 import { SearchBar } from "../components/SearchBar/SearchBar";
 import { useEffect, useState, useCallback } from "react";
 import { Tab, Tabs } from "../components/Tabs/Tabs";
-import "./searchView.css";
+import '../styles/searchView.css';
 import { EventCard } from "../components/EventCard/EventCard";
 import { Pills } from "../components/Pills/Pills";
 import { UserCard } from "../components/UserCard/UserCard";

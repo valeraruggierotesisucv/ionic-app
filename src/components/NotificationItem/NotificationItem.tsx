@@ -1,5 +1,7 @@
-import { IonAvatar, IonButton, IonImg, IonText, IonRow, IonCol } from '@ionic/react';
+import { IonAvatar, IonButton, IonImg, IonText, IonRow, IonCol, IonRippleEffect } from '@ionic/react';
 import './notificationItem.css'; 
+import { formatDate } from '../../utils/formatDate';
+import i18n from '../../../i18n';
 
 export enum NotificationType {
   FOLLOW = 'FOLLOW',
@@ -20,6 +22,7 @@ export interface NotificationItemProps {
   type: NotificationType;
   eventImage?: string;
   onFollow?: () => void;
+  isNew: boolean;
 }
 
 const NotificationItem: React.FC<NotificationItemProps> = ({
@@ -29,29 +32,43 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   type,
   eventImage,
   onFollow,
+  isNew
 }) => {
   //const { t, i18n } = useTranslation();
-  //const formattedDate = formatDate(timestamp, i18n.language);
+  const formattedDate = formatDate(timestamp, i18n.language);
 
   return (
-    <IonRow className="notification-container">
+    <IonRow className={`notification-container ion-activatable ${isNew ? 'new' : ''}`}>
+      <IonRippleEffect />
+      
       <IonCol size="2" className="notification-avatar">
-        <IonAvatar>
+        
           <img src={userAvatar} alt="User Avatar" className="avatar-image" />
-        </IonAvatar>
+        
       </IonCol>
 
       <IonCol size="7" className="notification-content">
         <div className="notification-header">
           <IonText className="notification-title">{user}</IonText>
-          <IonText className="notification-timestamp">{timestamp.toDateString()}</IonText>
+          <IonText className="notification-timestamp">{formattedDate}</IonText>
         </div>
-        <IonText className="notification-description">{type}</IonText>
+        <IonText className="notification-description">
+          {i18n.t(notificationMessages[type])}
+        </IonText>
       </IonCol>
 
       <IonCol size="3" className="notification-actions">
         {(type === NotificationType.LIKE_EVENT || type === NotificationType.COMMENT_EVENT) && eventImage && (
-          <IonImg src={eventImage} alt="Event Image" className="event-image" />
+          <img src={eventImage} alt="Event Image" className="event-image" />
+        )}
+        {type === NotificationType.FOLLOW && onFollow && (
+          <IonButton 
+            fill="clear" 
+            size="small"
+            onClick={onFollow}
+          >
+            {i18n.t('common.follow')}
+          </IonButton>
         )}
       </IonCol>
     </IonRow>

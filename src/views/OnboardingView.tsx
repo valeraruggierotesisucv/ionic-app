@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
 
 import Onboarding from '../../public/images/Onboarding.png';
-import './onBoardingView.css';
+import '../styles/onBoardingView.css';
 import { IconLogo } from '../components/IconLogo/IconLogo';
 
 export function OnBoardingView() {

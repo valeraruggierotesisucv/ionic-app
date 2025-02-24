@@ -4,7 +4,7 @@ import { Button, ButtonSize, ButtonVariant } from '../components/Button/Button';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
 import successImage from '../../public/images/Success.png';
-import './forgotPasswordLoginView.css';
+import '../styles/forgotPasswordLoginView.css';
 
 export function ForgotPasswordLoginView() {
     const history = useHistory();
