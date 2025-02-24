@@ -35,6 +35,19 @@ export function AddEventView() {
   const [step, setStep] = useState<StepsEnum>(StepsEnum.DEFAULT);
   const [disable, setDisable] = useState(false); 
 
+  function cleanForm() {
+    setTitle(null); 
+    setDescription(null);
+    setDate(null);
+    setStartTime(null);
+    setEndTime(null);
+    setImage(null); 
+    setCategory(null);
+    setCategoryId(null); 
+    setMusicFile(null); 
+    setLocation(null);
+  }
+
   async function handleAddEvent() {   
    
     if (title && description && date && startTime && endTime && category && image && musicFile && location && session) {
@@ -68,6 +81,7 @@ export function AddEventView() {
         
         setModalVisible(true);
         setDisable(false); 
+        cleanForm()
       }catch(error){
         console.error("Error in AddEventView:", error);
       }
@@ -77,22 +91,6 @@ export function AddEventView() {
     
   }
 
-  function cleanForm() {
-    setTitle(null); 
-    setDescription(null);
-    setDate(null);
-    setStartTime(null);
-    setEndTime(null);
-    setImage(null); 
-    setCategory(null);
-    setCategoryId(null); 
-    setMusicFile(null); 
-    setLocation(null);
-  }
-
-  useIonViewDidEnter(() => {
-    cleanForm()
-  })
   
   return (
     <>
