@@ -163,7 +163,7 @@ export const HomeView = () => {
   return (
     <IonPage>
       <AppHeader />
-      <IonContent className="">
+      <IonContent>
         {isLoading ? (
           <Loading />
         ) : (

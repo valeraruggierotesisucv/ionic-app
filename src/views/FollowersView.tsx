@@ -156,7 +156,7 @@ export function FollowersView() {
       />
       <IonContent className="ion-padding">
         <SearchBar
-          placeholder={t("search.followers")}
+          placeholder={t("search.title")}
           onChange={setSearch}
           value={search}
         />

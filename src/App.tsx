@@ -22,6 +22,14 @@ import { ROUTES } from './utils/routes';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ForgotPasswordView } from './views/ForgotPasswordView';
 import { ForgotPasswordLoginView } from './views/ForgotPasswordLoginView';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { useAuth } from './contexts/AuthContext';
+import { AuthView } from './views/AuthView';
+import { useState, useEffect } from 'react';
+import { OnBoardingView } from './views/OnboardingView';
+import { Loading } from './components/Loading/Loading';
+import SearchTab from './navigation/SearchTab';
+import { initPromise } from '../i18n';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -41,12 +49,6 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import SearchTab from './navigation/SearchTab';
-import { useAuth } from './contexts/AuthContext';
-import { AuthView } from './views/AuthView';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { OnBoardingView } from './views/OnboardingView';
 
 setupIonicReact();
 
@@ -56,11 +58,22 @@ const App: React.FC = () => {
   const [isI18nInitialized, setIsI18nInitialized] = useState(false);
 
   useEffect(() => {
-    i18n.init().then(() => {
-      setIsI18nInitialized(true);
-    }).catch((error: any) => {
-      console.error("i18n initialization failed", error);
-    });
+    const initializeApp = async () => {
+      try {
+        await SplashScreen.show();
+        
+        // Wait for i18n to be fully initialized
+        await initPromise;
+        setIsI18nInitialized(true);
+        
+        await SplashScreen.hide();
+      } catch (error) {
+        console.error("App initialization failed", error);
+        await SplashScreen.hide();
+      }
+    };
+
+    initializeApp();
   }, []);
 
   if (!isI18nInitialized) {

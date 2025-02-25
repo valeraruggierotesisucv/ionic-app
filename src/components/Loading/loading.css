@@ -4,11 +4,11 @@
   align-items: center;
   height: 100%;
   flex-direction: column;
-  background-color: var(--ion-color-white); /* Utiliza las variables de colores de Ionic */
+  background-color: var(--ion-color-white); 
 }
 
 .loading-text {
   margin-top: 10px;
   font-size: 16px;
-  color: var(--ion-color-black); /* Utiliza las variables de colores de Ionic */
+  color: var(--ion-color-black); 
 }

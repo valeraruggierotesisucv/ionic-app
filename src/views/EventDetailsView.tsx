@@ -17,6 +17,7 @@ import { Button, ButtonSize, ButtonVariant } from "../components/Button/Button";
 import "../styles/eventDetailsView.css";
 import { ROUTES } from "../utils/routes";
 import { Loading } from "../components/Loading/Loading";
+import { useTranslation } from "react-i18next";
 
 interface LocationState {
     canEdit?: boolean;
@@ -24,6 +25,7 @@ interface LocationState {
 
 export function EventDetailsView() {
     const history = useHistory();
+    const { t } = useTranslation();
     const location = useLocation<LocationState>();
     const { eventId } = useParams<{ eventId: string }>();
     const canEdit = location.state?.canEdit;
@@ -171,7 +173,7 @@ export function EventDetailsView() {
                 {canEdit && (
                     <div className="edit-button-container">
                         <Button
-                            label="Edit Event"
+                            label={t('eventDetails.edit')}
                             onClick={() => history.push(ROUTES.PROFILE.EDIT_EVENT.replace(":eventId", eventId))}
                             variant={ButtonVariant.PRIMARY}
                             size={ButtonSize.LARGE}

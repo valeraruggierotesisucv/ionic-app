@@ -48,7 +48,7 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 
 export function SearchView() {
-  const { t } = useTranslation();
+  const { t , i18n } = useTranslation();
   const history = useHistory();
   const { session, user } = useAuth();
   const [activeTab, setActiveTab] = useState<string>(SearchTabsEnum.EVENTS);
@@ -274,7 +274,7 @@ export function SearchView() {
           <Pills
             pills={categories.map((category) => ({
               id: category.id.toString(),
-              label: category.nameEs,
+              label: i18n.language === "es-ES" ? category.nameEs : category.nameEn,
             }))}
             onSelectCategories={setActiveCategories}
           />

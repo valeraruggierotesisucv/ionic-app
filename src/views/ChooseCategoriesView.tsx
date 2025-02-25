@@ -7,6 +7,7 @@ import "../styles/footer.css";
 import "../styles/chooseCategories.css"; 
 import { trophySharp, musicalNoteSharp, peopleSharp, keypadSharp, imageSharp, headsetSharp, brushSharp, bookSharp, colorPaletteSharp} from "ionicons/icons"; 
 import { AppHeader } from '../components/AppHeader/AppHeader';
+import { useTranslation } from 'react-i18next';
 
 interface ChooseCategoryProps {
   step?: StepsEnum;
@@ -25,7 +26,7 @@ export function ChooseCategoriesView ({
   categoryId,
   setCategoryId,
 } : ChooseCategoryProps) {
-  //const { t } = useTranslation();
+  const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState<CategoriesEnum | null>(category ?? null);
   //const navigation = useNavigation<AuthStackNavigationProp>();
 
@@ -38,15 +39,15 @@ export function ChooseCategoriesView ({
   };
 
   const categories = [
-    { id: '1', label: 'Cultura', icon: colorPaletteSharp }, 
-    { id: '2', label: 'Educacion', icon: bookSharp }, 
-    { id: '3', label: 'Parties', icon: headsetSharp },
-    { id: '4', label: 'Concerts', icon: musicalNoteSharp }, 
-    { id: '5', label: 'Festivals', icon: keypadSharp }, 
-    { id: '6', label: 'Sports', icon: trophySharp }, 
-    { id: '7', label: 'Theater', icon: brushSharp},
-    { id: '8', label: 'Exhibitions', icon: imageSharp }, 
-    { id: '9', label: 'Clubs', icon: peopleSharp }, 
+    { id: '1', label: t('categories.culture'), icon: colorPaletteSharp }, 
+    { id: '2', label: t('categories.education'), icon: bookSharp }, 
+    { id: '3', label: t('categories.parties'), icon: headsetSharp },
+    { id: '4', label: t('categories.concerts'), icon: musicalNoteSharp }, 
+    { id: '5', label: t('categories.festivals'), icon: keypadSharp }, 
+    { id: '6', label: t('categories.sports'), icon: trophySharp }, 
+    { id: '7', label: t('categories.theater'), icon: brushSharp},
+    { id: '8', label: t('categories.exhibitions'), icon: imageSharp }, 
+    { id: '9', label: t('categories.clubs'), icon: peopleSharp }, 
   ];
   
 
@@ -59,7 +60,7 @@ export function ChooseCategoriesView ({
   return (
     <IonPage>
       <IonHeader className="header">
-        <AppHeader title='CATEGORIA' goBack={handleNext}/> 
+        <AppHeader title={t('addEvent.category')} goBack={handleNext}/> 
       </IonHeader>
       <div className='categories-wrap'>        
         <IonRow>
@@ -79,7 +80,7 @@ export function ChooseCategoriesView ({
       
       <IonFooter className='footer'>
         <Button 
-          label='Siguiente'
+          label={t('addEvent.next')}
           onClick={handleNext}
         />
       </IonFooter>

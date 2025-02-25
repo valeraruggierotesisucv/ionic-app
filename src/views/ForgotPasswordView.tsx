@@ -9,8 +9,10 @@ import { mail } from 'ionicons/icons';
 import { ROUTES } from '../utils/routes';
 import forgotPasswordImage from '../../public/images/SuccessEmail.png';
 import '../styles/forgotPasswordView.css';
+import { useTranslation } from 'react-i18next';
 
 export function ForgotPasswordView() {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const { resetPassword } = useAuth();
     const history = useHistory();
@@ -30,27 +32,27 @@ export function ForgotPasswordView() {
                 goBack={() => history.goBack()} 
             />
             <IonContent >
-                <div className="forgot-password-container">
+                <div className="forgot-password-view-container">
                     <div className="forgot-password-title-container">
-                        <h2>¿Olvidaste tu contraseña?</h2>
+                        <h2>{t("auth.forgotPassword")}</h2>
                         <div className="image-container">
                             <IonImg src={forgotPasswordImage} alt="Forgot Password" />
                         </div>
-                        <p className="forgot-password-description">Introduce tu dirección de Correo Electrónico para solicitar el restablecimiento de tu contraseña.</p>
+                        <p className="forgot-password-description">{t("auth.forgot_password_text")}</p>
                     </div>
                     <div className="input-section">
                         <InputField
-                            label="Correo"
+                            label={t("auth.email")}
                             value={email}
                             onChangeText={setEmail}
-                            placeholder="ejemplo@email.com"
+                            placeholder={t("auth.email_placeholder")}
                             icon={mail}
                         />
                     </div>
 
-                    <div className="button-container">
+                    <div className="forgot-password-button-container">
                         <Button
-                            label="Enviar enlace"
+                            label={t("common.send")}
                             size={ButtonSize.LARGE}
                             variant={ButtonVariant.PRIMARY}
                             onClick={handleResetPassword}
