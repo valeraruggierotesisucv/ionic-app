@@ -78,7 +78,7 @@ export function FollowedView() {
       />
       <IonContent className="ion-padding">
         <SearchBar
-          placeholder={t("search.followed")}
+          placeholder={t("search.title")}
           onChange={setSearch}
           value={search}
         />

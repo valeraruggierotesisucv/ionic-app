@@ -44,6 +44,7 @@ export function NotificationsView(){
             : (notifications && notifications.map((notification) => {
                 return(
                     <NotificationItem 
+                        isNew={false}
                         timestamp={notification.timestamp}
                         type={notification.type}
                         user={notification.user}

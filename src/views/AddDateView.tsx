@@ -6,6 +6,7 @@ import { StepsEnum } from './AddDefaultView';
 import "../styles/footer.css"; 
 import "../styles/error.css"; 
 import { Calendar } from '../components/Calendar/Calendar';
+import { useTranslation } from 'react-i18next';
 
 interface AddDateViewProps {
   step: StepsEnum, 
@@ -29,7 +30,7 @@ export function AddDateView({
   setEndTime
 }: AddDateViewProps) {
   const [showError, setShowError] = useState(false); 
-
+  const { t } = useTranslation();
   function handleNext() {
     if(!date || !startTime || !endTime){
       setShowError(true)
@@ -42,7 +43,7 @@ export function AddDateView({
   return (
     <IonPage>
       <IonHeader className="header">
-        <AppHeader title='¿Cuándo?' goBack={handleNext}/> 
+        <AppHeader title={t('addEvent.when')} goBack={handleNext}/> 
       </IonHeader>
        <IonContent>
         <Calendar 
@@ -53,12 +54,12 @@ export function AddDateView({
           onStartTimeChange={setStartTime}
           onEndTimeChange={setEndTime}
         />
-        { showError && <IonText className='error-message'> {" * Debe indicar fecha y hora del evento"} </IonText>}  
+        { showError && <IonText className='error-message'> {t('addEvent.require_fields')} </IonText>}  
        </IonContent>
 
        <IonFooter className='footer'>
           <Button 
-            label='Siguiente'
+            label={t('addEvent.next')}
             onClick={handleNext}
           />
         </IonFooter>

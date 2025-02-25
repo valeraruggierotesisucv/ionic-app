@@ -1,6 +1,7 @@
 import './ProfileCard.css';
 import { Avatar } from '../Avatar/Avatar';
 import { IMAGE_PLACEHOLDER } from '../../utils/consts';
+import { useTranslation } from 'react-i18next';
 
 interface ProfileCardProps {
   profileImage?: string;
@@ -35,7 +36,7 @@ export function ProfileCard({
   onFollowed,
   disableFollowButton = false,
 }: ProfileCardProps) {
-
+  const { t } = useTranslation();
   return (
     <div className="profile-card">
       <div className="profile-content">
@@ -44,15 +45,15 @@ export function ProfileCard({
           <div className="stats-container">
             <button className="stat-item" onClick={onEvents}>
               <span className="stat-number">{events}</span>
-              <span className="stat-label">Events</span>
+              <span className="stat-label">{t("profile.events")}</span>
             </button>
             <button className="stat-item" onClick={onFollowers}>
               <span className="stat-number">{followers}</span>
-              <span className="stat-label">Followers</span>
+              <span className="stat-label">{t("profile.followers")}</span>
             </button>
             <button className="stat-item" onClick={onFollowed}>
               <span className="stat-number">{following}</span>
-              <span className="stat-label">Following</span>
+              <span className="stat-label">{t("profile.following")}</span>
             </button>
           </div>
         </div>
@@ -69,7 +70,7 @@ export function ProfileCard({
               onClick={onFollow}
               disabled={disableFollowButton}
             >
-              {isFollowing ? 'Unfollow' : 'Follow'}
+              {isFollowing ? t('common.unfollow') : t('common.follow')}
             </button>
           )}
 
@@ -78,7 +79,7 @@ export function ProfileCard({
               className="profile-button"
               onClick={onEditProfile}
             >
-              Edit Profile
+              {t('profile.edit_profile')}
             </button>
           )}
           
@@ -87,7 +88,7 @@ export function ProfileCard({
               className="profile-button"
               onClick={onConfigureProfile}
             >
-              Configure Profile
+              {t('profile.configure_profile')}
             </button>
           )}
         </div>

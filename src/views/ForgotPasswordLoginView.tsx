@@ -5,9 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../utils/routes';
 import successImage from '../../public/images/Success.png';
 import '../styles/forgotPasswordLoginView.css';
+import { useTranslation } from 'react-i18next';
 
 export function ForgotPasswordLoginView() {
     const history = useHistory();
+    const { t } = useTranslation(); 
 
     return (
         <IonPage>
@@ -15,18 +17,18 @@ export function ForgotPasswordLoginView() {
             <IonContent>
                 <div className="forgot-password-container">
                     <div className="success-content">
-                        <h2>¡Correo enviado con éxito!</h2>
+                        <h2>{t("auth.send_link_success")}</h2>
                         <div className="image-container">
                             <IonImg src={successImage} alt="Success" />
                         </div>
                         <p className="forgot-password-description">
-                            {`Por favor, verifica tu bandeja de entrada y sigue el enlace para cambiar tu contraseña.\nNo olvides revisar la carpeta de spam si no lo encuentras.`}
+                            {t("auth.success_email_text")}
                         </p>
                     </div>
 
-                    <div className="button-container">
+                    <div className="forgot-password-login-button-container">
                         <Button
-                            label="Iniciar Sesión"
+                            label={t("auth.login")}
                             size={ButtonSize.LARGE}
                             variant={ButtonVariant.PRIMARY}
                             onClick={() => history.push(ROUTES.AUTH.ROOT)}

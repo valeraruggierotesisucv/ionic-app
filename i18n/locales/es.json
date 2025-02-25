@@ -58,7 +58,10 @@
         "confirm_password": "Confirmar contraseña",
         "confirm_password_placeholder": "Confirmar contraseña",
         "check_inbox_for_verification": "¡Por favor, revisa tu bandeja de entrada para la verificación por correo electrónico!",
-        "forgot_password": "¿Olvidaste tu contraseña?"
+        "send_link_success": "¡Correo enviado con éxito!",
+        "success_email_text": "¡Por favor, revisa tu bandeja de entrada para la verificación por correo electrónico!\nNo olvides revisar la carpeta de spam si no lo encuentras.",
+        "forgot_password": "¿Olvidaste tu contraseña?",
+        "forgot_password_text": "Introduce tu dirección de Correo Electrónico para solicitar el restablecimiento de tu contraseña."
     },
     "eventDetails": {
         "title": "Detalles",
@@ -91,7 +94,10 @@
         "require_fields": "Por favor complete todos los campos obligatorios",
         "choose_from_files": "Elegir de archivos",
         "record_audio": "Grabar audio",
-        "stop_recording": "Detener grabación"
+        "stop_recording": "Detener grabación",
+        "add_my_location": "Agregar mi ubicación",
+        "cancel": "Cancelar",
+        "require_fields_description": " * Debe indicar la fecha y hora del evento"
     },
     "addLocation": {
         "title": "Ubicación",
@@ -127,7 +133,8 @@
     },
     "comments": {
         "comment_placeholder": "Escribe un comentario...",
-        "add_comment": "Agregar un comentario"
+        "add_comment": "Agregar un comentario",
+        "comments": "Comentarios"
     },
     "addEventDate": {
         "title": "Agrega fecha y hora",

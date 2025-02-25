@@ -13,6 +13,7 @@ import { ROUTES } from '../utils/routes';
 import * as Yup from 'yup';
 import { SignUpController } from '../controllers/SignUpController';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 export function AuthView() {
   const { login, signup } = useAuth();
@@ -34,9 +35,10 @@ export function AuthView() {
     setConfirmPasswordVisible(false);
   }, [activeTab]);
 
+  const { t } = useTranslation();
   const tabs: Tab[] = [
-    { id: 'login', label: 'Iniciar Sesión' },
-    { id: 'register', label: 'Registro' },
+    { id: 'login', label: t('auth.login') },
+    { id: 'register', label: t('auth.sign_up') },
   ];
 
   // Validation schemas
@@ -71,19 +73,19 @@ export function AuthView() {
   const renderLoginForm = ({ values, errors, touched, handleChange }: any) => (
     <div className="form-container">
       <InputField
-        label="Correo"
+        label={t('auth.email')}
         value={values.email}
         onChangeText={handleChange('email')}
-        placeholder="ejemplo@email.com"
+        placeholder={t('auth.email_placeholder')}
         icon={mail}
         error={touched.email && errors.email}
       />
       <InputField
-        label="Contraseña"
+        label={t('auth.password')}
         value={values.password}
         onChangeText={handleChange('password')}
         secureTextEntry={!loginPasswordVisible}
-        placeholder="Contraseña"
+        placeholder={t('auth.password_placeholder')}
         icon={loginPasswordVisible ? eye : eyeOff}
         onPressIcon={() => setLoginPasswordVisible(!loginPasswordVisible)}
         error={touched.password && errors.password}
@@ -93,7 +95,7 @@ export function AuthView() {
           onClick={() => history.push(ROUTES.AUTH.FORGOT_PASSWORD)}
           style={{ backgroundColor: 'transparent' }}
         >
-          <p style={{ color: '#050F71', fontSize: 17, fontFamily: 'SF-Pro-Text-Semibold' }}>¿Olvidaste tu contraseña?</p>
+          <p style={{ color: '#050F71', fontSize: 17, fontFamily: 'SF-Pro-Text-Semibold' }}>{t('auth.forgot_password')}</p>
         </button>
       </div>
     </div>
@@ -102,54 +104,54 @@ export function AuthView() {
   const renderRegisterForm = ({ values, errors, touched, handleChange, setFieldValue }: any) => (
     <div className="form-container">
       <InputField
-        label="Nombre de Usuario"
+        label={t('auth.username')}
         value={values.username}
         onChangeText={handleChange('username')}
 
-        placeholder="Nombre de usuario"
+        placeholder={t('auth.username_placeholder')}
         icon={person}
         error={touched.username && errors.username}
       />
       <InputField
-        label="Nombre Completo"
+        label={t('auth.fullname')}
         value={values.fullName}
         onChangeText={handleChange('fullName')}
 
-        placeholder="Nombre completo"
+        placeholder={t('auth.fullname_placeholder')}
         icon={person}
         error={touched.fullName && errors.fullName}
       />
       <InputField
-        label="Correo"
+        label={t('auth.email')}
         value={values.email}
         onChangeText={handleChange('email')}
 
-        placeholder="ejemplo@email.com"
+        placeholder={t('auth.email_placeholder')}
         icon={mail}
         error={touched.email && errors.email}
       />
       <DateTimePickerField
-        label="Fecha de Nacimiento"
+        label={t('auth.birthdate')}
         value={values.birthDate}
         onChange={(date) => setFieldValue('birthDate', date)}
         error={touched.birthDate && errors.birthDate}
       />
       <InputField
-        label="Contraseña"
+        label={t('auth.password')}
         value={values.password}
         onChangeText={handleChange('password')}
         secureTextEntry={!registerPasswordVisible}
-        placeholder="Contraseña"
+        placeholder={t('auth.password_placeholder')}
         icon={registerPasswordVisible ? eye : eyeOff}
         onPressIcon={() => setRegisterPasswordVisible(!registerPasswordVisible)}
         error={touched.password && errors.password}
       />
       <InputField
-        label="Confirmar Contraseña"
+        label={t('auth.confirm_password')}
         value={values.confirmPassword}
         onChangeText={handleChange('confirmPassword')}
         secureTextEntry={!confirmPasswordVisible}
-        placeholder="Confirmar contraseña"
+        placeholder={t('auth.confirm_password_placeholder')}
         icon={confirmPasswordVisible ? eye : eyeOff}
         onPressIcon={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
         error={touched.confirmPassword && errors.confirmPassword}
@@ -250,7 +252,7 @@ export function AuthView() {
                     {renderLoginForm(formikProps)}
                     <div className="auth-button-container">
                       <Button
-                        label="Iniciar Sesión"
+                        label={t('auth.login')}
                         size={ButtonSize.LARGE}
                         variant={ButtonVariant.PRIMARY}
                         onClick={formikProps.handleSubmit}
@@ -279,7 +281,7 @@ export function AuthView() {
                     {renderRegisterForm(formikProps)}
                     <div className="auth-button-container" style={{ marginTop: 20 }}>
                       <Button
-                        label="Registrarse"
+                        label={t('auth.sign_up')}
                         size={ButtonSize.LARGE}
                         variant={ButtonVariant.PRIMARY}
                         onClick={formikProps.handleSubmit}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IonDatetime } from '@ionic/react';
 import './Calendar.css';
+import { useTranslation } from 'react-i18next';
 
 interface CalendarProps {
   initialStartTime?: Date | null;
@@ -22,6 +23,7 @@ interface TimePickerInputProps {
 
 function TimePickerInput({ label, value, onChange, onChangeComplete }: TimePickerInputProps) {
   const [showPicker, setShowPicker] = useState(false);
+  const { t } = useTranslation();
   const today = new Date()
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -53,8 +55,8 @@ function TimePickerInput({ label, value, onChange, onChangeComplete }: TimePicke
             }}
             className="time-picker"
             showDefaultButtons={true}
-            doneText="Confirmar"
-            cancelText="Cancelar"
+            doneText={t('calendar.confirm')}
+            cancelText={t('calendar.cancel')}
             onIonCancel={() => setShowPicker(false)}
           />
         </div>
@@ -72,6 +74,7 @@ export function Calendar({
   onStartTimeChange,
   onEndTimeChange,
 }: CalendarProps) {
+  const { t } = useTranslation();
   const [selectedStartTime, setSelectedStartTime] = useState<Date >(
     initialStartTime || new Date()
   );
@@ -145,13 +148,13 @@ export function Calendar({
 
       <div className="time-inputs">
         <TimePickerInput
-          label="INICIO"
+          label={t('calendar.start')}
           value={selectedStartTime}
           onChange={setSelectedStartTime}
           onChangeComplete={onStartTimeChange}
         />
         <TimePickerInput
-          label="FIN"
+          label={t('calendar.end')}
           value={selectedEndTime}
           onChange={setSelectedEndTime}
           onChangeComplete={onEndTimeChange}

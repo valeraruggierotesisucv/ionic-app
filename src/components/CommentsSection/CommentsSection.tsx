@@ -2,6 +2,7 @@ import { IonModal, IonContent } from '@ionic/react';
 import { CommentItem } from '../CommentItem/CommentItem';
 import { CommentInput } from '../CommentInput/CommentInput';
 import './CommentsSection.css';
+import { useTranslation } from 'react-i18next';
 
 export interface Comment {
   username: string;
@@ -23,6 +24,7 @@ export function CommentsSection({
   isOpen,
   setIsOpen,
 }: CommentsSectionProps) {
+  const { t } = useTranslation();
   return (
     <IonModal 
       isOpen={isOpen} 
@@ -33,7 +35,7 @@ export function CommentsSection({
     >
       <div className="comments-container">
         <div className="comments-header">
-          <h2>Comentarios</h2>
+          <h2>{t("comments.comments")}</h2>
         </div>
 
         <div className="comments-scroll-container">

@@ -17,6 +17,7 @@ import useCurrentLocation from "../hooks/useCurrentLocation";
 import useAudioRecorder from "../hooks/useAudioRecorder";
 import useFilePicker from "../hooks/useFilePicker";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export enum StepsEnum {
   DEFAULT = "default",
@@ -79,7 +80,7 @@ export function AddDefaultView({
   edit = false, 
   disable = false
 }: AddDefaultViewProps) {
-
+  const { t } = useTranslation();
   const [imageModal, setImageModal] = useState(false); 
   const [locationModal, setLocationModal] = useState(false);
   const [musicModal, setMusicModal] = useState(false); 
@@ -234,7 +235,7 @@ export function AddDefaultView({
 
   return (
     <IonPage>
-      <AppHeader title={goBack ? 'Editar Evento' : 'Nuevo Evento'} goBack={goBack ? () => history.goBack() : undefined}/> 
+      <AppHeader title={goBack ? t("editEvent.title") : t("addEvent.new_event")} goBack={goBack ? () => history.goBack() : undefined}/> 
       
 
       {/* CONTENT */}
@@ -252,8 +253,8 @@ export function AddDefaultView({
 
         {/* Título */}
         <Input
-          label="Titulo"
-          placeholder="Agregar título"
+          label={t("addEvent.title")}
+          placeholder={t("addEvent.add_title")}
           multiline={false}
           variant={InputVariant.DEFAULT}
           value={title ?? ""}
@@ -263,8 +264,8 @@ export function AddDefaultView({
 
          {/* Descripción */}
         <Input
-          label="Descripción"
-          placeholder="Agrega una descripción"
+          label={t("addEvent.description")}
+          placeholder={t("addEvent.add_description")}
           variant={InputVariant.DEFAULT}
           value={description ?? ""}
           onChangeValue={setDescription}
@@ -274,13 +275,13 @@ export function AddDefaultView({
         {/* FECHA Y HORA */}
         {date && startsAt && endsAt ? (
           <DisplayInput
-            label="¿Cuando?"
+            label={t("addEvent.when")}
             data={<DatePills />}
           />
         ) : (
           <Input
-            label="¿Cuando?"
-            placeholder="Agregar fecha y hora"
+            label={t("addEvent.when")}
+            placeholder={t("addEvent.add_date")}
             variant={InputVariant.ARROW}
             onPress={() => setStep(StepsEnum.DATE)}
           />
@@ -289,13 +290,13 @@ export function AddDefaultView({
          {/* Categoría */}
           {category ? (
             <DisplayInput
-              label="Categoría"
+              label={t("addEvent.category")}
               data={<CategoryPill/>}
             />
           ) : (
             <Input
-              label="Categoría"
-              placeholder="Agrega la categoria de tu evento"
+              label={t("addEvent.category")}
+              placeholder={t("addEvent.add_category")}
               variant={InputVariant.ARROW}
               onPress={() => setStep(StepsEnum.CATEGORY)}
             />
@@ -304,12 +305,12 @@ export function AddDefaultView({
           {/* MÚSICA */}
           { musicFile
                 ? <DisplayInput
-                    label="Música"
+                    label={t("addEvent.music")}
                     data={<MusicPill />}
                   />
                 : <Input 
-                    label="Música"
-                    placeholder="Agrega música a tu evento"
+                    label={t("addEvent.music")}
+                    placeholder={t("addEvent.add_music")}
                     variant={InputVariant.ARROW}
                     onPress={() => setMusicModal(true)}
                 />
@@ -323,8 +324,8 @@ export function AddDefaultView({
               />
             ) : (
               <Input
-                label="Ubicación"
-                placeholder="Agrega tu ubicación"
+                label={t("addEvent.location")}
+                placeholder={t("addEvent.add_location")}
                 variant={InputVariant.ARROW}
                 onPress={() => setLocationModal(true)}
               />
@@ -335,31 +336,31 @@ export function AddDefaultView({
         isOpen={imageModal}
         onClose={() => setImageModal(false)}
       >        
-        <IonButton expand="block" className="custom-button" onClick={handleOpenCamera}>Tomar foto</IonButton>
-        <IonButton expand="block" className="custom-button" onClick={handleOpenGallery}>Elegir de la Galería</IonButton>
-        <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>Cancelar</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={handleOpenCamera}>{t("addEvent.take_photo")}</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={handleOpenGallery}>{t("addEvent.choose_from_gallery")}</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={() => setImageModal(false)}>{t("addEvent.cancel")}</IonButton>
       </CustomModal>
 
       <CustomModal 
         isOpen={locationModal}
         onClose={() => setLocationModal(false)}
       >        
-        <IonButton expand="block" className="custom-button" onClick={getCurrentLocation}>Agregar mi ubicación</IonButton>
-        <IonButton expand="block" className="custom-button" onClick={() => setLocationModal(false)}>Cancelar</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={getCurrentLocation}>{t("addEvent.add_my_location")}</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={() => setLocationModal(false)}>{t("addEvent.cancel")}</IonButton>
       </CustomModal>
 
       <CustomModal 
         isOpen={musicModal}
         onClose={() => setMusicModal(false)}
       >       
-        <IonButton expand="block" className="custom-button" onClick={handleOpenFilePicker}>Escoger de los archivos</IonButton>
-        <IonButton expand="block" className="custom-button" onClick={ isRecording ? handleStopRecording : handleStartRecording } >{ isRecording ? "Detener grabación" : "Grabar Audio"}</IonButton>
-        <IonButton expand="block" className="custom-button" onClick={() => setMusicModal(false)}>Cancelar</IonButton> 
+        <IonButton expand="block" className="custom-button" onClick={handleOpenFilePicker}>{t("addEvent.choose_from_files")}</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={ isRecording ? handleStopRecording : handleStartRecording } >{ isRecording ? t("addEvent.stop_recording") : t("addEvent.record_audio")}</IonButton>
+        <IonButton expand="block" className="custom-button" onClick={() => setMusicModal(false)}>{t("addEvent.cancel")}</IonButton> 
       </CustomModal>
 
       <IonFooter className="footer">
         <Button 
-          label='Publicar'
+          label={goBack ? t("editEvent.publish") : t("addEvent.publish")}
           onClick={onAddEvent}
         />
       </IonFooter>

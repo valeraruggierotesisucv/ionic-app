@@ -12,8 +12,10 @@ import { CustomModal } from "../components/CustomModal/CustomModal";
 import { IMAGE_PLACEHOLDER } from "../utils/consts";
 import { EditProfileController } from "../controllers/EditProfileController";
 import { useAuth } from "../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export function EditProfileView() {
+    const {t} = useTranslation();
     const history = useHistory();
     const { user, session } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
@@ -78,7 +80,7 @@ export function EditProfileView() {
 
     return (
         <IonPage>
-            <AppHeader goBack={() => {history.goBack()}} title="Edit Profile" />
+            <AppHeader goBack={() => {history.goBack()}} title={t('editProfile.title')} />
             <IonContent className="ion-padding">
                 <div className="edit-profile-container">
                     <div className="avatar-section">
@@ -99,13 +101,13 @@ export function EditProfileView() {
 
                     <div className="inputs-container">
                         <InputField 
-                            label="Name"
+                            label={t('editProfile.fullName')}
                             value={fullName}
                             onChangeText={setFullName}
                             variant={InputFieldVariant.GRAY_BACKGROUND}
                         />
                         <InputField 
-                            label="Bio"
+                            label={t('editProfile.biography')}
                             value={biography}
                             onChangeText={setBiography}
                             variant={InputFieldVariant.GRAY_BACKGROUND}
@@ -113,7 +115,7 @@ export function EditProfileView() {
                     </div>
                     <div className="edit-profile-button-container">
                         <Button 
-                            label="Save"
+                            label={t('editProfile.save')}
                             size={ButtonSize.LARGE}
                             variant={ButtonVariant.PRIMARY}
                             onClick={handleSave}

@@ -1,7 +1,7 @@
 import { IonAvatar, IonButton, IonImg, IonText, IonRow, IonCol, IonRippleEffect } from '@ionic/react';
 import './notificationItem.css'; 
 import { formatDate } from '../../utils/formatDate';
-import i18n from '../../../i18n';
+import { useTranslation } from 'react-i18next';
 
 export enum NotificationType {
   FOLLOW = 'FOLLOW',
@@ -34,7 +34,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   onFollow,
   isNew
 }) => {
-  //const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const formattedDate = formatDate(timestamp, i18n.language);
 
   return (

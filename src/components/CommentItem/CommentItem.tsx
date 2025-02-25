@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { formatDate } from '../../utils/formatDate';
 import './CommentItem.css';
+import { useTranslation } from 'react-i18next';
 
 const MAX_LINES = 3;
 
@@ -23,8 +24,8 @@ export function CommentItem({
   const [isExpanded, setIsExpanded] = useState(false);
   const [hasTextOverflow, setHasTextOverflow] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
-
-  const formattedTimestamp = formatDate(timestamp);
+  const { i18n } = useTranslation();
+  const formattedTimestamp = formatDate(timestamp, i18n.language);
 
   useEffect(() => {
     if (textRef.current) {

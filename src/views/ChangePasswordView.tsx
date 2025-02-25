@@ -1,4 +1,4 @@
-import { IonContent, IonPage, useIonViewWillEnter } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import { AppHeader } from "../components/AppHeader/AppHeader";
 import { useHistory } from "react-router-dom";
 import { ButtonVariant } from "../components/Button/Button";
@@ -9,13 +9,14 @@ import { Button } from "../components/Button/Button";
 import { useState } from "react";
 import "../styles/changePasswordView.css";
 import { useAuth } from "../contexts/AuthContext";
-import { CustomModal } from "../components/CustomModal/CustomModal";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { Modal } from "../components/Modal/Modal";
+import { useTranslation } from "react-i18next";
 
 export function ChangePasswordView() {
+    const { t } = useTranslation();
     const history = useHistory();
     const { updatePassword } = useAuth();
     const [isModalVisible, setModalVisible] = useState(false);
@@ -48,7 +49,7 @@ export function ChangePasswordView() {
 
     return (
         <IonPage>
-            <AppHeader title="Change Password" goBack={() => history.goBack()} />
+            <AppHeader title={t('changePassword.title')} goBack={() => history.goBack()} />
             <IonContent className="ion-padding">
                 <div className="change-password-container">
                     <Formik
@@ -60,7 +61,7 @@ export function ChangePasswordView() {
                             <>
                                 <div className="inputs-container">
                                     <InputField 
-                                        label="NEW PASSWORD"
+                                        label={t('changePassword.new_password')}
                                         value={values.newPassword}
                                         onChangeText={handleChange("newPassword")}
                                         variant={InputFieldVariant.GRAY_BACKGROUND}
@@ -70,7 +71,7 @@ export function ChangePasswordView() {
                                         error={touched.newPassword && errors.newPassword ? errors.newPassword : undefined}
                                     />
                                     <InputField 
-                                        label="CONFIRM PASSWORD"
+                                        label={t('changePassword.confirm_password')}
                                         value={values.confirmPassword}
                                         onChangeText={handleChange("confirmPassword")}
                                         variant={InputFieldVariant.GRAY_BACKGROUND}
@@ -82,7 +83,7 @@ export function ChangePasswordView() {
                                 </div>
                                 <div className="change-password-button-container">
                                     <Button 
-                                        label="Send"
+                                        label={t('common.send')}
                                         size={ButtonSize.LARGE}
                                         variant={ButtonVariant.PRIMARY}
                                         onClick={() => handleSubmit()}
