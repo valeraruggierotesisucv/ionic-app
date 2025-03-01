@@ -34,7 +34,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <IonButton
-
+      data-testid="publish-button"
       className={`${size} ${variant} ${disabled ? 'disabled' : ''}`}
       onClick={onClick}
       disabled={disabled}
