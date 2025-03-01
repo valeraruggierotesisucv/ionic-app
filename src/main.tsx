@@ -12,9 +12,9 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <PushNotificationProvider>
+
         <App />
-      </PushNotificationProvider>      
+    
     </AuthProvider>
   </React.StrictMode>
 );
