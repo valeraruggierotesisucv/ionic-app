@@ -21,6 +21,7 @@ interface ButtonProps {
   style?: React.CSSProperties;
   fontSize?: number;
   disabled?: boolean;
+  testId?: string; 
 }
 
 export function Button({
@@ -31,10 +32,11 @@ export function Button({
   fontSize = 17,
   style,
   disabled = false,
+  testId 
 }: ButtonProps) {
   return (
     <IonButton
-      data-testid="publish-button"
+      data-testid={testId}
       className={`${size} ${variant} ${disabled ? 'disabled' : ''}`}
       onClick={onClick}
       disabled={disabled}

@@ -1,7 +1,6 @@
-import { render, screen} from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, getByTestId} from '@testing-library/react';
 import { AuthProvider } from '../contexts/AuthContext';
 import { AddEventView } from '../views/AddEventView';
-
 
 test('AddEventView renders without crashing', () => {
   render(

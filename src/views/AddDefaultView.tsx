@@ -260,6 +260,7 @@ export function AddDefaultView({
           value={title ?? ""}
           onChangeValue={setTitle}
           required={title ? false : true}
+          data-testid="title"
         />
 
          {/* Descripción */}
@@ -284,6 +285,7 @@ export function AddDefaultView({
             placeholder={t("addEvent.add_date")}
             variant={InputVariant.ARROW}
             onPress={() => setStep(StepsEnum.DATE)}
+            data-testid="description"
           />
         )}
 
@@ -299,6 +301,7 @@ export function AddDefaultView({
               placeholder={t("addEvent.add_category")}
               variant={InputVariant.ARROW}
               onPress={() => setStep(StepsEnum.CATEGORY)}
+              data-testid="category"
             />
           )}
 
@@ -313,6 +316,7 @@ export function AddDefaultView({
                     placeholder={t("addEvent.add_music")}
                     variant={InputVariant.ARROW}
                     onPress={() => setMusicModal(true)}
+                    data-testid="category"
                 />
             }
 
@@ -328,6 +332,7 @@ export function AddDefaultView({
                 placeholder={t("addEvent.add_location")}
                 variant={InputVariant.ARROW}
                 onPress={() => setLocationModal(true)}
+                data-testid="location"
               />
             )} 
       </IonContent>
@@ -360,6 +365,7 @@ export function AddDefaultView({
 
       <IonFooter className="footer">
         <Button 
+          testId="publish-button"
           label={goBack ? t("editEvent.publish") : t("addEvent.publish")}
           onClick={onAddEvent}
         />

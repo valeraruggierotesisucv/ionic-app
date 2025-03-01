@@ -46,6 +46,7 @@ const Input: React.FC<InputProps> = ({
           />
         ) : (
           <IonInput
+            data-testid="custom-input"
             value={value}
             placeholder={placeholder}
             onIonInput={(e: any) => onChangeValue && onChangeValue(e.target.value)}
@@ -57,7 +58,7 @@ const Input: React.FC<InputProps> = ({
       )}
 
       {variant === InputVariant.ARROW && (
-        <IonIcon icon={chevronForwardOutline} size="large" color="medium" />
+        <IonIcon icon={chevronForwardOutline} size="large" color="medium" data-testid="chevron-forward-icon"/>
       )}
     </div>
   );
