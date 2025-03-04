@@ -1,35 +1,147 @@
-# Build Your First Ionic App: Photo Gallery (Ionic React and Capacitor)
+# Eventify - Ionic React
 
-Get started with Ionic by building a photo gallery app that runs on iOS, Android, and the web - with just one codebase. This is the complete project referenced in the ["Your First App: React" guide](https://ionicframework.com/docs/react/your-first-app). Follow along to create a complete CRUD (create-read-update-delete) experience.
+## Descripción
 
-Powered by [Ionic React](https://ionicframework.com/docs/react) (web app) and [Capacitor](https://capacitor.ionicframework.com) (native app runtime).
+Eventify es una plataforma móvil diseñada para la gestión de eventos e interacción entre usuarios. Incluye funcionalidades esenciales como la administración de eventos, la conexión entre usuarios y características sociales, tales como seguidores, notificaciones y comentarios.
 
-## How It Works
+## Tecnologías Utilizadas
 
-After the user navigates to Tab 2 (Photos), they can tap/click on the camera button to open up the device's camera. After taking or selecting a photo, it's stored permanently into the device's filesystem. When the user reopens the app at a later time, the photo images are loaded from the filesystem and displayed again in the gallery. The user can tap on a photo to be presented with the option to remove the photo.
+- **Ionic Framework**: Framework para el desarrollo de aplicaciones móviles híbridas.
+- **React**: Biblioteca para construir interfaces de usuario.
+- **TypeScript**: Lenguaje de programación que añade tipado estático a JavaScript.
+- **Capacitor**: Plataforma para convertir aplicaciones web en aplicaciones nativas.
+- **Supabase**: Plataforma de backend como servicio (BaaS) para autenticación, base de datos y almacenamiento.
+- **AsyncStorage**: Para persistencia local de datos.
+- **i18next**: Solución de internacionalización.
+- **Expo Notifications**: Para implementación de notificaciones push.
 
-## Feature Overview
-* App framework: [React](https://reactjs.org/)
-* UI components: [Ionic Framework](https://ionicframework.com/docs/components)
-  * Camera button: [Floating Action Button (FAB)](https://ionicframework.com/docs/api/fab)
-  * Photo Gallery display: [Grid](https://ionicframework.com/docs/api/grid)
-  * Delete Photo dialog: [Action Sheet](https://ionicframework.com/docs/api/action-sheet) 
-* Native runtime: [Capacitor](https://capacitor.ionicframework.com)
-  * Taking photos: [Camera API](https://capacitor.ionicframework.com/docs/apis/camera)
-  * Writing photo to the filesystem: [Filesystem API](https://capacitor.ionicframework.com/docs/apis/filesystem)
-  * Storing photo gallery metadata: [Preferences API](https://capacitor.ionicframework.com/docs/apis/preferences)
+## Estructura del Proyecto
 
-## Project Structure
-* Tab2 (Photos) (`src/pages/Tab2.tsx`): Photo Gallery UI and basic logic.
-* usePhotoGallery Hook (`src/hooks/usePhotoGallery.ts`): Logic encapsulating Capacitor APIs, including Camera, Filesystem, and Preferences.
+```
+ionic-app/
+├── src/
+│   ├── App.tsx                # Componente principal de la aplicación
+│   ├── assets/                # Imágenes, fuentes y otros recursos estáticos
+│   ├── components/            # Componentes reutilizables
+│   ├── views/                 # Vistas principales de la aplicación
+│   ├── contexts/              # Contextos de React
+│   │   ├── AuthContext.tsx    # Contexto de autenticación
+│   │   └── PushNotificationsContext.tsx # Proveedor de notificaciones
+│   ├── hooks/                 # Hooks personalizados
+│   │   ├── useAudioRecorder.tsx # Hook para grabación de audio
+│   │   ├── useCurrentLocation.tsx # Hook para geolocalización
+│   │   ├── useImagePicker.tsx # Hook para selección de imágenes
+│   │   └── useMusicPicker.tsx # Hook para selección de música
+│   ├── models/                # Interfaces y tipos de datos
+│   ├── navigation/            # Configuración de navegación
+│   │   ├── AppRoutes.tsx      # Rutas principales
+│   │   └── AuthRoutes.tsx     # Rutas de autenticación
+│   ├── i18n/                  # Configuración de internacionalización
+│   ├── services/              # Servicios para API, notificaciones, etc.
+│   │   ├── api.ts             # Servicios de API
+│   │   ├── auth.ts            # Servicios de autenticación
+│   │   ├── events.ts          # Servicios de eventos
+│   │   ├── storage.ts         # Servicios de almacenamiento
+│   │   └── notifications.ts   # Servicios de notificaciones
+│   ├── styles/                # Estilos globales y utilidades CSS
+│   ├── theme/                 # Configuración de temas
+│   └── utils/                 # Utilidades y helpers
+├── public/                    # Archivos públicos estáticos
+├── capacitor.config.ts        # Configuración de Capacitor
+├── ionic.config.json          # Configuración de Ionic
+└── package.json               # Dependencias y scripts
+```
 
-## How to Run
+## Requisitos Previos
 
-> Note: It's highly recommended to follow along with the [tutorial guide](https://ionicframework.com/docs/react/your-first-app), which goes into more depth, but this is the fastest way to run the app. 
+- Node.js (v16 o superior)
+- npm o yarn
+- Ionic CLI
+- Cuenta en Supabase
 
-0) Install Ionic if needed: `npm install -g @ionic/cli`.
-1) Clone this repository.
-2) In a terminal, change directory into the repo: `cd photo-gallery-capacitor-react`.
-3) Install all packages: `npm install`.
-4) Run on the web: `ionic serve`.
-5) Run on iOS or Android: See [here](https://ionicframework.com/docs/building/running).
+## Configuración del Entorno
+
+1. Clona el repositorio:
+   ```bash
+   git clone [URL_DEL_REPOSITORIO]
+   cd ionic-app
+   ```
+
+2. Instala las dependencias:
+   ```bash
+   npm install
+   # o
+   yarn install
+   ```
+
+3. Configura las variables de entorno:
+   - Crea un archivo `.env` en la raíz del proyecto
+   - Añade las siguientes variables:
+     ```
+     VITE_SUPABASE_URL=tu_url_de_supabase
+     VITE_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
+     VITE_API_URL=tu_api_url
+     ```
+
+## Ejecución de la Aplicación
+
+### Desarrollo Web
+
+Para iniciar la aplicación en modo desarrollo web:
+
+```bash
+ionic serve
+```
+
+### Desarrollo en Dispositivos
+
+Para ejecutar en Android:
+
+```bash
+ionic cap run android -l --external
+```
+
+Para ejecutar en iOS:
+
+```bash
+ionic cap run ios -l --external
+```
+
+### Compilación
+
+Para compilar la aplicación:
+
+```bash
+ionic build
+```
+
+Seguido de la sincronización con Capacitor:
+
+```bash
+ionic cap sync
+```
+
+## Características Principales
+
+- **Autenticación**: Sistema completo de registro, inicio de sesión y recuperación de contraseña
+- **Gestión de Eventos**: Creación, edición y visualización de eventos
+- **Interacción Social**: Seguimiento de usuarios, comentarios y likes
+- **Notificaciones Push**: Alertas en tiempo real para interacciones
+- **Búsqueda**: Funcionalidad avanzada para encontrar eventos y usuarios
+- **Internacionalización**: Soporte para múltiples idiomas (inglés y español)
+- **Interfaz Adaptativa**: Diseño que se ajusta a diferentes dispositivos y plataformas
+
+## Despliegue
+
+### Generación de APK/IPA
+
+Para generar archivos de instalación:
+
+```bash
+ionic cap build android  # Para Android (APK)
+ionic cap build ios      # Para iOS (requiere Xcode en macOS)
+```
+
+## Contacto
+
+Para preguntas o sugerencias, por favor contacta a valeraruggierotesisucv@gmail.com
