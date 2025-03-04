@@ -121,16 +121,6 @@ Seguido de la sincronización con Capacitor:
 ionic cap sync
 ```
 
-## Características Principales
-
-- **Autenticación**: Sistema completo de registro, inicio de sesión y recuperación de contraseña
-- **Gestión de Eventos**: Creación, edición y visualización de eventos
-- **Interacción Social**: Seguimiento de usuarios, comentarios y likes
-- **Notificaciones Push**: Alertas en tiempo real para interacciones
-- **Búsqueda**: Funcionalidad avanzada para encontrar eventos y usuarios
-- **Internacionalización**: Soporte para múltiples idiomas (inglés y español)
-- **Interfaz Adaptativa**: Diseño que se ajusta a diferentes dispositivos y plataformas
-
 ## Despliegue
 
 ### Generación de APK/IPA
