@@ -37,12 +37,8 @@ ionic-app/
 │   │   ├── AppRoutes.tsx      # Rutas principales
 │   │   └── AuthRoutes.tsx     # Rutas de autenticación
 │   ├── i18n/                  # Configuración de internacionalización
-│   ├── services/              # Servicios para API, notificaciones, etc.
-│   │   ├── api.ts             # Servicios de API
-│   │   ├── auth.ts            # Servicios de autenticación
-│   │   ├── events.ts          # Servicios de eventos
+│   ├── services/              # Servicios 
 │   │   ├── storage.ts         # Servicios de almacenamiento
-│   │   └── notifications.ts   # Servicios de notificaciones
 │   ├── styles/                # Estilos globales y utilidades CSS
 │   ├── theme/                 # Configuración de temas
 │   └── utils/                 # Utilidades y helpers
