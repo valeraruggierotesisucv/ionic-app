@@ -34,8 +34,6 @@ ionic-app/
 │   │   └── useMusicPicker.tsx # Hook para selección de música
 │   ├── models/                # Interfaces y tipos de datos
 │   ├── navigation/            # Configuración de navegación
-│   │   ├── AppRoutes.tsx      # Rutas principales
-│   │   └── AuthRoutes.tsx     # Rutas de autenticación
 │   ├── i18n/                  # Configuración de internacionalización
 │   ├── services/              # Servicios 
 │   │   ├── storage.ts         # Servicios de almacenamiento
