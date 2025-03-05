@@ -1,5 +1,5 @@
-import { IonContent, IonHeader, IonPage, useIonViewDidEnter } from "@ionic/react";
-import NotificationItem, { NotificationType } from "../components/NotificationItem/NotificationItem";
+import { IonContent, IonPage, useIonViewDidEnter } from "@ionic/react";
+import NotificationItem from "../components/NotificationItem/NotificationItem";
 import { AppHeader } from "../components/AppHeader/AppHeader";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/AuthContext";

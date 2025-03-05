@@ -15,9 +15,6 @@ import HomeTab from './navigation/HomeTab';
 import AddTab from './navigation/AddTab';
 import NotificationsTab from './navigation/NotificationsTab';
 import ProfileTab from './navigation/ProfileTab';
-import i18n from '../i18n'
-// Import SearchTab if you have it
-// import SearchTab from './navigation/SearchTab';
 import { ROUTES } from './utils/routes';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ForgotPasswordView } from './views/ForgotPasswordView';
