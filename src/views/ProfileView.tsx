@@ -1,8 +1,5 @@
-import { IonContent, IonLoading, useIonViewWillEnter } from "@ionic/react";
-
-import { IonPage, IonToolbar } from "@ionic/react";
-
-import { IonHeader } from "@ionic/react";
+import { IonContent, useIonViewWillEnter } from "@ionic/react";
+import { IonPage } from "@ionic/react";
 import { AppHeader } from "../components/AppHeader/AppHeader";
 import { ProfileCard } from "../components/ProfileCard/ProfileCard";
 import { EventThumbnail, EventThumbnailList } from "../components/EventThumbnailList/EventThumbnailList";

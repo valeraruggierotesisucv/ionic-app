@@ -28,7 +28,6 @@ export function ChooseCategoriesView ({
 } : ChooseCategoryProps) {
   const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState<CategoriesEnum | null>(category ?? null);
-  //const navigation = useNavigation<AuthStackNavigationProp>();
 
   const handlePress = (category: CategoriesEnum, categoryId: number) => {
     setSelectedId(category);
