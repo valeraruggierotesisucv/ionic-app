@@ -6,14 +6,18 @@ Eventify es una plataforma móvil diseñada para la gestión de eventos e intera
 
 ## Tecnologías Utilizadas
 
-- **Ionic Framework**: Framework para el desarrollo de aplicaciones móviles híbridas.
-- **React**: Biblioteca para construir interfaces de usuario.
-- **TypeScript**: Lenguaje de programación que añade tipado estático a JavaScript.
-- **Capacitor**: Plataforma para convertir aplicaciones web en aplicaciones nativas.
-- **Supabase**: Plataforma de backend como servicio (BaaS) para autenticación, base de datos y almacenamiento.
-- **AsyncStorage**: Para persistencia local de datos.
-- **i18next**: Solución de internacionalización.
-- **Expo Notifications**: Para implementación de notificaciones push.
+- **Ionic Framework**: Framework para el desarrollo de aplicaciones móviles híbridas
+- **React**: Biblioteca para construir interfaces de usuario
+- **TypeScript**: Lenguaje de programación que añade tipado estático a JavaScript
+- **Capacitor**: Plataforma para convertir aplicaciones web en aplicaciones nativas
+- **Supabase**: Plataforma de backend como servicio (BaaS) para autenticación, base de datos y almacenamiento
+- **@ionic/storage**: Almacenamiento local persistente para aplicaciones Ionic
+- **i18next**: Solución de internacionalización
+- **@capacitor/push-notifications**: API nativa para notificaciones push
+- **@ionic/react**: Componentes UI adaptables a iOS y Android
+- **@capacitor/camera**: API nativa para acceso a la cámara
+- **@capacitor/geolocation**: API nativa para geolocalización
+- **@capacitor/filesystem**: API nativa para manejo de archivos
 
 ## Estructura del Proyecto
 
