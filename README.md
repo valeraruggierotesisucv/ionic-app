@@ -11,13 +11,8 @@ Eventify es una plataforma móvil diseñada para la gestión de eventos e intera
 - **TypeScript**: Lenguaje de programación que añade tipado estático a JavaScript
 - **Capacitor**: Plataforma para convertir aplicaciones web en aplicaciones nativas
 - **Supabase**: Plataforma de backend como servicio (BaaS) para autenticación, base de datos y almacenamiento
-- **@ionic/storage**: Almacenamiento local persistente para aplicaciones Ionic
 - **i18next**: Solución de internacionalización
-- **@capacitor/push-notifications**: API nativa para notificaciones push
-- **@ionic/react**: Componentes UI adaptables a iOS y Android
-- **@capacitor/camera**: API nativa para acceso a la cámara
-- **@capacitor/geolocation**: API nativa para geolocalización
-- **@capacitor/filesystem**: API nativa para manejo de archivos
+- **Cypress - Vitest - React Testing Library**: Bibliotecas para el desarrollo de pruebas unitarias y de integración
 
 ## Estructura del Proyecto
 
@@ -99,26 +94,6 @@ Para ejecutar en Android:
 ionic cap run android -l --external
 ```
 
-Para ejecutar en iOS:
-
-```bash
-ionic cap run ios -l --external
-```
-
-### Compilación
-
-Para compilar la aplicación:
-
-```bash
-ionic build
-```
-
-Seguido de la sincronización con Capacitor:
-
-```bash
-ionic cap sync
-```
-
 ## Despliegue
 
 ### Generación de APK/IPA
@@ -126,8 +101,7 @@ ionic cap sync
 Para generar archivos de instalación:
 
 ```bash
-ionic cap build android  # Para Android (APK)
-ionic cap build ios      # Para iOS (requiere Xcode en macOS)
+ionic cap build android 
 ```
 
 ## Contacto
