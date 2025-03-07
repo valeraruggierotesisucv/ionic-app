@@ -6,7 +6,6 @@ Eventify es una plataforma móvil diseñada para la gestión de eventos e intera
 
 ## Tecnologías Utilizadas
 
-- **Ionic Framework**: Framework para el desarrollo de aplicaciones móviles híbridas
 - **React**: Biblioteca para construir interfaces de usuario
 - **TypeScript**: Lenguaje de programación que añade tipado estático a JavaScript
 - **Capacitor**: Plataforma para convertir aplicaciones web en aplicaciones nativas
@@ -30,7 +29,7 @@ ionic-app/
 │   │   ├── useAudioRecorder.tsx # Hook para grabación de audio
 │   │   ├── useCurrentLocation.tsx # Hook para geolocalización
 │   │   ├── useImagePicker.tsx # Hook para selección de imágenes
-│   │   └── useMusicPicker.tsx # Hook para selección de música
+│   │   └── useFilePicker.tsx # Hook para selección de música
 │   ├── models/                # Interfaces y tipos de datos
 │   ├── navigation/            # Configuración de navegación
 │   ├── i18n/                  # Configuración de internacionalización
@@ -56,7 +55,7 @@ ionic-app/
 
 1. Clona el repositorio:
    ```bash
-   git clone [URL_DEL_REPOSITORIO]
+   git clone https://github.com/valeraruggierotesisucv/ionic-app.git
    cd ionic-app
    ```
 
@@ -91,17 +90,17 @@ ionic serve
 Para ejecutar en Android:
 
 ```bash
-ionic cap run android -l --external
+ionic capacitor run android -l --external
 ```
 
 ## Despliegue
 
-### Generación de APK/IPA
+### Generación de APK
 
 Para generar archivos de instalación:
 
 ```bash
-ionic cap build android 
+ionic capacitor build android 
 ```
 
 ## Contacto
