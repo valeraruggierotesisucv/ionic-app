@@ -4,6 +4,12 @@
 
 Eventify es una plataforma móvil diseñada para la gestión de eventos e interacción entre usuarios. Incluye funcionalidades esenciales como la administración de eventos, la conexión entre usuarios y características sociales, tales como seguidores, notificaciones y comentarios.
 
+## Demostración
+
+[![Eventify Demo](https://crnarpvpafbywvdzfukp.supabase.co/storage/v1/object/public/DONT%20DELETE//VideosThumbnail.png)](https://youtu.be/5qaMUsTg-lM)
+
+*Haz clic en la imagen para ver la demostración en YouTube*
+
 ## Tecnologías Utilizadas
 
 - **React**: Biblioteca para construir interfaces de usuario
